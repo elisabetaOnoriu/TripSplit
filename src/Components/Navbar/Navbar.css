@@ -4,8 +4,9 @@
   align-items: center;
   justify-content: space-between;
   background-color: #cfc8b5;
-  padding: 15px 7%;
-  box-shadow: 0 4px 6px rgba(84, 29, 8, 0.2);
+  padding: 3px 7%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  transition: 0.5s;
 }
 
 .logo {
@@ -29,12 +30,23 @@ ul li {
 }
 
 ul li:hover {
-  font-size: 17px;
+  font-size: 16.5px;
   color: #a4760a;
   transition: font-size 0.5s ease;
 }
 
-
+ul li:hover::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 5px;
+  z-index: -1;
+  transform: scale(1.1);
+  opacity: 1;
+}
 
 .toggle-icon {
   width: 50px;
@@ -93,4 +105,29 @@ ul li:hover {
 
 .search-icon:hover {
   transform: scale(1.1);
+}
+
+.dark .navbar {
+  background: #000;
+  color: #fff;
+}
+
+.dark .search-box{
+  background: #fff
+}
+
+.dark .search-box input{
+  color: #222;
+}
+
+.dark .search-box input::placeholder{
+  color: #222;
+}
+
+.dark .search-box{
+  border: 2px solid #717070;
+}
+
+.dark .search-icon {
+  filter: invert(1%);
 }
