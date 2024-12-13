@@ -38,7 +38,7 @@ export const SidebarData = [
     },
     {
         title: 'Create Trip',
-        path: '/CreatTrip',
+        path: '/CreateTrip',
         icon: <IoIcons.IoIosCreate />,
         className: 'nav-text'
     },

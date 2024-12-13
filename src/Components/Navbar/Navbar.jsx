@@ -24,7 +24,7 @@ const Navbar = ({ theme, setTheme }) => {
 
   return (
     <>
-      <IconContext.Provider value={{ color: '#fff' }}>
+      <IconContext.Provider value={{color: theme == 'light' ? 'black' : 'white' }}>
         <div className="navbar">
           <Link to="#" className="menu-bars">
             <FaIcons.FaBars onClick={showSidebar} />

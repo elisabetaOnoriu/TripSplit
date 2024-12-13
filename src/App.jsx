@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Navbar from './Components/Navbar/Navbar'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import CreateTrip from './Pages/CreateTrip/CreateTrip';
 
 const App = () => {
 
@@ -23,7 +24,7 @@ const App = () => {
         <Route path="/MyProfile" element={<h1>My Profile</h1>} />
         <Route path="/Notifications" element={<h1>Notifications</h1>} />
         <Route path="/MyTrips" element={<h1>My Trips</h1>} />
-        <Route path="/CreateTrip" element={<h1>Create Trip</h1>} />
+        <Route path="CreateTrip/CreateTrip" element={<CreateTrip/>} />
         <Route path="/MyContributions" element={<h1>My Contributions</h1>} />
         <Route path="/GenerateReport" element={<h1>Generate Report</h1>} />
         <Route path="/TripHistory" element={<h1>Trip History</h1>} />

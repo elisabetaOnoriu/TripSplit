@@ -11,9 +11,20 @@
   width: 100vw;
   min-height:100vh;
   background: #aca99e;
+  background-image: url('assets/var5.jpg');
+  background-size: cover;
   transition: 0.5s;
 }
 
 .container.dark{
-  background: #222;
+  background-image: url('assets/var8.jpg');
+  background-position: center;
+  background-size: cover;
+}
+
+.MyProfile, .MyTrips, .GenerateReports {
+  display: flex;
+  height: 90vh;
+  justify-content: center;
+  font-size: 3rem;
 }
