@@ -34,7 +34,7 @@ const CreateTrip = ({ user }) => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('token')}`, // Folosește autentificarea
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
         body: JSON.stringify({
           tripName,
@@ -55,7 +55,7 @@ const CreateTrip = ({ user }) => {
   };
 
   return (
-    <div>
+    <div className = "createTrip">
       <h1>Create Trip</h1>
 
       <div>
