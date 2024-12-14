@@ -3,8 +3,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #f59c6f;
-  padding: 3px 7%;
+  background-color: rgba(197, 195, 219, 0.5);
+  height: 112px;
+  padding: 0 7%;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
   transition: 0.5s;
 }
@@ -36,7 +37,7 @@ ul li {
 
 ul li:hover {
   font-size: 16.5px;
-  color: #1e3f22;
+  color: #244b57;
   transition: font-size 0.5s ease;
 }
 
@@ -141,12 +142,12 @@ ul li:hover::before {
   margin-left: 2rem;
   font-size: 2rem;
   background: none;
-  margin-left: 3px; 
+  margin-left: -20px; 
   position: relative;
 }
 
 .nav-menu {
-  background-color: #cdcdcd;
+  background-color: rgba(205, 204, 227, 0.8);
   width: 250px;
   height: 100vh;
   display: flex;
@@ -171,7 +172,7 @@ ul li:hover::before {
 }
 
 .dark .nav-menu {
-  background-color: rgb(39, 39, 40);
+  background-color: rgb(39, 39, 40, 0.9);
 }
 
 .nav-text a {
@@ -192,7 +193,11 @@ ul li:hover::before {
 }
 
 .nav-text a:hover {
-  background-color: #aaa8a8;
+  background-color: #a29bb0;
+}
+
+.dark .nav-text a:hover {
+  background-color: #1f1f1f;
 }
 
 .nav-menu-items {
@@ -205,6 +210,10 @@ ul li:hover::before {
   display: flex;
   justify-content: start;
   align-items: center;
+}
+
+.navbar-toggle .menu-bars {
+  margin-left: 3px;
 }
 
 .dark .navbar-toggle{

@@ -1,0 +1,111 @@
+.profile-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start; 
+    gap: 20px;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    margin-left: 280px;
+}
+
+  .profile-details-container {
+    flex: 2;
+    max-width: 600px;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: left;
+  }
+  
+  .profile-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+    border: 3px solid #43536e;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .profile-details-container h1 {
+    font-size: 2rem; 
+    margin-bottom: 20px;
+    text-align: left;
+  }
+  
+  .profile-details-container p {
+    margin: 15px 0;
+    font-size: 1.2rem;
+    line-height: 1.8;
+    color: #555;
+  }
+  
+  .profile-details-container p strong {
+    color: #222;
+  }
+
+  .divider {
+    height: 1px;
+    background-color: #636262;
+    width: 100%;
+    margin: 20px 0;
+  }
+  
+  .edit-profile-btn,
+.save-profile-btn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #3f3f3f;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.edit-profile-btn:hover,
+.save-profile-btn:hover {
+  background-color: #555;
+}
+
+.save-profile-btn {
+  margin-left: 10px;
+  background-color: #28a745;
+}
+
+.save-profile-btn:hover {
+  background-color: #218838;
+}
+
+.editable-input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .editable-input:focus {
+    border-color: #3f3f3f;
+    outline: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .editable-input:invalid {
+    border-color: red;
+  }
+  
+  .editable-input::placeholder {
+    font-style: italic;
+    color: #aaa;
+  }
+  
+  

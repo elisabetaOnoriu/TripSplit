@@ -12,15 +12,6 @@ export const SidebarData = [
     {
         title: 'My profile',
         path: '/MyProfile',
-        // icon: profileImage ? (
-        // <img
-        //     src={profileImage}
-        //     alt="Profile"
-        //     className="profile-icon"
-        // />
-        // ) : (
-        //     <CgIcons.CgProfile />
-        // ),
         icon : <CgIcons.CgProfile />,
         className: 'nav-text'
     },

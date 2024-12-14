@@ -10,7 +10,6 @@
 .container{
   width: 100vw;
   min-height:100vh;
-  background: #aca99e;
   background-image: url('assets/var5.jpg');
   background-size: cover;
   transition: 0.5s;
