@@ -25,21 +25,21 @@ function Welcome({ theme, setTheme }) {
   return (
     <div className={`container ${theme}`}>
       {/* Theme Toggle Button moved to the top right */}
-      <div className="theme-toggle-button" onClick={toggleTheme}>
+      <div className='theme-toggle-button' onClick={toggleTheme}>
         <img
-          className="toggle-icon"
+          className='toggle-icon'
           src={theme === 'light' ? toggleDarkIcon : toggleLightIcon}
           alt={theme === 'light' ? 'Light mode' : 'Dark mode'}
         />
       </div>
 
-      <h1 className="header">Trip Split</h1>
-      <button className="button" onClick={() => navigate('/register')}>
+      <h1 className='header'>Trip Split</h1>
+      <button className='button' onClick={() => navigate('/register')}>
         Register
       </button>
-      <div className="text-container">
-        <p className="normal-text">Already have an account?</p>
-        <span className="clickable-text" onClick={() => navigate('/login')}>
+      <div className='text-container'>
+        <p className='normal-text'>Already have an account?</p>
+        <span className='clickable-text' onClick={() => navigate('/login')}>
           Login
         </span>
       </div>

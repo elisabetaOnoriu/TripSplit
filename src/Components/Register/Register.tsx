@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'; // Import useNavigate hook from 
 import './Register.css';
 import toggleLightIcon from '../../assets/day.png';
 import toggleDarkIcon from '../../assets/night.png';
+import { useRegisterMutation } from '../../features/api';
 
 const Criteria = ({ met, children }) => (
   <div style={{ color: met ? 'green' : 'red', fontSize: '0.9rem' }}>
@@ -11,19 +12,15 @@ const Criteria = ({ met, children }) => (
   </div>
 );
 
-const Tooltip = ({ children }) => (
-  <div className="tooltip">
-    {children}
-  </div>
-);
+const Tooltip = ({ children }: { children: React.ReactNode }) => <div className='tooltip'>{children}</div>;
 
 function Register() {
   const navigate = useNavigate(); // useNavigate hook for navigation
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [firstName, setFirstName] = useState('Razvan');
+  const [lastName, setLastName] = useState('Test');
+  const [email, setEmail] = useState('test2@test.com');
+  const [password, setPassword] = useState('123dAsd!');
+  const [confirmPassword, setConfirmPassword] = useState('123dAsd!');
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [passwordCriteria, setPasswordCriteria] = useState({
@@ -33,12 +30,16 @@ function Register() {
     specialChar: false,
   });
   const [showTooltip, setShowTooltip] = useState(false);
+
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [passwordCriteriaError, setPasswordCriteriaError] = useState('');
   const [firstNameError, setFirstNameError] = useState('');
   const [lastNameError, setLastNameError] = useState('');
+
   const [isDarkMode, setIsDarkMode] = useState(false);
+
+  const [register] = useRegisterMutation();
 
   // Toggle between light and dark mode
   const toggleTheme = () => {
@@ -55,14 +56,14 @@ function Register() {
     }
   }, []);
 
-  const validateEmail = (email) => {
+  const validateEmail = (email: string) => {
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     return emailPattern.test(email);
   };
 
-  const validateName = (name) => /^[A-Z]/.test(name);
+  const validateName = (name: string) => /^[A-Z]/.test(name);
 
-  const handlePasswordChange = (value) => {
+  const handlePasswordChange = (value: string) => {
     setPassword(value);
 
     const criteria = {
@@ -75,7 +76,7 @@ function Register() {
     setPasswordCriteria(criteria);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     let valid = true;
 
@@ -115,42 +116,34 @@ function Register() {
         email: email,
         firstName: firstName,
         lastName: lastName,
-        password: password
+        password: password,
+      };
+      console.log(postdata);
+      const res = await register(postdata);
+
+      if ('error' in res && res.error) {
+        setEmailError(res.error?.message!);
+        return;
       }
-      console.log(postdata); // Log postdata to verify it contains all fields
-      try {
-        const response = await fetch('https://localhost:7083/api/Authentication/register', {
-          method: "POST",
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(postdata),
-        });
-        if (!response.ok) {
-          const resBody = await response.json();
-          setResponseError(resBody.message || 'Account already exists');
-        } else {
-          setResponseError('')
-          navigate('/login');
-        }
-      } catch (error) {
-        setResponseError('Account already exists');
-      }
+
+      navigate('/login');
     }
   };
 
   const isFormValid = () => {
     return (
-      firstName && 
-      lastName && 
-      email && 
-      validateEmail(email) && 
-      password && 
-      confirmPassword && 
-      password === confirmPassword && 
-      Object.values(passwordCriteria).every(Boolean) && 
-      !firstNameError && 
-      !lastNameError && 
-      !emailError && 
-      !passwordError && 
+      firstName &&
+      lastName &&
+      email &&
+      validateEmail(email) &&
+      password &&
+      confirmPassword &&
+      password === confirmPassword &&
+      Object.values(passwordCriteria).every(Boolean) &&
+      !firstNameError &&
+      !lastNameError &&
+      !emailError &&
+      !passwordError &&
       !passwordCriteriaError
     );
   };
@@ -158,24 +151,24 @@ function Register() {
   return (
     <div className={`container ${isDarkMode ? 'dark' : 'light'}`}>
       {/* Theme Toggle Button */}
-      <div className="theme-toggle-button" onClick={toggleTheme}>
+      <div className='theme-toggle-button' onClick={toggleTheme}>
         <img
-          className="toggle-icon"
+          className='toggle-icon'
           src={isDarkMode ? toggleLightIcon : toggleDarkIcon}
           alt={isDarkMode ? 'Light mode' : 'Dark mode'}
         />
       </div>
 
-      <form className="form" onSubmit={handleSubmit}>
-        <h1 className="header">Register</h1>
+      <form className='form' onSubmit={handleSubmit}>
+        <h1 className='header'>Register</h1>
 
-        <div className="input-container">
+        <div className='input-container'>
           <input
-            className="input"
-            type="text"
-            placeholder="First Name"
+            className='input'
+            type='text'
+            placeholder='First Name'
             value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
+            onChange={e => setFirstName(e.target.value)}
             onFocus={() => setFirstNameError('')}
             onBlur={() => {
               if (!validateName(firstName)) {
@@ -184,15 +177,15 @@ function Register() {
             }}
           />
         </div>
-        {firstNameError && <div className="error-message">{firstNameError}</div>}
+        {firstNameError && <div className='error-message'>{firstNameError}</div>}
 
-        <div className="input-container">
+        <div className='input-container'>
           <input
-            className="input"
-            type="text"
-            placeholder="Last Name"
+            className='input'
+            type='text'
+            placeholder='Last Name'
             value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
+            onChange={e => setLastName(e.target.value)}
             onFocus={() => setLastNameError('')}
             onBlur={() => {
               if (!validateName(lastName)) {
@@ -201,15 +194,15 @@ function Register() {
             }}
           />
         </div>
-        {lastNameError && <div className="error-message">{lastNameError}</div>}
+        {lastNameError && <div className='error-message'>{lastNameError}</div>}
 
-        <div className="input-container">
+        <div className='input-container'>
           <input
-            className="input"
-            type="email"
-            placeholder="Email"
+            className='input'
+            type='email'
+            placeholder='Email'
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={e => setEmail(e.target.value)}
             onFocus={() => setEmailError('')}
             onBlur={() => {
               if (!validateEmail(email)) {
@@ -218,27 +211,20 @@ function Register() {
             }}
           />
         </div>
-        {emailError && <div className="error-message">{emailError}</div>}
+        {emailError && <div className='error-message'>{emailError}</div>}
 
-        <div className="input-container">
+        <div className='input-container'>
           <input
-            className="input"
+            className='input'
             type={showPassword ? 'text' : 'password'}
-            placeholder="Password"
+            placeholder='Password'
             value={password}
-            onChange={(e) => handlePasswordChange(e.target.value)}
+            onChange={e => handlePasswordChange(e.target.value)}
             onFocus={() => setShowTooltip(true)}
             onBlur={() => setShowTooltip(false)}
           />
-          <div
-            className="toggle-password-button"
-            onClick={() => setShowPassword(!showPassword)}
-          >
-            {showPassword ? (
-              <FaEyeSlash style={{ color: 'black' }} />
-            ) : (
-              <FaEye style={{ color: 'black' }} />
-            )}
+          <div className='toggle-password-button' onClick={() => setShowPassword(!showPassword)}>
+            {showPassword ? <FaEyeSlash style={{ color: 'black' }} /> : <FaEye style={{ color: 'black' }} />}
           </div>
         </div>
         {showTooltip && (
@@ -251,32 +237,25 @@ function Register() {
             </Criteria>
           </Tooltip>
         )}
-        {passwordError && <div className="error-message">{passwordError}</div>}
+        {passwordError && <div className='error-message'>{passwordError}</div>}
 
-        <div className="input-container">
+        <div className='input-container'>
           <input
-            className="input"
+            className='input'
             type={showConfirmPassword ? 'text' : 'password'}
-            placeholder="Confirm Password"
+            placeholder='Confirm Password'
             value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
+            onChange={e => setConfirmPassword(e.target.value)}
           />
-          <div
-            className="toggle-password-button"
-            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-          >
-            {showConfirmPassword ? (
-              <FaEyeSlash style={{ color: 'black' }} />
-            ) : (
-              <FaEye style={{ color: 'black' }} />
-            )}
+          <div className='toggle-password-button' onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
+            {showConfirmPassword ? <FaEyeSlash style={{ color: 'black' }} /> : <FaEye style={{ color: 'black' }} />}
           </div>
         </div>
-        {passwordCriteriaError && <div className="error-message">{passwordCriteriaError}</div>}
+        {passwordCriteriaError && <div className='error-message'>{passwordCriteriaError}</div>}
 
         <button
-          className="submit-button"
-          type="submit"
+          className='submit-button'
+          type='submit'
           style={{
             backgroundColor: isDarkMode ? 'black' : 'white',
             color: isDarkMode ? 'white' : 'black',
