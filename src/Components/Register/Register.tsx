@@ -6,7 +6,7 @@ import toggleLightIcon from '../../assets/day.png';
 import toggleDarkIcon from '../../assets/night.png';
 import { useRegisterMutation } from '../../features/api';
 
-const Criteria = ({ met, children }) => (
+const Criteria = ({ met, children }: { met: boolean; children: React.ReactNode }) => (
   <div style={{ color: met ? 'green' : 'red', fontSize: '0.9rem' }}>
     {met ? '✔️' : '❌'} {children}
   </div>
