@@ -1,0 +1,200 @@
+/* General container and layout */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    transition: background-color 0.3s, color 0.3s;
+    padding: 20px;
+}
+
+/* Theme toggle button */
+.theme-toggle-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+}
+
+.toggle-icon {
+    width: 40px;
+    height: 40px;
+}
+
+/* Header styling inside the form */
+h1.header {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+/* Form styling */
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+    background-color: transparent;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Input container styling */
+.input-container {
+    position: relative;
+    width: 100%;
+}
+
+/* Input field styling */
+.input {
+    padding: 10px;
+    margin-bottom: 15px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    background-color: transparent;
+    color: inherit;
+    transition: border-color 0.3s ease;
+}
+
+/* Input field focus styling */
+.input:focus {
+    outline: none;
+    border-color: #4CAF50;
+}
+
+.input::placeholder {
+    color: #888;
+    transition: color 0.3s;
+}
+
+/* Toggle password visibility button */
+.toggle-password-button {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #4CAF50;
+    transition: color 0.3s;
+}
+
+/* Submit button styling */
+.submit-button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 1rem;
+    margin-top: 20px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Light theme submit button */
+.light .submit-button {
+    background-color: #fff;
+    color: black;
+}
+
+.light .submit-button:hover {
+    background-color: #f1f1f1;
+    transform: scale(1.05);
+}
+
+.light .submit-button:active {
+    background-color: #e0e0e0;
+}
+
+/* Dark theme submit button */
+.dark .submit-button {
+    background-color: #333;
+    color: white;
+}
+
+.dark .submit-button:hover {
+    background-color: #444;
+    transform: scale(1.05);
+}
+
+.dark .submit-button:active {
+    background-color: #555;
+}
+
+/* Error message styling */
+.error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: -10px;
+}
+
+/* Dark and light theme colors */
+.dark {
+    background-color: #333;
+    color: white;
+}
+
+.dark .input {
+    background-color: #555;
+    color: white;
+    border-color: #777;
+}
+
+.dark .input:focus {
+    border-color: #4CAF50;
+}
+
+.light {
+    background-color: white;
+    color: black;
+}
+
+.light .input {
+    background-color: white;
+    color: black;
+    border-color: #ccc;
+}
+
+.light .input:focus {
+    border-color: #4CAF50;
+}
+
+/* Placeholder text styling */
+input::placeholder {
+    color: #888;
+}
+
+input:focus::placeholder {
+    color: transparent; /* Hides placeholder text when focused for better user experience */
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 480px) {
+    .container {
+        padding: 20px;
+    }
+
+    .form {
+        max-width: 100%;
+    }
+
+    .input-container {
+        width: 100%;
+    }
+
+    .submit-button {
+        width: 100%;
+    }
+
+    h1.header {
+        font-size: 1.5rem;
+    }
+
+    .toggle-icon {
+        width: 35px;
+        height: 35px;
+    }
+}

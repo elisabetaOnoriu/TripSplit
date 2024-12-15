@@ -1,0 +1,104 @@
+  /* Theme Toggle Button */
+  .theme-toggle-button {
+    position: fixed; /* Fixed to the viewport, not relative to container */
+    top: 20px; /* Distance from the top */
+    right: 20px; /* Distance from the right */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10; /* Ensure it stays on top of other content */
+  }
+  
+  .toggle-icon {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  
+  .toggle-icon:hover {
+    transform: scale(1.1);
+  }
+  
+  /* Header */
+  .header {
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: black;
+  }
+  
+  /* Light/Dark Theme Adjustments for Header */
+  .container.light .header {
+    color: #000; /* black in light theme */
+  }
+  
+  .container.dark .header {
+    color: #fff; /* white in dark theme */
+  }
+  
+
+/* Buttons */
+.button {
+    width: 200px; /* Fix the width of the button */
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    background-color: black;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    display: inline-block; /* Prevent the button from stretching */
+  }
+  
+  /* Light/Dark Theme Adjustments for Buttons */
+  .container.light .button {
+    background-color: black;
+    color: white;
+  }
+  
+  .container.dark .button {
+    background-color: white;
+    color: black;
+  }
+  
+  .button:hover {
+    background-color: black;
+    transition: background-color 0.3s ease;
+  }
+  
+  
+  /* Text Container */
+  .text-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .normal-text {
+    margin: 0;
+  }
+  
+  /* Clickable Text */
+  .clickable-text {
+    cursor: pointer;
+    transition: color 0.3s ease, text-decoration 0.3s ease;
+  }
+  
+  /* Light/Dark Theme Adjustments for Clickable Text */
+  .container.light .clickable-text {
+    color: #000; /* black in light theme */
+  }
+  
+  .container.dark .clickable-text {
+    color: #fff; /* white in dark theme */
+  }
+  
+  .clickable-text:hover {
+    color: black;
+    text-decoration: underline;
+  }
+  
