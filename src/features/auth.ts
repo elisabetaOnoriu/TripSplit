@@ -20,7 +20,7 @@ export const authSlice = createSlice({
   extraReducers: builder => {
     builder.addMatcher(api.endpoints.login.matchFulfilled, (state, { payload }) => {
       // TODO: Token
-      // state.token = payload.access_token;
+      state.token = payload.token;
     });
   },
 });

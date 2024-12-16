@@ -7,14 +7,12 @@ import toggleDarkIcon from '../../assets/night.png';
 function Welcome({ theme, setTheme }) {
   const navigate = useNavigate();
 
-  // Toggle theme and save preference
   const toggleTheme = () => {
     const newTheme = theme === 'light' ? 'dark' : 'light';
     setTheme(newTheme);
     localStorage.setItem('theme', newTheme);
   };
 
-  // Load theme preference from localStorage
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
@@ -24,7 +22,6 @@ function Welcome({ theme, setTheme }) {
 
   return (
     <div className={`container ${theme}`}>
-      {/* Theme Toggle Button moved to the top right */}
       <div className='theme-toggle-button' onClick={toggleTheme}>
         <img
           className='toggle-icon'

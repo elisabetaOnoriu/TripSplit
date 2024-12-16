@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate hook from react-router-dom
+import { useNavigate } from 'react-router-dom';
 import './Register.css';
 import toggleLightIcon from '../../assets/day.png';
 import toggleDarkIcon from '../../assets/night.png';
 import { useRegisterMutation } from '../../features/api';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../features/auth';
 
 const Criteria = ({ met, children }: { met: boolean; children: React.ReactNode }) => (
   <div style={{ color: met ? 'green' : 'red', fontSize: '0.9rem' }}>
@@ -15,12 +17,12 @@ const Criteria = ({ met, children }: { met: boolean; children: React.ReactNode }
 const Tooltip = ({ children }: { children: React.ReactNode }) => <div className='tooltip'>{children}</div>;
 
 function Register() {
-  const navigate = useNavigate(); // useNavigate hook for navigation
-  const [firstName, setFirstName] = useState('Razvan');
-  const [lastName, setLastName] = useState('Test');
-  const [email, setEmail] = useState('test2@test.com');
-  const [password, setPassword] = useState('123dAsd!');
-  const [confirmPassword, setConfirmPassword] = useState('123dAsd!');
+  const navigate = useNavigate();
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [passwordCriteria, setPasswordCriteria] = useState({
@@ -41,14 +43,18 @@ function Register() {
 
   const [register] = useRegisterMutation();
 
-  // Toggle between light and dark mode
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(logout());
+  }, []);
+
   const toggleTheme = () => {
     const newTheme = isDarkMode ? 'light' : 'dark';
     setIsDarkMode(!isDarkMode);
-    localStorage.setItem('theme', newTheme); // Save theme preference
+    localStorage.setItem('theme', newTheme);
   };
 
-  // Load theme preference from localStorage
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
@@ -107,7 +113,7 @@ function Register() {
 
     if (valid) {
       console.log('Form submitted successfully!');
-      navigate('/login'); // Navigate to login page after successful registration
+      navigate('/login');
     } else {
       console.log('Form submission failed. Validation errors present.');
     }
@@ -259,10 +265,10 @@ function Register() {
           style={{
             backgroundColor: isDarkMode ? 'black' : 'white',
             color: isDarkMode ? 'white' : 'black',
-            opacity: isFormValid() ? 1 : 0.6, // Disable if form is invalid
+            opacity: isFormValid() ? 1 : 0.6,
             cursor: isFormValid() ? 'pointer' : 'not-allowed',
           }}
-          disabled={!isFormValid()} // Disable button when form is invalid
+          disabled={!isFormValid()}
         >
           Submit
         </button>

@@ -20,7 +20,10 @@ export namespace Api {
     password: string;
   };
 
-  export type LoginResponse = User;
+  export type LoginResponse = {
+    token: string;
+    user: User;
+  };
 
   export type UserRequest = {
     userId: string;

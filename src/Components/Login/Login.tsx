@@ -1,31 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
-import './Login.css'; // Reusing the same CSS
+import { useNavigate } from 'react-router-dom';
+import './Login.css';
 import toggleLightIcon from '../../assets/day.png';
 import toggleDarkIcon from '../../assets/night.png';
 import { useLoginMutation } from '../../features/api';
 
 function Login() {
-  const [email, setEmail] = useState('razvancristian12@gmail.com');
-  const [password, setPassword] = useState('123dAsd!');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [emailError, setEmailError] = useState('');
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   const [login] = useLoginMutation();
 
-  // useNavigate hook for navigating to the Navbar page
   const navigate = useNavigate();
 
-  // Toggle between light and dark mode
   const toggleTheme = () => {
     const newTheme = isDarkMode ? 'light' : 'dark';
     setIsDarkMode(!isDarkMode);
-    localStorage.setItem('theme', newTheme); // Save theme preference
+    localStorage.setItem('theme', newTheme);
   };
 
-  // Load theme preference from localStorage
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
@@ -61,7 +58,6 @@ function Login() {
 
   return (
     <div className={`container ${isDarkMode ? 'dark' : 'light'}`}>
-      {/* Theme Toggle Button */}
       <div className='theme-toggle-button' onClick={toggleTheme} aria-label='Toggle theme'>
         <img
           className='toggle-icon'
@@ -73,7 +69,6 @@ function Login() {
       <form className='form' onSubmit={handleSubmit}>
         <h1 className='header'>Login</h1>
 
-        {/* Email Field */}
         <div className='input-container'>
           <input
             className='input'

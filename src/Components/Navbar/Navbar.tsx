@@ -12,9 +12,12 @@ import search_icon_light from '../../assets/search-w.png';
 import search_icon_dark from '../../assets/search-b.png';
 import toggle_light from '../../assets/day.png';
 import toggle_dark from '../../assets/night.png';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../features/auth';
 
 const Navbar = ({ theme, setTheme }) => {
   const [sidebar, setSidebar] = useState(false);
+  const dispatch = useDispatch();
 
   const toggle_mode = () => {
     theme === 'light' ? setTheme('dark') : setTheme('light');
@@ -24,41 +27,33 @@ const Navbar = ({ theme, setTheme }) => {
 
   return (
     <>
-      <IconContext.Provider value={{color: theme == 'light' ? 'black' : 'white' }}>
-        <div className="navbar">
-          <Link to="#" className="menu-bars">
+      <IconContext.Provider value={{ color: theme == 'light' ? 'black' : 'white' }}>
+        <div className='navbar'>
+          <Link to='#' className='menu-bars'>
             <FaIcons.FaBars onClick={showSidebar} />
           </Link>
-          <img
-            src={theme === 'light' ? logo_dark : logo_light}
-            alt=""
-            className="logo"
-          />
+          <img src={theme === 'light' ? logo_dark : logo_light} alt='' className='logo' />
           <ul>
             <li>Home</li>
             <li>About</li>
             <li>Contact</li>
             <li>Help</li>
           </ul>
-          <div className="search-box">
-            <input type="text" placeholder="Search" />
-            <img
-              src={theme === 'light' ? search_icon_light : search_icon_dark}
-              alt=""
-              className="search-icon"
-            />
+          <div className='search-box'>
+            <input type='text' placeholder='Search' />
+            <img src={theme === 'light' ? search_icon_light : search_icon_dark} alt='' className='search-icon' />
           </div>
           <img
             onClick={toggle_mode}
             src={theme === 'light' ? toggle_dark : toggle_light}
-            alt=""
-            className="toggle-icon"
+            alt=''
+            className='toggle-icon'
           />
         </div>
         <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
-          <ul className="nav-menu-items" onClick={showSidebar}>
-            <li className="navbar-toggle">
-              <Link to="#" className="menu-bars">
+          <ul className='nav-menu-items' onClick={showSidebar}>
+            <li className='navbar-toggle'>
+              <Link to='#' className='menu-bars'>
                 <AiIcons.AiOutlineClose onClick={showSidebar} />
               </Link>
             </li>
@@ -70,6 +65,11 @@ const Navbar = ({ theme, setTheme }) => {
                 </Link>
               </li>
             ))}
+            <li className='nav-text'>
+              <button onClick={() => dispatch(logout())}>
+                <span>Logout</span>
+              </button>
+            </li>
           </ul>
         </nav>
       </IconContext.Provider>
