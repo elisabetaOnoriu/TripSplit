@@ -1,0 +1,139 @@
+
+.home-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: transparent;
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+
+  }
+  
+  .welcome-content {
+    background: rgba(197, 195, 219, 0.7);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 600px;
+  }
+  
+  .logo {
+    width: 100px;
+    margin-bottom: 20px;
+  }
+  
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    color: #2c3e50;
+  }
+  
+  p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #555;
+  }
+  
+  .feature-list h3 {
+    margin-top: 20px;
+    color: #34495e;
+    cursor: default;
+  }
+  
+  .feature-list ul {
+    list-style: none;
+    padding: 0;
+    cursor: default;
+  }
+  
+  .feature-list li {
+    margin: 10px 0;
+    font-size: 1rem;
+    color: #555;
+    cursor: default;
+  }
+
+.explore-btn {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 1rem;
+  margin-top: 20px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+
+.light .explore-btn  {
+  background-color: #fff;
+  color: black;
+}
+
+.light .explore-btn:hover {
+  background-color: #f1f1f1;
+  transform: scale(1.05);
+}
+
+.light .explore-btn:active {
+  background-color: #e0e0e0;
+}
+
+.dark .explore-btn  {
+  background-color: #333;
+  color: white;
+}
+
+.dark .explore-btn:hover {
+  background-color: #444;
+  transform: scale(1.05);
+}
+
+.dark .explore-btn:active {
+  background-color: #555;
+}
+
+.error-message {
+  color: red;
+  font-size: 12px;
+  margin-top: -10px;
+}
+
+.dark {
+  background-color: #333;
+  color: white;
+}
+
+.dark .input {
+  background-color: #555;
+  color: white;
+  border-color: #777;
+}
+
+.dark .input:focus {
+  border-color: #4CAF50;
+}
+
+.light {
+  background-color: white;
+  color: black;
+}
+
+.light .input {
+  background-color: white;
+  color: black;
+  border-color: #ccc;
+}
+
+.light .input:focus {
+  border-color: #4CAF50;
+}
+
+input::placeholder {
+  color: #888;
+}
+
+input:focus::placeholder {
+  color: transparent; 
+}

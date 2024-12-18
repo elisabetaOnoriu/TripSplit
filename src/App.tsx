@@ -7,6 +7,7 @@ import GenerateReports from './Pages/GenerateReports/GenerateReports';
 import Welcome from './Components/Welcome/Welcome';
 import Register from './Components/Register/Register';
 import Login from './Components/Login/Login';
+import Home from './Pages/Home/Home'
 
 const App = () => {
   const current_theme = localStorage.getItem('current_theme');
@@ -35,7 +36,7 @@ const AppRoutes = ({ theme, setTheme }) => {
         <Route path='/' element={<Welcome theme={theme} setTheme={setTheme} />} />
         <Route path='/register' element={<Register />} />
         <Route path='/login' element={<Login />} />
-        <Route path='/Home' element={<h1>Home</h1>} />
+        <Route path='/Home' element={<Home />} />
         <Route path='/MyProfile' element={<MyProfile theme={theme} />} />
         <Route path='/Notifications' element={<h1>Notifications</h1>} />
         <Route path='/MyTrips' element={<h1>My Trips</h1>} />

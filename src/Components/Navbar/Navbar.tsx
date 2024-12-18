@@ -4,6 +4,7 @@ import { IconContext } from 'react-icons';
 import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
 import { SidebarData } from '../Sidebar/SidebarData';
+import { useNavigate } from 'react-router-dom';
 import './Navbar.css';
 
 import logo_light from '../../assets/logo-white.png';
@@ -18,6 +19,8 @@ import { logout } from '../../features/auth';
 const Navbar = ({ theme, setTheme }) => {
   const [sidebar, setSidebar] = useState(false);
   const dispatch = useDispatch();
+
+  const navigate = useNavigate();
 
   const toggle_mode = () => {
     theme === 'light' ? setTheme('dark') : setTheme('light');
@@ -34,7 +37,7 @@ const Navbar = ({ theme, setTheme }) => {
           </Link>
           <img src={theme === 'light' ? logo_dark : logo_light} alt='' className='logo' />
           <ul>
-            <li>Home</li>
+            <li onClick={() => navigate('/home')}>Home </li>
             <li>About</li>
             <li>Contact</li>
             <li>Help</li>
