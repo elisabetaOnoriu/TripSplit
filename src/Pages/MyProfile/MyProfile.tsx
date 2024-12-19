@@ -3,14 +3,13 @@ import './MyProfile.css';
 import ProfileSecondary from './ProfileSecondary';
 import { useUpdateUserMutation, useUserQuery } from '../../features/api';
 import { User } from '../../features/api.types';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../features/store';
+import { useAppSelector } from '../../features/store';
 
 const MyProfile = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedUser, setEditedUser] = useState<User>();
 
-  const id = useSelector((state: RootState) => state.auth.token);
+  const id = useAppSelector(state => state.auth.token);
 
   const { data: user } = useUserQuery({ userId: id! });
   const [updateUser] = useUpdateUserMutation();

@@ -15,16 +15,14 @@ import toggle_light from '../../assets/day.png';
 import toggle_dark from '../../assets/night.png';
 import { useDispatch } from 'react-redux';
 import { logout } from '../../features/auth';
+import { useAppSelector } from '../../features/store';
+import { toggleTheme } from '../../features/theme';
 
-const Navbar = ({ theme, setTheme }) => {
+const Navbar = () => {
+  const theme = useAppSelector(state => state.theme.theme);
   const [sidebar, setSidebar] = useState(false);
   const dispatch = useDispatch();
-
   const navigate = useNavigate();
-
-  const toggle_mode = () => {
-    theme === 'light' ? setTheme('dark') : setTheme('light');
-  };
 
   const showSidebar = () => setSidebar(!sidebar);
 
@@ -47,7 +45,7 @@ const Navbar = ({ theme, setTheme }) => {
             <img src={theme === 'light' ? search_icon_light : search_icon_dark} alt='' className='search-icon' />
           </div>
           <img
-            onClick={toggle_mode}
+            onClick={() => dispatch(toggleTheme())}
             src={theme === 'light' ? toggle_dark : toggle_light}
             alt=''
             className='toggle-icon'

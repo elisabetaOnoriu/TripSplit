@@ -1,56 +1,44 @@
-import React, { useEffect, useState } from 'react'
-import Navbar from './Components/Navbar/Navbar'
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import CreateTrip from './Pages/CreateTrip/CreateTrip';
 import MyProfile from './Pages/MyProfile/MyProfile';
 import GenerateReports from './Pages/GenerateReports/GenerateReports';
 import Welcome from './Components/Welcome/Welcome';
-import Register from './Components/Register/Register'; 
+import Register from './Components/Register/Register';
 import Login from './Components/Login/Login';
 import Home from './Pages/Home/Home';
 import MyTrips from './Pages/MyTrips/MyTrips';
 import ResetPassword from './Components/ResetPassword/ResetPassword';
+import { useAppSelector } from './features/store';
+import GuestRoutes from './routing/GuestRoutes';
+import ProtectedRoutes from './routing/ProtectedRoutes';
 
 const App = () => {
-
-  const current_theme = localStorage.getItem('current_theme');
-  const [theme, setTheme] = useState(current_theme ? current_theme : 'light');
-
-  useEffect(() => {
-    localStorage.setItem('current_theme', theme);
-  }, [theme]);
-
-  return (
-    <Router>
-      <AppRoutes theme={theme} setTheme={setTheme} />
-    </Router>
-  );
-}
-
-const AppRoutes = ({ theme, setTheme }) => {
-  const location = useLocation(); 
-
-  const showNavbar = !['/', '/register', '/login','/ResetPassword'].includes(location.pathname);
+  const theme = useAppSelector(state => state.theme.theme);
 
   return (
     <div className={`container ${theme}`}>
-      {showNavbar && <Navbar theme={theme} setTheme={setTheme} />}
-      <Routes>
-        <Route path="/" element={<Welcome theme={theme} setTheme={setTheme} />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/ResetPassword" element={<ResetPassword />} />
-        <Route path="/Home" element={<Home/>} />
-        <Route path="/MyProfile" element={<MyProfile theme={theme} />} />
-        <Route path="/Notifications" element={<h1>Notifications</h1>} />
-        <Route path="/MyTrips" element={<MyTrips/>} />
-        <Route path="/CreateTrip" element={<CreateTrip />} />
-        <Route path="/GenerateReport" element={<GenerateReports theme={theme} />} />
-        <Route path="/ManageUsers_admin" element={<h1>Manage Users</h1>} />
-
-      </Routes>
+      <Router>
+        <Routes>
+          <Route element={<GuestRoutes />}>
+            <Route path='/' element={<Welcome />} />
+            <Route path='/register' element={<Register />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/ResetPassword' element={<ResetPassword />} />
+          </Route>
+          <Route element={<ProtectedRoutes />}>
+            <Route path='/Home' element={<Home />} />
+            <Route path='/MyProfile' element={<MyProfile />} />
+            <Route path='/Notifications' element={<h1>Notifications</h1>} />
+            <Route path='/MyTrips' element={<MyTrips />} />
+            <Route path='/CreateTrip' element={<CreateTrip />} />
+            <Route path='/GenerateReport' element={<GenerateReports />} />
+            <Route path='/ManageUsers_admin' element={<h1>Manage Users</h1>} />
+          </Route>
+        </Routes>
+      </Router>
     </div>
   );
-}
+};
 
 export default App;

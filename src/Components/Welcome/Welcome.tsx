@@ -1,28 +1,20 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Welcome.css';
 import toggleLightIcon from '../../assets/day.png';
 import toggleDarkIcon from '../../assets/night.png';
+import { useAppSelector } from '../../features/store';
+import { useDispatch } from 'react-redux';
+import { toggleTheme } from '../../features/theme';
 
-function Welcome({ theme, setTheme }) {
+function Welcome() {
+  const theme = useAppSelector(state => state.theme.theme);
   const navigate = useNavigate();
-
-  const toggleTheme = () => {
-    const newTheme = theme === 'light' ? 'dark' : 'light';
-    setTheme(newTheme);
-    localStorage.setItem('theme', newTheme);
-  };
-
-  useEffect(() => {
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-      setTheme(savedTheme);
-    }
-  }, [setTheme]);
+  const dispatch = useDispatch();
 
   return (
     <div className={`container ${theme}`}>
-      <div className='theme-toggle-button' onClick={toggleTheme}>
+      <div className='theme-toggle-button' onClick={() => dispatch(toggleTheme())}>
         <img
           className='toggle-icon'
           src={theme === 'light' ? toggleDarkIcon : toggleLightIcon}
