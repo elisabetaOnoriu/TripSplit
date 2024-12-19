@@ -68,7 +68,7 @@ export const api = createApi({
   baseQuery: axiosBaseQuery({
     baseUrl: `https://localhost:7083/api/`,
   }),
-  tagTypes: ['User'],
+  tagTypes: ['User', 'Trip'],
   endpoints: builder => ({
     login: builder.mutation<Api.LoginResponse, Api.LoginRequest>({
       query: data => ({
@@ -101,7 +101,15 @@ export const api = createApi({
       }),
       invalidatesTags: ['User'],
     }),
+    createTrip: builder.mutation<Api.CreateTripResponse, Api.CreateTripRequest>({
+      query: data => ({
+        url: 'Trip/create',
+        method: 'post',
+        data,
+      }),
+      invalidatesTags: ['Trip'],
+    }),
   }),
 });
 
-export const { useLoginMutation, useRegisterMutation, useUserQuery, useUpdateUserMutation } = api;
+export const { useLoginMutation, useRegisterMutation, useUserQuery, useUpdateUserMutation, useCreateTripMutation } = api;

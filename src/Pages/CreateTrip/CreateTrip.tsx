@@ -2,22 +2,25 @@ import React, { useState } from 'react';
 import './CreateTrip.css';
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from 'react-datepicker';
+import { useCreateTripMutation } from '../../features/api';
 
 const CreateTrip = ({ user }) => {
   const [tripName, setTripName] = useState('');
   const [description, setDescription] = useState('');
   const [participants, setParticipants] = useState([]);
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
+  const [startDate, setStartDate] = useState<Date | null>(null);
+  const [endDate, setEndDate] = useState<Date | null>(null);
 
-  const [newParticipant, setNewParticipant] = useState('');
+  const [createTrip] = useCreateTripMutation();
 
-  const handleAddParticipant = () => {
-    if (newParticipant.trim()) {
-      setParticipants([...participants, newParticipant.trim()]);
-      setNewParticipant('');
-    }
-  };
+  //const [newParticipant, setNewParticipant] = useState('');
+
+  // const handleAddParticipant = () => {
+  //   if (newParticipant.trim()) {
+  //     setParticipants([...participants, newParticipant.trim()]);
+  //     setNewParticipant('');
+  //   }
+  // };
 
   const handleDateChange = (dates) => {
     const [start, end] = dates;
@@ -26,31 +29,23 @@ const CreateTrip = ({ user }) => {
   };
 
   const handleSaveTrip = async () => {
-    try {
-      const response = await fetch('http://localhost:5000/api/trips', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-        body: JSON.stringify({
-          tripName,
-          description,
-          participants,
-          startDate,
-          endDate,
-          createdBy: user.id,
-        }),
-      });
+    const postdata = {
+      name: tripName,
+      destination: tripName,
+      description: description,
+      startDate: startDate?.toISOString(),
+      endDate: endDate?.toISOString()
+      //participants: participants,
+    };
 
-      if (response.ok) {
-        alert('Trip saved successfully!');
-      } else {
-        alert('Error saving trip.');
-      }
-    } catch (error) {
-      console.error('Error:', error);
+    let res = await createTrip(postdata);
+    if ('error' in res && res.error) {
+      alert(res.error?.message!);
+      return;
     }
+
+    alert('Trip created successfully');
+
   };
 
   return (
@@ -77,7 +72,7 @@ const CreateTrip = ({ user }) => {
         />
       </div>
 
-      <div>
+      {/* <div>
         <h2>Participants</h2>
         <input
           type="text"
@@ -91,7 +86,7 @@ const CreateTrip = ({ user }) => {
             <li key={index}>{participant}</li>
           ))}
         </ul>
-      </div>
+      </div> */}
 
       <div>
         <div>

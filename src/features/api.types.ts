@@ -29,6 +29,16 @@ export namespace Api {
     userId: string;
   };
 
+  export type CreateTripRequest = {
+    name: string;
+    destination: string;
+    description: string;
+    startDate?: string;
+    endDate?: string;
+  };
+
+  export type CreateTripResponse = void;
+
   export type UserResponse = User;
 
   export type UpdateUserRequest = User;
