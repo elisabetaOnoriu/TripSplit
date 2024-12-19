@@ -60,6 +60,7 @@ h1.header {
 .tooltip:hover {
     background-color: rgba(197, 195, 219, 0.8);;
 }
+
 .tooltip::after {
     content: '';
     position: absolute;
@@ -80,6 +81,7 @@ h1.header {
 
 .input {
     padding: 10px;
+    background-color: rgba(232, 231, 246, 0.8);
     margin-bottom: 15px;
     width: 100%;
     border: 1px solid #ccc;
@@ -92,8 +94,10 @@ h1.header {
 
 .input:focus {
     outline: none;
-    border-color: #4CAF50;
+    border-color: rgba(91, 44, 157, 0.5);
+    box-shadow: 0 0 5px rgba(56, 23, 102, 0.5);
 }
+
 
 .input::placeholder {
     color: #888;
@@ -182,7 +186,8 @@ h1.header {
 }
 
 .light .input:focus {
-    border-color: #4CAF50;
+    border-color: rgba(91, 44, 157, 0.5);
+    box-shadow: 0 0 5px rgba(56, 23, 102, 0.5);
 }
 
 input::placeholder {

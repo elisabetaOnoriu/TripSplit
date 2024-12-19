@@ -87,7 +87,7 @@ function Login() {
         </div>
         {emailError && <div className='error-message'>{emailError}</div>}
 
-        {/* Password Field */}
+
         <div className='input-container'>
           <input
             className='input'

@@ -23,9 +23,9 @@
 }
 
 label {
-  font-size: 1.5em; /* This will match the font size of h2 (adjust as needed) */
-  font-weight: bold; /* Optional, depending on the styling of your h2 */
-  line-height: 1.2;  /* Optional, adjust the line height if needed */
+  font-size: 1.5em; 
+  font-weight: bold; 
+  line-height: 1.2;  
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
 }
 
@@ -60,8 +60,8 @@ input {
 
 input:focus {
   outline: none;
-  border-color: #4CAF50;
-  box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+  border-color: rgba(91, 44, 157, 0.5);
+  box-shadow: 0 0 5px rgba(56, 23, 102, 0.5);
 }
 
 button {
@@ -95,9 +95,6 @@ button:active {
   transform: scale(1);
 }
 
-div {
-  margin-bottom: 20px;
-}
 
 .createTrip > div:last-child {
   text-align: center;
