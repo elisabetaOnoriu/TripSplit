@@ -1,18 +1,16 @@
 import React, { useState } from 'react';
 import './CreateTrip.css';
+import "react-datepicker/dist/react-datepicker.css";
+import DatePicker from 'react-datepicker';
 
 const CreateTrip = ({ user }) => {
   const [tripName, setTripName] = useState('');
+  const [description, setDescription] = useState('');
   const [participants, setParticipants] = useState([]);
-  const [expenses, setExpenses] = useState([]);
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
 
   const [newParticipant, setNewParticipant] = useState('');
-  const [newExpense, setNewExpense] = useState({
-    item: '',
-    location: '',
-    message: '',
-    amount: '',
-  });
 
   const handleAddParticipant = () => {
     if (newParticipant.trim()) {
@@ -21,11 +19,10 @@ const CreateTrip = ({ user }) => {
     }
   };
 
-  const handleAddExpense = () => {
-    if (newExpense.item && newExpense.amount) {
-      setExpenses([...expenses, { ...newExpense }]);
-      setNewExpense({ item: '', location: '', message: '', amount: '' });
-    }
+  const handleDateChange = (dates) => {
+    const [start, end] = dates;
+    setStartDate(start);
+    setEndDate(end);
   };
 
   const handleSaveTrip = async () => {
@@ -38,8 +35,10 @@ const CreateTrip = ({ user }) => {
         },
         body: JSON.stringify({
           tripName,
+          description,
           participants,
-          expenses,
+          startDate,
+          endDate,
           createdBy: user.id,
         }),
       });
@@ -55,16 +54,26 @@ const CreateTrip = ({ user }) => {
   };
 
   return (
-    <div className = "createTrip">
-      <h1>Create Trip</h1>
+    <div className="createTrip">
+      <h1 className="title">Create Trip</h1>
 
       <div>
-        <h2>Trip Name</h2>
+        <h2>Destination</h2>
         <input
           type="text"
           value={tripName}
           onChange={(e) => setTripName(e.target.value)}
-          placeholder="Enter trip name"
+          placeholder="Enter destination name"
+        />
+      </div>
+
+      <div>
+        <h2>Description</h2>
+        <input
+          type="text"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          placeholder="Enter a description"
         />
       </div>
 
@@ -85,42 +94,80 @@ const CreateTrip = ({ user }) => {
       </div>
 
       <div>
-        <h2>Expenses</h2>
-        <input
-          type="text"
-          value={newExpense.item}
-          onChange={(e) => setNewExpense({ ...newExpense, item: e.target.value })}
-          placeholder="What did you buy?"
+        <div>
+          <label htmlFor="start-date">Start Date:</label>
+          <input
+            type="text"
+            id="start-date"
+            value={startDate ? new Date(startDate.getTime() - startDate.getTimezoneOffset() * 60000).toISOString().split('T')[0] : ''}
+            readOnly
+            placeholder="Select a start date"
+          />
+        </div>
+        <div>
+          <label htmlFor="end-date">End Date:</label>
+          <input
+            type="text"
+            id="end-date"
+            value={endDate ? new Date(endDate.getTime() - endDate.getTimezoneOffset() * 60000).toISOString().split('T')[0] : ''}
+            readOnly
+            placeholder="Select an end date"
+          />
+        </div>
+        <DatePicker
+          selected={startDate}
+          onChange={handleDateChange}
+          startDate={startDate}
+          endDate={endDate}
+          selectsRange
+          inline
+          minDate={new Date()}
+          showMonthDropdown
+          showYearDropdown
+          dropdownMode="select"
+          renderCustomHeader={({ date, changeYear, changeMonth }) => (
+            <div>
+              <select
+                value={date.getFullYear()}
+                onChange={({ target: { value } }) => changeYear(Number(value))}
+              >
+                {Array.from({ length: 101 }, (_, i) => new Date().getFullYear() - 50 + i).map(year => (
+                  <option key={year} value={year}>
+                    {year}
+                  </option>
+                ))}
+              </select>
+              <select
+                value={date.getMonth()}
+                onChange={({ target: { value } }) => changeMonth(Number(value))}
+              >
+                {[
+                  'January',
+                  'February',
+                  'March',
+                  'April',
+                  'May',
+                  'June',
+                  'July',
+                  'August',
+                  'September',
+                  'October',
+                  'November',
+                  'December',
+                ].map((month, index) => (
+                  <option key={index} value={index}>
+                    {month}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
         />
-        <input
-          type="text"
-          value={newExpense.location}
-          onChange={(e) => setNewExpense({ ...newExpense, location: e.target.value })}
-          placeholder="Where did you buy it?"
-        />
-        <input
-          type="text"
-          value={newExpense.message}
-          onChange={(e) => setNewExpense({ ...newExpense, message: e.target.value })}
-          placeholder="Why did you buy it?"
-        />
-        <input
-          type="number"
-          value={newExpense.amount}
-          onChange={(e) => setNewExpense({ ...newExpense, amount: e.target.value })}
-          placeholder="How much did you spend?"
-        />
-        <button onClick={handleAddExpense}>Add Expense</button>
-        <ul>
-          {expenses.map((expense, index) => (
-            <li key={index}>
-              {expense.item} - {expense.amount} (Location: {expense.location}, Reason: {expense.message})
-            </li>
-          ))}
-        </ul>
       </div>
 
-      <button onClick={handleSaveTrip}>Save Trip</button>
+      <button onClick={handleSaveTrip} className="save-trip-btn">
+        Save Trip
+      </button>
     </div>
   );
 };
