@@ -2,7 +2,8 @@
     padding: 20px;
     font-family: Arial, sans-serif;
     transition: background-color 0.3s ease, color 0.3s ease;
-    margin-left: 120px;
+    margin-left: 110px;
+    width: 800px;
   }
   
   .generate-reports-container h1 {

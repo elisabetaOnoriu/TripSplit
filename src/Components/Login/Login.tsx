@@ -107,7 +107,6 @@ function Login() {
           </div>
         </div>
 
-        {/* Submit Button */}
         <button
           className='submit-button'
           type='submit'

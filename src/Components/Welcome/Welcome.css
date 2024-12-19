@@ -1,13 +1,12 @@
-  /* Theme Toggle Button */
   .theme-toggle-button {
-    position: fixed; /* Fixed to the viewport, not relative to container */
-    top: 20px; /* Distance from the top */
-    right: 20px; /* Distance from the right */
+    position: fixed; 
+    top: 20px; 
+    right: 20px; 
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 10; /* Ensure it stays on top of other content */
+    z-index: 10; 
   }
   
   .toggle-icon {
@@ -21,26 +20,22 @@
     transform: scale(1.1);
   }
   
-  /* Header */
   .header {
     font-weight: bold;
     margin-bottom: 20px;
     color: black;
   }
   
-  /* Light/Dark Theme Adjustments for Header */
   .container.light .header {
-    color: #000; /* black in light theme */
+    color: #000;
   }
   
   .container.dark .header {
-    color: #fff; /* white in dark theme */
+    color: #fff;
   }
   
-
-/* Buttons */
 .button {
-    width: 200px; /* Fix the width of the button */
+    width: 200px; 
     padding: 10px;
     border-radius: 10px;
     border: none;
@@ -50,10 +45,9 @@
     cursor: pointer;
     margin-bottom: 20px;
     transition: background-color 0.3s ease, color 0.3s ease;
-    display: inline-block; /* Prevent the button from stretching */
+    display: inline-block; 
   }
   
-  /* Light/Dark Theme Adjustments for Buttons */
   .container.light .button {
     background-color: black;
     color: white;
@@ -69,8 +63,6 @@
     transition: background-color 0.3s ease;
   }
   
-  
-  /* Text Container */
   .text-container {
     display: flex;
     align-items: center;
@@ -82,19 +74,18 @@
     margin: 0;
   }
   
-  /* Clickable Text */
   .clickable-text {
     cursor: pointer;
     transition: color 0.3s ease, text-decoration 0.3s ease;
   }
   
-  /* Light/Dark Theme Adjustments for Clickable Text */
+
   .container.light .clickable-text {
-    color: #000; /* black in light theme */
+    color: #000;
   }
   
   .container.dark .clickable-text {
-    color: #fff; /* white in dark theme */
+    color: #fff; 
   }
   
   .clickable-text:hover {

@@ -1,5 +1,5 @@
 .navbar {
-  width: 100%;
+  width: 102.5%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -9,7 +9,7 @@
   box-shadow: 0 4px 6px #00000033;
   transition: 0.5s;
   overflow-y: hidden;
-  top: 0;
+  margin-top: -20px;
 } 
 
 .logo {

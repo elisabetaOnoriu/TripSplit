@@ -8,7 +8,7 @@ import Welcome from './Components/Welcome/Welcome';
 import Register from './Components/Register/Register'; 
 import Login from './Components/Login/Login';
 import Home from './Pages/Home/Home';
-import TripHistory from './Pages/TripHistory/TripHistory';
+import MyTrips from './Pages/MyTrips/MyTrips';
 
 const App = () => {
 
@@ -27,14 +27,13 @@ const App = () => {
 }
 
 const AppRoutes = ({ theme, setTheme }) => {
-  const location = useLocation(); // Get the current path
+  const location = useLocation(); 
 
-  // Only show the Navbar if the route is not one of the excluded ones
   const showNavbar = !['/', '/register', '/login'].includes(location.pathname);
 
   return (
     <div className={`container ${theme}`}>
-      {showNavbar && <Navbar theme={theme} setTheme={setTheme} />} {/* Conditionally render the Navbar */}
+      {showNavbar && <Navbar theme={theme} setTheme={setTheme} />}
       <Routes>
         <Route path="/" element={<Welcome theme={theme} setTheme={setTheme} />} />
         <Route path="/register" element={<Register />} />
@@ -42,13 +41,11 @@ const AppRoutes = ({ theme, setTheme }) => {
         <Route path="/Home" element={<Home/>} />
         <Route path="/MyProfile" element={<MyProfile theme={theme} />} />
         <Route path="/Notifications" element={<h1>Notifications</h1>} />
-        <Route path="/MyTrips" element={<h1>My Trips</h1>} />
+        <Route path="/MyTrips" element={<MyTrips/>} />
         <Route path="/CreateTrip" element={<CreateTrip />} />
-        <Route path="/MyContributions" element={<h1>My Contributions</h1>} />
         <Route path="/GenerateReport" element={<GenerateReports theme={theme} />} />
-        <Route path="/TripHistory" element={<TripHistory/>} />
         <Route path="/ManageUsers_admin" element={<h1>Manage Users</h1>} />
-        <Route path="/Settings" element={<h1>Settings</h1>} />
+
       </Routes>
     </div>
   );

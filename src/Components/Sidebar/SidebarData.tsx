@@ -34,21 +34,9 @@ export const SidebarData = [
         className: 'nav-text'
     },
     {
-        title: 'My Contributions',
-        path: '/MyContributions',
-        icon: <GiIcons.GiTakeMyMoney />,
-        className: 'nav-text'
-    },
-    {
-        title: 'Generate Report.pdf',
+        title: 'Generate Report',
         path: '/GenerateReport',
         icon: <HiIcons.HiOutlineDocumentReport />,
-        className: 'nav-text'
-    },
-    {
-        title: 'Trip History',
-        path: '/TripHistory',
-        icon: <AiIcons.AiOutlineHistory />,
         className: 'nav-text'
     },
     {
@@ -57,10 +45,4 @@ export const SidebarData = [
         icon: <MdIcons.MdOutlineAdminPanelSettings />,
         className: 'nav-text'
     },
-    {
-        title: 'Settings',
-        path: '/Settings',
-        icon: <IoIcons.IoIosSettings />,
-        className: 'nav-text'
-    }
 ];
