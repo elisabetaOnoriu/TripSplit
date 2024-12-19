@@ -9,6 +9,7 @@ import Register from './Components/Register/Register';
 import Login from './Components/Login/Login';
 import Home from './Pages/Home/Home';
 import MyTrips from './Pages/MyTrips/MyTrips';
+import ResetPassword from './Components/ResetPassword/ResetPassword';
 
 const App = () => {
 
@@ -29,7 +30,7 @@ const App = () => {
 const AppRoutes = ({ theme, setTheme }) => {
   const location = useLocation(); 
 
-  const showNavbar = !['/', '/register', '/login'].includes(location.pathname);
+  const showNavbar = !['/', '/register', '/login','/ResetPassword'].includes(location.pathname);
 
   return (
     <div className={`container ${theme}`}>
@@ -38,6 +39,7 @@ const AppRoutes = ({ theme, setTheme }) => {
         <Route path="/" element={<Welcome theme={theme} setTheme={setTheme} />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/ResetPassword" element={<ResetPassword />} />
         <Route path="/Home" element={<Home/>} />
         <Route path="/MyProfile" element={<MyProfile theme={theme} />} />
         <Route path="/Notifications" element={<h1>Notifications</h1>} />
