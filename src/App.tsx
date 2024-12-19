@@ -12,6 +12,7 @@ import ResetPassword from './Components/ResetPassword/ResetPassword';
 import { useAppSelector } from './features/store';
 import GuestRoutes from './routing/GuestRoutes';
 import ProtectedRoutes from './routing/ProtectedRoutes';
+import EmailReset from './Components/EmailReset/EmailReset';
 
 const App = () => {
   const theme = useAppSelector(state => state.theme.theme);
@@ -25,6 +26,7 @@ const App = () => {
             <Route path='/register' element={<Register />} />
             <Route path='/login' element={<Login />} />
             <Route path='/ResetPassword' element={<ResetPassword />} />
+            <Route path="/EmailReset" element={<EmailReset />} />
           </Route>
           <Route element={<ProtectedRoutes />}>
             <Route path='/Home' element={<Home />} />

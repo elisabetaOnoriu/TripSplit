@@ -30,12 +30,12 @@ function Login() {
     }
   }, []);
 
-  const validateEmail = (email: string) => {
+  const validateEmail = (email) => {
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     return emailPattern.test(email);
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateEmail(email)) {
       setEmailError('Not a valid email address.');
@@ -57,7 +57,7 @@ function Login() {
   };
 
   return (
-    <div className={`container ${isDarkMode ? 'dark' : 'light'}`}>
+<>
       <div className='theme-toggle-button' onClick={toggleTheme} aria-label='Toggle theme'>
         <img
           className='toggle-icon'
@@ -87,7 +87,6 @@ function Login() {
         </div>
         {emailError && <div className='error-message'>{emailError}</div>}
 
-
         <div className='input-container'>
           <input
             className='input'
@@ -107,6 +106,18 @@ function Login() {
           </div>
         </div>
 
+        <div className='text-container'>
+          <p className='normal-text'>Forgot your password?</p>
+          <span
+            className='clickable-text'
+            onClick={() => navigate('/EmailReset')}
+            role='button'
+            style={{ cursor: 'pointer', textDecoration: 'underline', color: isDarkMode ? 'lightblue' : 'blue' }}
+          >
+            Reset password
+          </span>
+        </div>
+
         <button
           className='submit-button'
           type='submit'
@@ -118,7 +129,7 @@ function Login() {
           Submit
         </button>
       </form>
-    </div>
+    </>
   );
 }
 

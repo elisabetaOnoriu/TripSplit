@@ -156,7 +156,6 @@ function Register() {
 
   return (
     <div className={`container ${isDarkMode ? 'dark' : 'light'}`}>
-      {/* Theme Toggle Button */}
       <div className='theme-toggle-button' onClick={toggleTheme}>
         <img
           className='toggle-icon'
