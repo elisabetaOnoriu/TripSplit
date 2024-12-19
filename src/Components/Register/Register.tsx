@@ -2,11 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import './Register.css';
-import toggleLightIcon from '../../assets/day.png';
-import toggleDarkIcon from '../../assets/night.png';
 import { useRegisterMutation } from '../../features/api';
-import { useDispatch } from 'react-redux';
-import { logout } from '../../features/auth';
+import ThemeSelector from '../ThemeSelector';
+import { useAppSelector } from '../../features/store';
 
 const Criteria = ({ met, children }: { met: boolean; children: React.ReactNode }) => (
   <div style={{ color: met ? 'green' : 'red', fontSize: '0.9rem' }}>
@@ -17,6 +15,7 @@ const Criteria = ({ met, children }: { met: boolean; children: React.ReactNode }
 const Tooltip = ({ children }: { children: React.ReactNode }) => <div className='tooltip'>{children}</div>;
 
 function Register() {
+  const theme = useAppSelector(state => state.theme.theme);
   const navigate = useNavigate();
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -39,28 +38,7 @@ function Register() {
   const [firstNameError, setFirstNameError] = useState('');
   const [lastNameError, setLastNameError] = useState('');
 
-  const [isDarkMode, setIsDarkMode] = useState(false);
-
   const [register] = useRegisterMutation();
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(logout());
-  }, []);
-
-  const toggleTheme = () => {
-    const newTheme = isDarkMode ? 'light' : 'dark';
-    setIsDarkMode(!isDarkMode);
-    localStorage.setItem('theme', newTheme);
-  };
-
-  useEffect(() => {
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-      setIsDarkMode(savedTheme === 'dark');
-    }
-  }, []);
 
   const validateEmail = (email: string) => {
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -155,14 +133,8 @@ function Register() {
   };
 
   return (
-    <div className={`container ${isDarkMode ? 'dark' : 'light'}`}>
-      <div className='theme-toggle-button' onClick={toggleTheme}>
-        <img
-          className='toggle-icon'
-          src={isDarkMode ? toggleLightIcon : toggleDarkIcon}
-          alt={isDarkMode ? 'Light mode' : 'Dark mode'}
-        />
-      </div>
+    <>
+      <ThemeSelector />
 
       <form className='form' onSubmit={handleSubmit}>
         <h1 className='header'>Register</h1>
@@ -262,8 +234,8 @@ function Register() {
           className='submit-button'
           type='submit'
           style={{
-            backgroundColor: isDarkMode ? 'black' : 'white',
-            color: isDarkMode ? 'white' : 'black',
+            backgroundColor: theme === 'dark' ? 'black' : 'white',
+            color: theme === 'dark' ? 'white' : 'black',
             opacity: isFormValid() ? 1 : 0.6,
             cursor: isFormValid() ? 'pointer' : 'not-allowed',
           }}
@@ -272,7 +244,7 @@ function Register() {
           Submit
         </button>
       </form>
-    </div>
+    </>
   );
 }
 

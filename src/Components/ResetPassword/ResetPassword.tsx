@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import './ResetPassword.css'; 
-import toggleLightIcon from '../../assets/day.png';
-import toggleDarkIcon from '../../assets/night.png';
+import './ResetPassword.css';
 import { useNavigate } from 'react-router-dom';
+import ThemeSelector from '../ThemeSelector';
+import { useAppSelector } from '../../features/store';
 
 const Criteria = ({ met, children }: { met: boolean; children: React.ReactNode }) => (
   <div style={{ color: met ? 'green' : 'red', fontSize: '0.9rem' }}>
@@ -14,6 +14,7 @@ const Criteria = ({ met, children }: { met: boolean; children: React.ReactNode }
 const Tooltip = ({ children }: { children: React.ReactNode }) => <div className='tooltip'>{children}</div>;
 
 function ResetPassword() {
+  const theme = useAppSelector(state => state.theme.theme);
   const navigate = useNavigate();
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -28,20 +29,6 @@ function ResetPassword() {
   const [showTooltip, setShowTooltip] = useState(false);
   const [passwordError, setPasswordError] = useState('');
   const [passwordCriteriaError, setPasswordCriteriaError] = useState('');
-  const [isDarkMode, setIsDarkMode] = useState(false);
-
-  useEffect(() => {
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-      setIsDarkMode(savedTheme === 'dark');
-    }
-  }, []);
-
-  const toggleTheme = () => {
-    const newTheme = isDarkMode ? 'light' : 'dark';
-    setIsDarkMode(!isDarkMode);
-    localStorage.setItem('theme', newTheme);
-  };
 
   const handlePasswordChange = (value: string) => {
     setPassword(value);
@@ -90,14 +77,8 @@ function ResetPassword() {
   };
 
   return (
-    <div className={`container ${isDarkMode ? 'dark' : 'light'}`}>
-      <div className='theme-toggle-button' onClick={toggleTheme}>
-        <img
-          className='toggle-icon'
-          src={isDarkMode ? toggleLightIcon : toggleDarkIcon}
-          alt={isDarkMode ? 'Light mode' : 'Dark mode'}
-        />
-      </div>
+    <>
+      <ThemeSelector />
 
       <form className='form' onSubmit={handleSubmit}>
         <h1 className='header'>Reset Password</h1>
@@ -146,8 +127,8 @@ function ResetPassword() {
           className='submit-button'
           type='submit'
           style={{
-            backgroundColor: isDarkMode ? 'black' : 'white',
-            color: isDarkMode ? 'white' : 'black',
+            backgroundColor: theme === 'dark' ? 'black' : 'white',
+            color: theme === 'dark' ? 'white' : 'black',
             opacity: isFormValid() ? 1 : 0.6,
             cursor: isFormValid() ? 'pointer' : 'not-allowed',
           }}
@@ -156,7 +137,7 @@ function ResetPassword() {
           Submit
         </button>
       </form>
-    </div>
+    </>
   );
 }
 

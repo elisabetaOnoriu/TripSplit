@@ -1,41 +1,29 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
-import toggleLightIcon from '../../assets/day.png';
-import toggleDarkIcon from '../../assets/night.png';
 import { useLoginMutation } from '../../features/api';
+import { useAppSelector } from '../../features/store';
+import ThemeSelector from '../ThemeSelector';
 
 function Login() {
+  const theme = useAppSelector(state => state.theme.theme);
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [emailError, setEmailError] = useState('');
-  const [isDarkMode, setIsDarkMode] = useState(false);
 
   const [login] = useLoginMutation();
 
   const navigate = useNavigate();
 
-  const toggleTheme = () => {
-    const newTheme = isDarkMode ? 'light' : 'dark';
-    setIsDarkMode(!isDarkMode);
-    localStorage.setItem('theme', newTheme);
-  };
-
-  useEffect(() => {
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-      setIsDarkMode(savedTheme === 'dark');
-    }
-  }, []);
-
-  const validateEmail = (email) => {
+  const validateEmail = (email: string) => {
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     return emailPattern.test(email);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!validateEmail(email)) {
       setEmailError('Not a valid email address.');
@@ -57,14 +45,8 @@ function Login() {
   };
 
   return (
-<>
-      <div className='theme-toggle-button' onClick={toggleTheme} aria-label='Toggle theme'>
-        <img
-          className='toggle-icon'
-          src={isDarkMode ? toggleLightIcon : toggleDarkIcon}
-          alt={isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
-        />
-      </div>
+    <>
+      <ThemeSelector />
 
       <form className='form' onSubmit={handleSubmit}>
         <h1 className='header'>Login</h1>
@@ -112,7 +94,7 @@ function Login() {
             className='clickable-text'
             onClick={() => navigate('/EmailReset')}
             role='button'
-            style={{ cursor: 'pointer', textDecoration: 'underline', color: isDarkMode ? 'lightblue' : 'blue' }}
+            style={{ cursor: 'pointer', textDecoration: 'underline', color: theme === 'dark' ? 'lightblue' : 'blue' }}
           >
             Reset password
           </span>
@@ -122,8 +104,8 @@ function Login() {
           className='submit-button'
           type='submit'
           style={{
-            backgroundColor: isDarkMode ? 'black' : 'white',
-            color: isDarkMode ? 'white' : 'black',
+            backgroundColor: theme === 'dark' ? 'black' : 'white',
+            color: theme === 'dark' ? 'white' : 'black',
           }}
         >
           Submit
