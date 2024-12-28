@@ -3,7 +3,8 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import './ResetPassword.css'; 
 import toggleLightIcon from '../../assets/day.png';
 import toggleDarkIcon from '../../assets/night.png';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useResetPasswordMutation } from '../../features/api';
 
 const Criteria = ({ met, children }: { met: boolean; children: React.ReactNode }) => (
   <div style={{ color: met ? 'green' : 'red', fontSize: '0.9rem' }}>
@@ -14,7 +15,9 @@ const Criteria = ({ met, children }: { met: boolean; children: React.ReactNode }
 const Tooltip = ({ children }: { children: React.ReactNode }) => <div className='tooltip'>{children}</div>;
 
 function ResetPassword() {
+  const location = useLocation();
   const navigate = useNavigate();
+  const [resetPassword] = useResetPasswordMutation();
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -71,7 +74,17 @@ function ResetPassword() {
     }
 
     if (valid) {
-      console.log('Form submitted successfully!');
+      const params = new URLSearchParams(location.search);
+      const token = params.get('resetToken') || '';
+      const userId = params.get('id') || '';
+
+      const postData = {
+        userId: userId,
+        token: token,
+        password: password,
+      };
+
+      let res = await resetPassword(postData);
       navigate('/login');
     } else {
       console.log('Form submission failed. Validation errors present.');

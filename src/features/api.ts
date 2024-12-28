@@ -109,7 +109,21 @@ export const api = createApi({
       }),
       invalidatesTags: ['Trip'],
     }),
+    recoverPassword: builder.mutation<Api.RecoverPasswordResponse, Api.RecoverPasswordRequest>({
+      query: data => ({
+        url: 'Authentication/request-password-reset',
+        method: 'post',
+        data,
+      }),
+    }),
+    resetPassword: builder.mutation<Api.ResetPasswordResponse, Api.ResetPasswordRequest>({
+      query: data => ({
+        url: 'Authentication/reset-password',
+        method: 'post',
+        data,
+      }),
+    }), 
   }),
 });
 
-export const { useLoginMutation, useRegisterMutation, useUserQuery, useUpdateUserMutation, useCreateTripMutation } = api;
+export const { useLoginMutation, useRegisterMutation, useUserQuery, useUpdateUserMutation, useCreateTripMutation, useRecoverPasswordMutation, useResetPasswordMutation } = api;

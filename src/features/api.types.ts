@@ -37,6 +37,20 @@ export namespace Api {
     endDate?: string;
   };
 
+  export type RecoverPasswordRequest = {
+    email: string;
+  };
+
+  export type ResetPasswordRequest = {
+    userId?: string;
+    token?: string;
+    password: string;
+  };
+
+  export type ResetPasswordResponse = void;
+
+  export type RecoverPasswordResponse = void;
+
   export type CreateTripResponse = void;
 
   export type UserResponse = User;

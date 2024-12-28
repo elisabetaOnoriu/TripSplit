@@ -9,7 +9,7 @@ const MyProfile = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedUser, setEditedUser] = useState<User>();
 
-  const id = useAppSelector(state => state.auth.token);
+  const id = useAppSelector(state => state.auth.userId);
 
   const { data: user } = useUserQuery({ userId: id! });
   const [updateUser] = useUpdateUserMutation();

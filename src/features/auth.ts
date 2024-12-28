@@ -3,10 +3,12 @@ import { api } from './api';
 
 type AuthState = {
   token?: string;
+  userId?: string;
 };
 
 const initialState: AuthState = {
   token: undefined,
+  userId: undefined,
 };
 
 export const authSlice = createSlice({
@@ -15,12 +17,14 @@ export const authSlice = createSlice({
   reducers: {
     logout: state => {
       state.token = undefined;
+      state.userId = undefined;
     },
   },
   extraReducers: builder => {
     builder.addMatcher(api.endpoints.login.matchFulfilled, (state, { payload }) => {
       // TODO: Token
       state.token = payload.token;
+      state.userId = payload.user.id;
     });
   },
 });
