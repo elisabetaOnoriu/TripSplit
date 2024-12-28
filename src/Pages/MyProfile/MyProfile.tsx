@@ -67,12 +67,6 @@ const MyProfile = () => {
           <strong>Email:</strong> {user.email}
         </p>
         <div className='divider'></div>
-        <p>
-          <strong>Last Destination:</strong> {user.lastDestination || 'Unknown'}
-        </p>
-        <p>
-          <strong>Last Trip Date:</strong> {user.lastTripDate || 'Unknown'}
-        </p>
         <button
           onClick={() => {
             setIsEditing(!isEditing);

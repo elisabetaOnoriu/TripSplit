@@ -25,7 +25,6 @@ const CreateTrip = () => {
       description: description,
       startDate: startDate?.toISOString(),
       endDate: endDate?.toISOString(),
-      //participants: participants,
     };
 
     let res = await createTrip(postdata);
@@ -104,7 +103,7 @@ const CreateTrip = () => {
           renderCustomHeader={({ date, changeYear, changeMonth }) => (
             <div>
               <select value={date.getFullYear()} onChange={({ target: { value } }) => changeYear(Number(value))}>
-                {Array.from({ length: 101 }, (_, i) => new Date().getFullYear() - 50 + i).map(year => (
+                {Array.from({ length: 101 }, (_, i) => new Date().getFullYear() + i).map(year => (
                   <option key={year} value={year}>
                     {year}
                   </option>

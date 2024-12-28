@@ -1,0 +1,41 @@
+.manage-users-admin {
+    padding: 20px;
+  }
+  
+  .manage-users-admin .controls {
+    margin-bottom: 20px;
+  }
+  
+  .manage-users-admin .controls input {
+    padding: 8px;
+    margin-right: 10px;
+  }
+  
+  .manage-users-admin table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .manage-users-admin table th,
+  .manage-users-admin table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+  }
+  
+  .manage-users-admin table th {
+    background-color: #f4f4f4;
+  }
+  
+  .manage-users-admin button {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  .manage-users-admin button:hover {
+    background-color: #e60000;
+  }
+  

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import './Register.css';
@@ -31,6 +31,7 @@ function Register() {
     specialChar: false,
   });
   const [showTooltip, setShowTooltip] = useState(false);
+  const [popupVisible, setPopupVisible] = useState(false); 
 
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
@@ -90,12 +91,6 @@ function Register() {
     }
 
     if (valid) {
-      console.log('Form submitted successfully!');
-      navigate('/login');
-    } else {
-      console.log('Form submission failed. Validation errors present.');
-    }
-    if (valid) {
       const postdata = {
         email: email,
         firstName: firstName,
@@ -110,7 +105,7 @@ function Register() {
         return;
       }
 
-      navigate('/login');
+      setPopupVisible(true);
     }
   };
 
@@ -244,6 +239,15 @@ function Register() {
           Submit
         </button>
       </form>
+
+      {popupVisible && (
+        <div className='popup'>
+          <div className='popup-content'>
+            <p>Please verify your e-mail to confirm your account.</p>
+            <button onClick={() => setPopupVisible(false)}>Close</button>
+          </div>
+        </div>
+      )}
     </>
   );
 }
