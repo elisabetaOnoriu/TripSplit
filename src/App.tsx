@@ -15,7 +15,8 @@ import ProtectedRoutes from './routing/ProtectedRoutes';
 import EmailReset from './Components/EmailReset/EmailReset';
 import AdminPage from './Pages/AdminPage/AdminPage';
 import AccountValidated from './Components/AccountValidated';
-import Notifications from './Pages/Notifications/Notifications'; // Import the Notifications page
+import Notifications from './Pages/Notifications/Notifications'; 
+import InviteFriend from './Pages/InviteFriend/InviteFriend';
 
 const App = () => {
   const theme = useAppSelector(state => state.theme.theme);
@@ -40,6 +41,7 @@ const App = () => {
             <Route path='/CreateTrip' element={<CreateTrip />} />
             <Route path='/GenerateReport' element={<GenerateReports />} />
             <Route path='/ManageUsers_admin' element={<h1>Manage Users</h1>} />
+            <Route path="/invite/:tripId" element={<InviteFriend />} />
             <Route path='/AdminPage' element={<AdminPage />} />
           </Route>
         </Routes>

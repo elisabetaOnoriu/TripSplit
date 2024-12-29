@@ -5,14 +5,11 @@ import { Trip } from "../../features/api.types";
 import { useTripHistoryQuery } from "../../features/api";
 import { useNavigate } from 'react-router-dom';
 
-
 const MyTrips = () => {
-
   const userId = useAppSelector(state => state.auth.userId);
   const { data: tripHistory } = useTripHistoryQuery({ userId: userId! });
 
   const pastTrips: Trip[] = tripHistory || [];
-
   const navigate = useNavigate();
 
   const getCurrentTrip = (trips: Trip[]): Trip | null => {
@@ -30,7 +27,8 @@ const MyTrips = () => {
     <div className="my-trips-container">
       <h1 className="my-trips-title">List of Trips</h1>
 
-      { <div className="current-trip">
+      {/* Current Trip Section */}
+      <div className="current-trip">
         <h2>Current Trip</h2>
         {currentTrip ? (
           <div className="trip-item">
@@ -42,17 +40,24 @@ const MyTrips = () => {
               </p>
             </div>
             <div className="trip-cost">{1000}</div>
+            <div className="trip-actions">
+              <button onClick={() => navigate(`/invite/${currentTrip.id}`)}>
+                Invite a Friend
+              </button>
+            </div>
             <div
               className="see-more-arrow"
-              onClick={() => navigate('/Trip')}>
+              onClick={() => navigate('/Trip')}
+            >
               ➔
             </div>
           </div>
         ) : (
           <p>No current trip available.</p>
         )}
-      </div> }
+      </div>
 
+      {/* Past Trips Section */}
       <div className="past-trips">
         <h2>Past Trips</h2>
         {pastTrips.length > 0 ? (
@@ -66,9 +71,15 @@ const MyTrips = () => {
                 </p>
               </div>
               <div className="trip-cost">{1000}</div>
+              <div className="trip-actions">
+                <button onClick={() => navigate(`/invite/${trip.id}`)}>
+                  Invite a Friend
+                </button>
+              </div>
               <div
                 className="see-more-arrow"
-                onClick={() => navigate('/Trip')}>
+                onClick={() => navigate('/Trip')}
+              >
                 ➔
               </div>
             </div>
@@ -78,6 +89,7 @@ const MyTrips = () => {
         )}
       </div>
 
+      {/* Add Trip Button */}
       <button className="add-trip-button">Add Trip</button>
     </div>
   );
