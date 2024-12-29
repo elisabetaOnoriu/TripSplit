@@ -7,7 +7,6 @@
   height: 112px;
   padding: 0 7%;
   box-shadow: 0 4px 6px #00000033;
-  transition: 0.5s;
   overflow-y: hidden;
   margin-top: -1px;
   position: fixed;
@@ -18,6 +17,7 @@
   width: 130px;
   cursor: pointer;
   margin-left: 150px;
+  margin-top: 5px;
 }
 
 ul {
@@ -40,7 +40,7 @@ ul li {
 }
 
 ul li:hover {
-  font-size: 16.5px;
+  font-size: 16.3px;
   color: #244b57;
 }
 

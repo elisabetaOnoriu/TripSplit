@@ -27,7 +27,6 @@ const MyTrips = () => {
     <div className="my-trips-container">
       <h1 className="my-trips-title">List of Trips</h1>
 
-      {/* Current Trip Section */}
       <div className="current-trip">
         <h2>Current Trip</h2>
         {currentTrip ? (
@@ -57,7 +56,6 @@ const MyTrips = () => {
         )}
       </div>
 
-      {/* Past Trips Section */}
       <div className="past-trips">
         <h2>Past Trips</h2>
         {pastTrips.length > 0 ? (
@@ -89,7 +87,6 @@ const MyTrips = () => {
         )}
       </div>
 
-      {/* Add Trip Button */}
       <button className="add-trip-button">Add Trip</button>
     </div>
   );

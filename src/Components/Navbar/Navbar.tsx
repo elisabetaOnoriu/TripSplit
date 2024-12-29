@@ -36,9 +36,8 @@ const Navbar = () => {
           <img src={theme === 'light' ? logo_dark : logo_light} alt='' className='logo' />
           <ul>
             <li onClick={() => navigate('/home')}>Home </li>
-            <li>About</li>
+            <li onClick={() => navigate('/About')}>About</li>
             <li>Contact</li>
-            <li>Help</li>
           </ul>
           <div className='search-box'>
             <input type='text' placeholder='Search' />

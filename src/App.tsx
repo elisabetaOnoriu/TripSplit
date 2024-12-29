@@ -16,6 +16,7 @@ import AdminPage from './Pages/AdminPage/AdminPage';
 import AccountValidated from './Components/AccountValidated';
 import Notifications from './Pages/Notifications/Notifications'; 
 import InviteFriend from './Pages/InviteFriend/InviteFriend';
+import About from './Pages/About/About';
 
 const App = () => {
   const theme = useAppSelector(state => state.theme.theme);
@@ -41,6 +42,7 @@ const App = () => {
             <Route path='/ManageUsers_admin' element={<h1>Manage Users</h1>} />
             <Route path="/invite/:tripId" element={<InviteFriend />} />
             <Route path='/AdminPage' element={<AdminPage />} />
+            <Route path='/About' element={<About />} />
           </Route>
         </Routes>
       </Router>
