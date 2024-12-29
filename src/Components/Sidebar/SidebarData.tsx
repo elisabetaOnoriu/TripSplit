@@ -34,12 +34,6 @@ export const SidebarData = [
         className: 'nav-text'
     },
     {
-        title: 'Generate Report',
-        path: '/GenerateReport',
-        icon: <HiIcons.HiOutlineDocumentReport />,
-        className: 'nav-text'
-    },
-    {
         title: 'Manage Users',
         path: '/ManageUsers_admin',
         icon: <MdIcons.MdOutlineAdminPanelSettings />,

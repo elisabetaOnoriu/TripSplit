@@ -2,7 +2,6 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import CreateTrip from './Pages/CreateTrip/CreateTrip';
 import MyProfile from './Pages/MyProfile/MyProfile';
-import GenerateReports from './Pages/GenerateReports/GenerateReports';
 import Welcome from './Components/Welcome/Welcome';
 import Register from './Components/Register/Register';
 import Login from './Components/Login/Login';

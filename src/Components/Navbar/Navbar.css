@@ -9,7 +9,9 @@
   box-shadow: 0 4px 6px #00000033;
   transition: 0.5s;
   overflow-y: hidden;
-  margin-top: -20px;
+  margin-top: -1px;
+  position: fixed;
+  top: 0;
 } 
 
 .logo {
@@ -191,6 +193,30 @@ ul li:hover {
 .nav-menu-items {
   width: 100%;
 }
+
+.nav-text .btn {
+  font-size: 1.2rem;
+  padding: 10px 20px;
+  background: linear-gradient(90deg, #6a5acd, #836fff);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  margin-left: 25px;
+}
+
+.nav-text .btn:hover {
+  background: linear-gradient(90deg, #483d8b, #5d5db3);
+  transform: scale(1.05);
+}
+
+.nav-text .btn:active {
+  transform: scale(0.98);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
 
 .navbar-toggle {
   background: none;
