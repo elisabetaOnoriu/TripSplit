@@ -38,7 +38,7 @@ const CreateTrip = () => {
     <div className='createTrip'>
       <h1 className='title'>Create Trip</h1>
 
-      <div>
+      <div className='section-container'>
         <h2>Destination</h2>
         <input
           type='text'
@@ -46,9 +46,6 @@ const CreateTrip = () => {
           onChange={e => setTripName(e.target.value)}
           placeholder='Enter destination name'
         />
-      </div>
-
-      <div>
         <h2>Description</h2>
         <input
           type='text'
@@ -58,7 +55,7 @@ const CreateTrip = () => {
         />
       </div>
 
-      <div>
+      <div className='section-container'>
         <div>
           <label htmlFor='start-date'>Start Date:</label>
           <input
@@ -87,6 +84,9 @@ const CreateTrip = () => {
             placeholder='Select an end date'
           />
         </div>
+      </div>
+
+      <div className='section-container'>
         <DatePicker
           selected={startDate}
           onChange={handleDateChange}
@@ -98,37 +98,6 @@ const CreateTrip = () => {
           showMonthDropdown
           showYearDropdown
           dropdownMode='select'
-          renderCustomHeader={({ date, changeYear, changeMonth }) => (
-            <div>
-              <select value={date.getFullYear()} onChange={({ target: { value } }) => changeYear(Number(value))}>
-                {Array.from({ length: 101 }, (_, i) => new Date().getFullYear() + i).map(year => (
-                  <option key={year} value={year}>
-                    {year}
-                  </option>
-                ))}
-              </select>
-              <select value={date.getMonth()} onChange={({ target: { value } }) => changeMonth(Number(value))}>
-                {[
-                  'January',
-                  'February',
-                  'March',
-                  'April',
-                  'May',
-                  'June',
-                  'July',
-                  'August',
-                  'September',
-                  'October',
-                  'November',
-                  'December',
-                ].map((month, index) => (
-                  <option key={index} value={index}>
-                    {month}
-                  </option>
-                ))}
-              </select>
-            </div>
-          )}
         />
       </div>
 

@@ -13,11 +13,16 @@
   .profile-details-container {
     flex: 2;
     max-width: 600px;
-    background: rgba(255, 255, 255, 0.8);
+    background-color: rgba(197, 195, 219, 0.5);
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     text-align: left;
+  }
+
+  .dark .profile-details-container {
+    background-color: rgba(43, 42, 42, 0.6);
+    color: #fff;
   }
   
   .profile-image {
@@ -36,7 +41,18 @@
     font-size: 2rem; 
     margin-bottom: 20px;
     text-align: left;
+    text-shadow: 1px 1px 2px rgb(63, 62, 62);
   }
+
+  .dark .profile-details-container h1 {
+    font-size: 2rem; 
+    margin-bottom: 20px;
+    text-align: left;
+    text-shadow: 2px 2px 5px rgb(14, 14, 14);
+    color: #7c9ed8;
+    text-shadow: 2px 2px 5px rgb(14, 14, 14);
+  }
+
   
   .profile-details-container p {
     margin: 15px 0;
@@ -44,9 +60,21 @@
     line-height: 1.8;
     color: #555;
   }
+
+  .dark .profile-details-container p {
+    margin: 15px 0;
+    font-size: 1.2rem;
+    line-height: 1.8;
+    color: #706f6f;
+  }
   
   .profile-details-container p strong {
     color: #222;
+  }
+
+  .dark .profile-details-container p strong {
+    color: #dfdfdf;
+    text-shadow: 2px 2px 5px rgb(14, 14, 14);
   }
 
   .divider {

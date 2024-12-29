@@ -35,7 +35,7 @@ export const SidebarData = [
     },
     {
         title: 'Manage Users',
-        path: '/ManageUsers_admin',
+        path: '/AdminPage',
         icon: <MdIcons.MdOutlineAdminPanelSettings />,
         className: 'nav-text'
     },

@@ -1,8 +1,12 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Home.css';
 import logo from '../../assets/logo-black.png'; 
 
 const Home = () => {
+
+  const navigate = useNavigate();
+
   return (
     <div className="home-container">
       <div className="welcome-content">
@@ -21,7 +25,7 @@ const Home = () => {
             <li>📊 Generate detailed reports for personal and group expenses.</li>
           </ul>
         </div>
-        <button className="explore-btn">Explore Now</button>
+        <button onClick={() => navigate('/About')} className="explore-btn">Explore Now</button>
       </div>
     </div>
   );

@@ -7,17 +7,18 @@
   height: 112px;
   padding: 0 7%;
   box-shadow: 0 4px 6px #00000033;
-  transition: 0.5s;
   overflow-y: hidden;
   margin-top: -1px;
   position: fixed;
   top: 0;
+  z-index: 100;
 } 
 
 .logo {
   width: 130px;
   cursor: pointer;
   margin-left: 150px;
+  margin-top: 21px;
 }
 
 ul {
@@ -40,7 +41,7 @@ ul li {
 }
 
 ul li:hover {
-  font-size: 16.5px;
+  font-size: 16.3px;
   color: #244b57;
 }
 
@@ -146,6 +147,7 @@ ul li:hover {
   top: 0;
   left: -100%;
   transition: 850ms;
+  z-index:110;
 }
 
 .nav-menu.active {
@@ -236,4 +238,11 @@ ul li:hover {
 
 span {
   margin-left: 16px;
+}
+
+.close-icon {
+  cursor: pointer;
+  font-size: 1.5rem;
+  position: relative;
+  z-index: 101;
 }
