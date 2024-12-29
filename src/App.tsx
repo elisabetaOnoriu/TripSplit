@@ -15,6 +15,7 @@ import ProtectedRoutes from './routing/ProtectedRoutes';
 import EmailReset from './Components/EmailReset/EmailReset';
 import AdminPage from './Pages/AdminPage/AdminPage';
 import AccountValidated from './Components/AccountValidated';
+import Notifications from './Pages/Notifications/Notifications'; // Import the Notifications page
 
 const App = () => {
   const theme = useAppSelector(state => state.theme.theme);
@@ -34,13 +35,12 @@ const App = () => {
           <Route element={<ProtectedRoutes />}>
             <Route path='/Home' element={<Home />} />
             <Route path='/MyProfile' element={<MyProfile />} />
-            <Route path='/Notifications' element={<h1>Notifications</h1>} />
+            <Route path='/Notifications' element={<Notifications />} /> {/* Updated */}
             <Route path='/MyTrips' element={<MyTrips />} />
             <Route path='/CreateTrip' element={<CreateTrip />} />
             <Route path='/GenerateReport' element={<GenerateReports />} />
             <Route path='/ManageUsers_admin' element={<h1>Manage Users</h1>} />
             <Route path='/AdminPage' element={<AdminPage />} />
-            
           </Route>
         </Routes>
       </Router>

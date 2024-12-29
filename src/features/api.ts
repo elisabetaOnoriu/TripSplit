@@ -68,7 +68,7 @@ export const api = createApi({
   baseQuery: axiosBaseQuery({
     baseUrl: `https://localhost:7083/api/`,
   }),
-  tagTypes: ['User', 'Trip'],
+  tagTypes: ['User', 'Trip', 'Invitation'], // Added 'Invitation' for invalidation
   endpoints: builder => ({
     login: builder.mutation<Api.LoginResponse, Api.LoginRequest>({
       query: data => ({
@@ -116,6 +116,7 @@ export const api = createApi({
       }),
       providesTags: ['Trip'],
     }),
+
     recoverPassword: builder.mutation<Api.RecoverPasswordResponse, Api.RecoverPasswordRequest>({
       query: data => ({
         url: 'Authentication/request-password-reset',
@@ -129,8 +130,45 @@ export const api = createApi({
         method: 'post',
         data,
       }),
-    }), 
+    }),
+
+    // New Endpoints for Invitations
+    getUserInvitations: builder.query<Api.Invitation[], string>({
+      query: userId => ({
+        url: `Invitation/get-user-invitations?userId=${userId}`,
+        method: 'get',
+      }),
+      providesTags: ['Invitation'],
+    }),
+    inviteUser: builder.mutation<void, Api.InviteUserRequest>({
+      query: data => ({
+        url: 'Invitation/invite-by-email',
+        method: 'post',
+        data,
+      }),
+      invalidatesTags: ['Invitation'],
+    }),
+    respondToInvitation: builder.mutation<void, Api.RespondToInvitationRequest>({
+      query: data => ({
+        url: `Invitation/${data.isAccepted ? 'accept' : 'reject'}`,
+        method: 'post',
+        data,
+      }),
+      invalidatesTags: ['Invitation', 'Trip'],
+    }),
   }),
 });
 
-export const { useLoginMutation, useRegisterMutation, useUserQuery, useUpdateUserMutation, useCreateTripMutation, useRecoverPasswordMutation, useResetPasswordMutation, useTripHistoryQuery } = api;
+export const {
+  useLoginMutation,
+  useRegisterMutation,
+  useUserQuery,
+  useUpdateUserMutation,
+  useCreateTripMutation,
+  useRecoverPasswordMutation,
+  useResetPasswordMutation,
+  useTripHistoryQuery,
+  useGetUserInvitationsQuery, // Hook for fetching user invitations
+  useInviteUserMutation, // Hook for sending invitations
+  useRespondToInvitationMutation, // Hook for accepting/rejecting invitations
+} = api;

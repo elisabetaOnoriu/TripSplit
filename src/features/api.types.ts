@@ -12,9 +12,10 @@ export type Trip = {
   description: string;
   startDate: string;
   endDate: string;
-}
+};
 
 export namespace Api {
+  // Authentication and User Types
   export type RegisterRequest = {
     email: string;
     firstName: string;
@@ -38,6 +39,13 @@ export namespace Api {
     userId: string;
   };
 
+  export type UserResponse = User;
+
+  export type UpdateUserRequest = User;
+
+  export type UpdateUserResponse = void;
+
+  // Trip Types
   export type CreateTripRequest = {
     name: string;
     destination: string;
@@ -46,6 +54,15 @@ export namespace Api {
     endDate?: string;
   };
 
+  export type CreateTripResponse = void;
+
+  export type TripHistoryRequest = {
+    userId: string;
+  };
+
+  export type TripHistoryResponse = Trip[];
+
+  // Password Recovery Types
   export type RecoverPasswordRequest = {
     email: string;
   };
@@ -56,21 +73,27 @@ export namespace Api {
     password: string;
   };
 
-  export type TripHistoryRequest = {
-    userId: string;
-  };
-
-  export type TripHistoryResponse = Trip[];
+  export type RecoverPasswordResponse = void;
 
   export type ResetPasswordResponse = void;
 
-  export type RecoverPasswordResponse = void;
+  // Invitation Types
+  export type Invitation = {
+    tripId: number;
+    userId: string;
+    isDenied: boolean;
+    tripName: string;
+    tripDestination: string;
+  };
 
-  export type CreateTripResponse = void;
+  export type InviteUserRequest = {
+    tripId: number;
+    email: string;
+  };
 
-  export type UserResponse = User;
-
-  export type UpdateUserRequest = User;
-
-  export type UpdateUserResponse = void;
+  export type RespondToInvitationRequest = {
+    tripId: number;
+    userId: string;
+    isAccepted: boolean;
+  };
 }
