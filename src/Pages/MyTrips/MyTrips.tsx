@@ -3,6 +3,7 @@ import "./MyTrips.css";
 import { useAppSelector } from "../../features/store";
 import { Trip } from "../../features/api.types";
 import { useTripHistoryQuery } from "../../features/api";
+import { useNavigate } from 'react-router-dom';
 
 
 const MyTrips = () => {
@@ -12,36 +13,46 @@ const MyTrips = () => {
 
   const pastTrips: Trip[] = tripHistory || [];
 
+  const navigate = useNavigate();
+
+  const getCurrentTrip = (trips: Trip[]): Trip | null => {
+    const today = new Date();
+    return trips.find(trip => {
+      const startDate = new Date(trip.startDate);
+      const endDate = new Date(trip.endDate);
+      return today >= startDate && today <= endDate;
+    }) || null;
+  };
+
+  const currentTrip = getCurrentTrip(pastTrips);
+
   return (
     <div className="my-trips-container">
       <h1 className="my-trips-title">List of Trips</h1>
 
-      {/* Current Trip Section */}
-      {/* <div className="current-trip">
+      { <div className="current-trip">
         <h2>Current Trip</h2>
         {currentTrip ? (
           <div className="trip-item">
             <div className="trip-info">
               <h3>{currentTrip.destination}</h3>
-              <p>{currentTrip.caption}</p>
+              <p>{currentTrip.description}</p>
               <p>
                 Period: {currentTrip.startDate} - {currentTrip.endDate}
               </p>
             </div>
-            <div className="trip-cost">{currentTrip.cost}</div>
+            <div className="trip-cost">{1000}</div>
             <div
               className="see-more-arrow"
-              onClick={() => alert("Redirecting to current trip page...")}
-            >
+              onClick={() => navigate('/Trip')}>
               ➔
             </div>
           </div>
         ) : (
           <p>No current trip available.</p>
         )}
-      </div> */}
+      </div> }
 
-      {/* Past Trips Section */}
       <div className="past-trips">
         <h2>Past Trips</h2>
         {pastTrips.length > 0 ? (
@@ -57,10 +68,7 @@ const MyTrips = () => {
               <div className="trip-cost">{1000}</div>
               <div
                 className="see-more-arrow"
-                onClick={() =>
-                  alert(`Redirecting to trip page for ${trip.destination}`)
-                }
-              >
+                onClick={() => navigate('/Trip')}>
                 ➔
               </div>
             </div>
@@ -70,7 +78,6 @@ const MyTrips = () => {
         )}
       </div>
 
-      {/* Add Trip Button */}
       <button className="add-trip-button">Add Trip</button>
     </div>
   );
