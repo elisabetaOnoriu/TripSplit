@@ -1,55 +1,23 @@
 import React from "react";
 import "./MyTrips.css";
+import { useAppSelector } from "../../features/store";
+import { Trip } from "../../features/api.types";
+import { useTripHistoryQuery } from "../../features/api";
 
-// Define interfaces for trip data
-interface Trip {
-  destination: string;
-  caption: string;
-  startDate: string;
-  endDate: string;
-  cost: string;
-}
 
-const MyTrips: React.FC = () => {
-  // Mockup data
-  const currentTrip: Trip = {
-    destination: "Bali",
-    caption: "A relaxing tropical vacation.",
-    startDate: "2024-12-18",
-    endDate: "2024-12-25",
-    cost: "$1000",
-  };
+const MyTrips = () => {
 
-  const pastTrips: Trip[] = [
-    {
-      destination: "London",
-      caption: "Exploring the heart of England.",
-      startDate: "2023-05-10",
-      endDate: "2023-05-15",
-      cost: "$500",
-    },
-    {
-      destination: "Paris",
-      caption: "A romantic getaway.",
-      startDate: "2022-11-01",
-      endDate: "2022-11-08",
-      cost: "$800",
-    },
-    {
-      destination: "Dubai",
-      caption: "Adventures in the desert.",
-      startDate: "2022-06-15",
-      endDate: "2022-06-20",
-      cost: "$1200",
-    },
-  ];
+  const userId = useAppSelector(state => state.auth.userId);
+  const { data: tripHistory } = useTripHistoryQuery({ userId: userId! });
+
+  const pastTrips: Trip[] = tripHistory || [];
 
   return (
     <div className="my-trips-container">
       <h1 className="my-trips-title">List of Trips</h1>
 
       {/* Current Trip Section */}
-      <div className="current-trip">
+      {/* <div className="current-trip">
         <h2>Current Trip</h2>
         {currentTrip ? (
           <div className="trip-item">
@@ -71,7 +39,7 @@ const MyTrips: React.FC = () => {
         ) : (
           <p>No current trip available.</p>
         )}
-      </div>
+      </div> */}
 
       {/* Past Trips Section */}
       <div className="past-trips">
@@ -81,12 +49,12 @@ const MyTrips: React.FC = () => {
             <div className="trip-item" key={index}>
               <div className="trip-info">
                 <h3>{trip.destination}</h3>
-                <p>{trip.caption}</p>
+                <p>{trip.name}</p>
                 <p>
                   Period: {trip.startDate} - {trip.endDate}
                 </p>
               </div>
-              <div className="trip-cost">{trip.cost}</div>
+              <div className="trip-cost">{1000}</div>
               <div
                 className="see-more-arrow"
                 onClick={() =>

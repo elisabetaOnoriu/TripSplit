@@ -109,6 +109,13 @@ export const api = createApi({
       }),
       invalidatesTags: ['Trip'],
     }),
+    tripHistory: builder.query<Api.TripHistoryResponse, Api.TripHistoryRequest>({
+      query: ({ userId }) => ({
+        url: `Trip/get-trip-history?userId=${userId}`,
+        method: 'get',
+      }),
+      providesTags: ['Trip'],
+    }),
     recoverPassword: builder.mutation<Api.RecoverPasswordResponse, Api.RecoverPasswordRequest>({
       query: data => ({
         url: 'Authentication/request-password-reset',
@@ -126,4 +133,4 @@ export const api = createApi({
   }),
 });
 
-export const { useLoginMutation, useRegisterMutation, useUserQuery, useUpdateUserMutation, useCreateTripMutation, useRecoverPasswordMutation, useResetPasswordMutation } = api;
+export const { useLoginMutation, useRegisterMutation, useUserQuery, useUpdateUserMutation, useCreateTripMutation, useRecoverPasswordMutation, useResetPasswordMutation, useTripHistoryQuery } = api;

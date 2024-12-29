@@ -13,6 +13,7 @@
 
 .current-trip,
 .past-trips {
+  margin-top: 20px;
   margin-bottom: 20px;
 }
 

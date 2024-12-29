@@ -5,6 +5,15 @@ export type User = {
   lastName: string;
 };
 
+export type Trip = {
+  id: string;
+  name: string;
+  destination: string;
+  description: string;
+  startDate: string;
+  endDate: string;
+}
+
 export namespace Api {
   export type RegisterRequest = {
     email: string;
@@ -46,6 +55,12 @@ export namespace Api {
     token?: string;
     password: string;
   };
+
+  export type TripHistoryRequest = {
+    userId: string;
+  };
+
+  export type TripHistoryResponse = Trip[];
 
   export type ResetPasswordResponse = void;
 
