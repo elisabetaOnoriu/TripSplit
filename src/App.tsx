@@ -38,7 +38,6 @@ const App = () => {
             <Route path='/Notifications' element={<Notifications />} /> {/* Updated */}
             <Route path='/MyTrips' element={<MyTrips />} />
             <Route path='/CreateTrip' element={<CreateTrip />} />
-            <Route path='/GenerateReport' element={<GenerateReports />} />
             <Route path='/ManageUsers_admin' element={<h1>Manage Users</h1>} />
             <Route path="/invite/:tripId" element={<InviteFriend />} />
             <Route path='/AdminPage' element={<AdminPage />} />
