@@ -45,7 +45,7 @@ const MyTrips = () => {
               </div>
               <div
                 className="see-more-arrow"
-                onClick={() => navigate('/Trip')}
+                onClick={() => navigate('/TripPage')}
               >
                 ➔
               </div>

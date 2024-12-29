@@ -17,6 +17,7 @@ import AccountValidated from './Components/AccountValidated';
 import Notifications from './Pages/Notifications/Notifications'; 
 import InviteFriend from './Pages/InviteFriend/InviteFriend';
 import About from './Pages/About/About';
+import TripPage from './Pages/TripPage/TripPage';
 
 const App = () => {
   const theme = useAppSelector(state => state.theme.theme);
@@ -43,6 +44,7 @@ const App = () => {
             <Route path="/invite/:tripId" element={<InviteFriend />} />
             <Route path='/AdminPage' element={<AdminPage />} />
             <Route path='/About' element={<About />} />
+            <Route path='/TripPage' element={<TripPage />} />
           </Route>
         </Routes>
       </Router>
