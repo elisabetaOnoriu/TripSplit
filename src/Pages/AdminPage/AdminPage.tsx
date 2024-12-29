@@ -69,7 +69,7 @@ const AdminPage: React.FC = () => {
       <table>
         <thead>
           <tr>
-            <th>UserId</th>
+            <th>FirstName</th>
             <th>Email</th>
             <th>Actions</th>
           </tr>
