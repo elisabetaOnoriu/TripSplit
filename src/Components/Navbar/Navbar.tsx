@@ -26,17 +26,21 @@ const Navbar = () => {
 
   const showSidebar = () => setSidebar(!sidebar);
 
+  const hideSidebar = () => {console.log('Hiding sidebar'); setSidebar(false)};
+
   return (
     <>
-      <IconContext.Provider value={{ color: theme == 'light' ? 'black' : 'white' }}>
+      <IconContext.Provider value={{ color: theme === 'light' ? 'black' : 'white' }}>
         <div className='navbar'>
-          <Link to='#' className='menu-bars'>
-            <FaIcons.FaBars onClick={showSidebar} />
-          </Link>
+          {!sidebar && (
+            <Link to='#' className='menu-bars'>
+              <FaIcons.FaBars className='menu-img' onClick={showSidebar} />
+            </Link>
+          )}
           <img src={theme === 'light' ? logo_dark : logo_light} alt='' className='logo' />
           <ul>
-            <li onClick={() => navigate('/home')}>Home </li>
-            <li onClick={() => navigate('/About')}>About</li>
+            <li onClick={() => navigate('/home')}>Home</li>
+            <li onClick={() => navigate('../About')}>About</li>
             <li>Contact</li>
           </ul>
           <div className='search-box'>
@@ -51,10 +55,10 @@ const Navbar = () => {
           />
         </div>
         <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
-          <ul className='nav-menu-items' onClick={showSidebar}>
+          <ul className='nav-menu-items' >
             <li className='navbar-toggle'>
               <Link to='#' className='menu-bars'>
-                <AiIcons.AiOutlineClose onClick={showSidebar} />
+              <AiIcons.AiOutlineClose onClick={hideSidebar} className="close-icon" />
               </Link>
             </li>
             {SidebarData.map((item, index) => (
@@ -66,7 +70,7 @@ const Navbar = () => {
               </li>
             ))}
             <li className='nav-text'>
-              <button onClick={() => dispatch(logout())}>
+              <button className='btn' onClick={() => dispatch(logout())}>
                 <span>Logout</span>
               </button>
             </li>

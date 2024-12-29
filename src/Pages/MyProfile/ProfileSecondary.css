@@ -8,6 +8,12 @@
     text-align: left;
   }
   
+  .dark .profile-secondary-container {
+    background-color: rgba(43, 42, 42, 0.6);
+    color: #8491b4;
+    text-shadow: 2px 2px 5px rgb(14, 14, 14);
+  }
+  
   .profile-secondary-container h2 {
     font-size: 1.8rem;
     margin-bottom: 15px;
@@ -19,7 +25,17 @@
     margin: 10px 0;
     color: #555;
   }
+
+  .dark   .profile-secondary-container p {
+    color: #dfdfdf;
+    text-shadow: 2px 2px 5px rgb(14, 14, 14);
+  }
   
   .profile-secondary-container p strong {
     color: #222;
+  }
+
+  .dark .profile-secondary-container p strong {
+    color: hsl(0, 3%, 75%);
+    text-shadow: 2px 2px 5px rgb(14, 14, 14);
   }
