@@ -42,6 +42,11 @@ const TripPage = () => {
           ))}
         </ul>
       </div>
+
+      <div className="section-container"> 
+        <h2>Report</h2>
+            <button className="generate-button">Generate Report</button>
+      </div>
     </div>
   );
 };
