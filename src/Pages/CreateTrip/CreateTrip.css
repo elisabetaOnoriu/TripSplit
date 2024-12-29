@@ -7,6 +7,7 @@
   width: 800px;
   margin: 170px auto;
   color: #333;
+  text-shadow: 2px 2px 5px rgb(92, 91, 91);
 }
 
 .section-container {
@@ -29,6 +30,7 @@
 
 .dark .createTrip {
   background-color: rgba(29, 29, 29, 0.7);
+  text-shadow: 2px 2px 5px rgb(14, 14, 14);
   color: #ddd;
 }
 
@@ -37,11 +39,12 @@
   font-size: 2.2rem;
   color: #2d0c55;
   margin-bottom: 20px;
-  text-shadow: 2px 2px 4px rgba(90, 0, 90, 0.4);
+  text-shadow: 2px 2px 5px rgb(68, 68, 68);
 }
 
 .dark .title {
-  color:hsl(242, 85%, 79%)
+  color:hsl(242, 85%, 79%);
+  text-shadow: 2px 2px 5px rgb(14, 14, 14);
 }
 
 input {
@@ -56,8 +59,10 @@ input {
   transition: all 0.3s ease-in-out;
 }
 
-.dark .input {
+.dark input {
   background-color: rgba(53, 53, 53, 0.8);
+  text-shadow: 2px 2px 5px rgb(14, 14, 14);
+  color: #fff;
 }
 
 button {
@@ -92,6 +97,8 @@ button:hover {
   padding: 20px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
   font-size: 13px; 
+  z-index: 10;
+  position: absolute;
 }
 
 .react-datepicker__header {

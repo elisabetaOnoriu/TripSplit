@@ -1,7 +1,7 @@
 .profile-secondary-container {
     flex: 1;
     max-width: 400px;
-    background: rgba(245, 245, 245, 0.9);
+    background-color: rgba(197, 195, 219, 0.5);
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);

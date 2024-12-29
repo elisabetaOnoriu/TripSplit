@@ -11,13 +11,14 @@
   margin-top: -1px;
   position: fixed;
   top: 0;
+  z-index: 100;
 } 
 
 .logo {
   width: 130px;
   cursor: pointer;
   margin-left: 150px;
-  margin-top: 5px;
+  margin-top: 21px;
 }
 
 ul {
