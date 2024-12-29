@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import './CreateTrip.css';
 import 'react-datepicker/dist/react-datepicker.css';
 import DatePicker from 'react-datepicker';
-import { useCreateTripMutation } from '../../features/api';
+import { useAddUserToTripMutation, useCreateTripMutation } from '../../features/api';
+import { useAppSelector } from '../../features/store';
 
 const CreateTrip = () => {
   const [tripName, setTripName] = useState('');
@@ -10,8 +11,9 @@ const CreateTrip = () => {
   const [startDate, setStartDate] = useState<Date>();
   const [endDate, setEndDate] = useState<Date>();
 
+  const userId = useAppSelector(state => state.auth.userId);
   const [createTrip] = useCreateTripMutation();
-
+  const [addUserToTrip] = useAddUserToTripMutation();
   const handleDateChange = dates => {
     const [start, end] = dates;
     setStartDate(start);
@@ -27,12 +29,8 @@ const CreateTrip = () => {
       endDate: endDate?.toISOString(),
     };
 
-    let res = await createTrip(postdata);
-    if ('error' in res && res.error) {
-      alert(res.error?.message!);
-      return;
-    }
-
+    let createTripResponse = await createTrip(postdata);
+    await addUserToTrip({ tripId: createTripResponse.data?.tripId!, userId: userId! });
     alert('Trip created successfully');
   };
 

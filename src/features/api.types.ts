@@ -54,11 +54,20 @@ export namespace Api {
     endDate?: string;
   };
 
-  export type CreateTripResponse = void;
+  export type CreateTripResponse = {
+    tripId: number;
+  }
 
   export type TripHistoryRequest = {
     userId: string;
   };
+
+  export type AddUserToTripRequest = {
+    tripId: number;
+    userId: string;
+  };
+
+  export type AddUserToTripResponse = void;
 
   export type TripHistoryResponse = Trip[];
 

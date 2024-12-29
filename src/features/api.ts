@@ -116,7 +116,23 @@ export const api = createApi({
       }),
       providesTags: ['Trip'],
     }),
-
+    addUserToTrip: builder.mutation<Api.AddUserToTripResponse, Api.AddUserToTripRequest>({
+      query: data => ({
+        url: 'Trip/add-user-to-trip',
+        method: 'post',
+        data,
+      }),
+      invalidatesTags: ['Trip'],
+    }),
+    // same request and response types as addUserToTrip
+    setTripOwner: builder.mutation<Api.AddUserToTripResponse, Api.AddUserToTripRequest>({
+      query: data => ({
+        url: 'Trip/set-trip-owner',
+        method: 'post',
+        data,
+      }),
+      invalidatesTags: ['Trip'],
+    }),
     recoverPassword: builder.mutation<Api.RecoverPasswordResponse, Api.RecoverPasswordRequest>({
       query: data => ({
         url: 'Authentication/request-password-reset',
@@ -171,4 +187,6 @@ export const {
   useGetUserInvitationsQuery, // Hook for fetching user invitations
   useInviteUserMutation, // Hook for sending invitations
   useRespondToInvitationMutation, // Hook for accepting/rejecting invitations
+  useAddUserToTripMutation,
+  useSetTripOwnerMutation,
 } = api;
