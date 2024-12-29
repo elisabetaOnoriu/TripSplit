@@ -1,53 +1,53 @@
 import React, { useState, useEffect } from 'react';
+import { useDeleteUserMutation, useGetAllUsersQuery } from '../../features/api';
 import './AdminPage.css'; 
+import { set } from 'react-datepicker/dist/date_utils';
+import { User } from '../../features/api.types';
 
-interface User {
-  id: string;
-  username: string;
-  email: string;
-}
+// interface User {
+//   id: string;
+//   username: string;
+//   email: string;
+// }
 
 const AdminPage: React.FC = () => {
-  const [users, setUsers] = useState<User[]>([]);
+  const { data: userQuery } = useGetAllUsersQuery();
+  const [deleteUserMutation] = useDeleteUserMutation();
   const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc'); 
   const [searchQuery, setSearchQuery] = useState(''); 
 
+  const users: User[] = userQuery || [];
+
   useEffect(() => {
-    const fetchUsers = async () => {
-      const response = await fetch('/api/users'); 
-      const data: User[] = await response.json();
-      setUsers(data);
-      setFilteredUsers(data);
-    };
-    fetchUsers();
-  }, []);
+    if (users.length > 0) {
+      setFilteredUsers(users);
+    }
+  }, [users]);
 
   const sortUsers = (order: 'asc' | 'desc') => {
     const sortedUsers = [...filteredUsers].sort((a, b) => {
-      if (a.username.toLowerCase() < b.username.toLowerCase()) return order === 'asc' ? -1 : 1;
-      if (a.username.toLowerCase() > b.username.toLowerCase()) return order === 'asc' ? 1 : -1;
+      if (a.firstName.toLowerCase() < b.firstName.toLowerCase()) return order === 'asc' ? -1 : 1;
+      if (a.firstName.toLowerCase() > b.firstName.toLowerCase()) return order === 'asc' ? 1 : -1;
       return 0;
     });
     setFilteredUsers(sortedUsers);
     setSortOrder(order);
   };
 
-  
+  // Search users by firstname
   const searchUsers = (query: string) => {
     setSearchQuery(query);
     const result = users.filter(user =>
-      user.username.toLowerCase().includes(query.toLowerCase())
+      user.firstName.toLowerCase().includes(query.toLowerCase())
     );
     setFilteredUsers(result);
   };
 
-
   const deleteUser = async (userId: string) => {
     if (window.confirm('Are you sure you want to delete this user?')) {
-      await fetch(`/api/users/${userId}`, { method: 'DELETE' });
+      await deleteUserMutation({ userId });
       const updatedUsers = users.filter(user => user.id !== userId);
-      setUsers(updatedUsers);
       setFilteredUsers(updatedUsers);
     }
   };
@@ -77,7 +77,7 @@ const AdminPage: React.FC = () => {
         <tbody>
           {filteredUsers.map(user => (
             <tr key={user.id}>
-              <td>{user.username}</td>
+              <td>{user.firstName}</td>
               <td>{user.email}</td>
               <td>
                 <button onClick={() => deleteUser(user.id)}>Delete</button>

@@ -39,6 +39,18 @@ export namespace Api {
     userId: string;
   };
 
+  export type GetAllUsersRequest = void;
+
+  export type GetAllUsersResponse = {
+    users: User[];
+  }
+
+  export type DeleteUserRequest = {
+    userId: string;
+  };
+
+  export type DeleteUserResponse = void;
+
   export type UserResponse = User;
 
   export type UpdateUserRequest = User;

@@ -101,6 +101,20 @@ export const api = createApi({
       }),
       invalidatesTags: ['User'],
     }),
+    getAllUsers: builder.query<Api.GetAllUsersResponse, Api.GetAllUsersRequest>({
+      query: () => ({
+        url: 'User/get-all-users',
+        method: 'get',
+      }),
+      providesTags: ['User'],
+    }),
+    deleteUser : builder.mutation<Api.DeleteUserResponse, Api.DeleteUserRequest>({
+      query: ({ userId }) => ({
+        url: `User/delete-user?userId=${userId}`,
+        method: 'delete',
+      }),
+      invalidatesTags: ['User'],
+    }),
     createTrip: builder.mutation<Api.CreateTripResponse, Api.CreateTripRequest>({
       query: data => ({
         url: 'Trip/create',
@@ -189,4 +203,6 @@ export const {
   useRespondToInvitationMutation, // Hook for accepting/rejecting invitations
   useAddUserToTripMutation,
   useSetTripOwnerMutation,
+  useGetAllUsersQuery,
+  useDeleteUserMutation,
 } = api;
