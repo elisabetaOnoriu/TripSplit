@@ -87,7 +87,9 @@ const MyTrips = () => {
         )}
       </div>
 
-      <button className="add-trip-button">Add Trip</button>
+      <button className="add-trip-button" onClick={() => navigate('/CreateTrip')}>
+        Add Trip
+      </button>
     </div>
   );
 };
