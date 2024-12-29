@@ -1,0 +1,169 @@
+/* General Styles */
+.trip-container {
+    font-family: 'Arial', sans-serif;
+    margin-top: 30px;
+    padding: 0;
+    color: #232323;
+    min-height: 100vh;
+    width: 1200px;
+}
+
+.section-container {
+    width: 80%;
+    margin: 30px auto;
+    padding: 20px;
+    background: rgba(197, 195, 219, 0.5);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    margin-top:30px;
+}
+
+.section-container + .section-container {
+    margin-top: 40px;
+}
+
+.section-container h1, .section-container h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #380e56;
+}
+
+.section-container p {
+    font-size: 1.2rem;
+    margin: 10px 0;
+    line-height: 1.5;
+}
+
+.divider {
+    height: 2px;
+    background: rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    width: 80%;
+}
+
+.trip-users-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.trip-users-list li {
+    background: rgba(197, 195, 219, 0.5);
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    font-size: 1rem;
+    color: #4b0082;
+    flex: 1 1 200px;
+    text-align: center;
+}
+
+.expenses-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 20px auto;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.expense-item {
+    background: rgba(197, 195, 219, 0.5);
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.expense-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.expense-item p {
+    margin: 0;
+    font-size: 1rem;
+    color: #4b0082;
+}
+
+.edit-expense-btn, .save-expense-btn {
+    background: linear-gradient(90deg, #6a5acd, #836fff);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.3s;
+    margin-top: 10px;
+}
+
+.edit-expense-btn:hover, .save-expense-btn:hover {
+    background: linear-gradient(90deg, #483d8b, #5d5db3);
+}
+
+.editable-input {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.cta-section {
+    text-align: center;
+    margin: 40px auto;
+    padding: 20px;
+    background: rgba(197, 195, 219, 0.5);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.cta-section h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #4b0082;
+}
+
+.cta-section p {
+    font-size: 1rem;
+    color: #4b0082;
+    margin-bottom: 20px;
+}
+
+.cta-button {
+    font-size: 1.2rem;
+    padding: 10px 20px;
+    background: linear-gradient(90deg, #6a5acd, #836fff);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+}
+
+.cta-button:hover {
+    background: linear-gradient(90deg, #483d8b, #5d5db3);
+    transform: scale(1.05);
+}
+
+.footer {
+    text-align: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.8);
+    font-size: 0.9rem;
+    color: #fff;
+    margin-top: 30px;
+    border-radius: 10px;
+}
