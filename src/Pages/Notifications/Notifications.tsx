@@ -12,7 +12,7 @@ const Notifications = () => {
   if (isError) return <div>Failed to load notifications.</div>;
 
   return (
-    <div>
+    <div style={{ padding: "20px" }}>
       <h1>Notifications</h1>
       {invitations?.length ? (
         <InvitationList invitations={invitations} />
