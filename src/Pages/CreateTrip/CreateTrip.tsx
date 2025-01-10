@@ -39,14 +39,14 @@ const CreateTrip = () => {
       <h1 className='title'>Create Trip</h1>
 
       <div className='section-container'>
-        <h2>Destination</h2>
+        <h3 className="subtitle">Destination</h3>
         <input
           type='text'
           value={tripName}
           onChange={e => setTripName(e.target.value)}
           placeholder='Enter destination name'
         />
-        <h2>Description</h2>
+        <h3 className="subtitle">Description</h3>
         <input
           type='text'
           value={description}
@@ -57,7 +57,7 @@ const CreateTrip = () => {
 
       <div className='section-container'>
         <div>
-          <label htmlFor='start-date'>Start Date:</label>
+          <h3 className="subtitle">Start Date:</h3>
           <input
             type='text'
             id='start-date'
@@ -71,7 +71,7 @@ const CreateTrip = () => {
           />
         </div>
         <div>
-          <label htmlFor='end-date'>End Date:</label>
+          <h3 className="subtitle">End Date:</h3>
           <input
             type='text'
             id='end-date'
@@ -104,7 +104,9 @@ const CreateTrip = () => {
       <button onClick={handleSaveTrip} className='save-trip-btn'>
         Save Trip
       </button>
+  
     </div>
+    
   );
 };
 

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDeleteUserMutation, useGetAllUsersQuery } from '../../features/api';
 import './AdminPage.css'; 
-import { set } from 'react-datepicker/dist/date_utils';
 import { User } from '../../features/api.types';
 
 // interface User {
@@ -35,11 +34,11 @@ const AdminPage: React.FC = () => {
     setSortOrder(order);
   };
 
-  // Search users by firstname
+ 
   const searchUsers = (query: string) => {
     setSearchQuery(query);
     const result = users.filter(user =>
-      user.firstName.toLowerCase().includes(query.toLowerCase())
+      user.email.toLowerCase().includes(query.toLowerCase())
     );
     setFilteredUsers(result);
   };
@@ -54,11 +53,11 @@ const AdminPage: React.FC = () => {
 
   return (
     <div className="manage-users-admin">
-      <h1>Manage Users</h1>
+      <h1 className="titlemanage">Manage Users</h1>
       <div className="controls">
         <input
           type="text"
-          placeholder="Search by username"
+          placeholder="Search by email"
           value={searchQuery}
           onChange={(e) => searchUsers(e.target.value)}
         />
@@ -67,7 +66,7 @@ const AdminPage: React.FC = () => {
         </button>
       </div>
       <table>
-        <thead>
+        <thead className="antet">
           <tr>
             <th>FirstName</th>
             <th>Email</th>
@@ -86,6 +85,7 @@ const AdminPage: React.FC = () => {
           ))}
         </tbody>
       </table>
+      
     </div>
   );
 };

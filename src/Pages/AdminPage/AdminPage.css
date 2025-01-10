@@ -1,11 +1,20 @@
 .manage-users-admin {
     padding: 20px;
+    background-color: rgba(197, 195, 219, 0.7);
+    border-radius: 12px;
+    margin-top: 100px;
   }
   
+  .dark .manage-users-admin {
+    background-color: rgba(29, 29, 29, 0.7);
+    text-shadow: 2px 2px 5px rgb(14, 14, 14);
+    color: #ddd;
+  }
+
   .manage-users-admin .controls {
     margin-bottom: 20px;
   }
-  
+
   .manage-users-admin .controls input {
     padding: 8px;
     margin-right: 10px;
@@ -22,10 +31,24 @@
     padding: 10px;
     text-align: left;
   }
-  
-  .manage-users-admin table th {
-    background-color: #f4f4f4;
+
+  .titlemanage{
+    color: rgb(34, 20, 82);
   }
+
+  .dark .titlemanage{
+    color: rgb(255, 255, 255);
+  }
+  
+  .antet {
+    background-color: #f4f4f4;
+    color: rgb(34, 20, 82);
+  }
+
+ .dark .antet {
+  background-color: #303030;
+  color: rgb(255, 255, 255);
+}
   
   .manage-users-admin button {
     background-color: #ff4d4d;
