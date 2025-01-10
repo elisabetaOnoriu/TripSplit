@@ -86,7 +86,7 @@ const CreateTrip = () => {
         </div>
       </div>
 
-      <div className='section-container'>
+      <div className='calendar'>
         <DatePicker
           selected={startDate}
           onChange={handleDateChange}

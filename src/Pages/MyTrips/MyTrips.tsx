@@ -39,7 +39,7 @@ const MyTrips = () => {
               </div>
               
               <div className="trip-actions">
-                <button onClick={() => navigate(`/invite/${trip.id}`)}>
+                <button className="inviting_friend" onClick={() => navigate(`/invite/${trip.id}`)}>
                   Invite a Friend
                 </button>
               </div>

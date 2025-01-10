@@ -13,9 +13,6 @@ const About: React.FC = () => {
 
     return (
         <div className="about-page">
-            <header className="header-about">
-                
-            </header>
 
             <main className="main-content">
                 <section className="hero">
@@ -48,6 +45,9 @@ const About: React.FC = () => {
                     </div>
                 </section>
 
+                <header className="header-about"> 
+            </header>
+            
                 <section id="trips" className="trips-section">
                     <h2>Plan Your Next Trip</h2>
                     <p>Create your trip and invite friends to collaborate.</p>

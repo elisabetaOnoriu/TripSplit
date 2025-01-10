@@ -9,6 +9,7 @@ function EmailReset() {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
+  const [popupVisible, setPopupVisible] = useState(false);
 
   const handleEmailChange = (value: string) => {
     setEmail(value);
@@ -26,10 +27,16 @@ function EmailReset() {
 
     if (!emailError && email) {
       console.log('Email submitted:', email);
-      navigate('/login');
+      setPopupVisible(true); 
     } else {
       console.log('Form submission failed. Validation errors present.');
     }
+  };
+
+  const handleClosePopup = () => {
+    setPopupVisible(false);
+    
+    navigate('/login'); 
   };
 
   const isFormValid = () => email && !emailError;
@@ -66,6 +73,15 @@ function EmailReset() {
           Submit
         </button>
       </form>
+
+      {popupVisible && (
+        <div className='popup'>
+          <div className='popup-content'>
+            <p>To reset your password, check your email for further instructions.</p>
+            <button onClick={handleClosePopup}>Close</button>
+          </div>
+        </div>
+      )}
     </>
   );
 }

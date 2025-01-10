@@ -8,6 +8,10 @@
     padding: 20px;
 }
 
+.popup-content{
+    color: black;
+}
+
 .theme-toggle-button {
     position: absolute;
     top: 20px;

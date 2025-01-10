@@ -12,10 +12,9 @@ const ProfileSecondary = ({ user }) => {
 
   return (
     <div className="profile-secondary-container">
-      <h2>Personal Trips Overview</h2>
+      <h2 className='title_profile_secondary'>Personal Trips Overview</h2>
       <p><strong>Number of Trips:</strong> {currentUser.numberOfTrips}</p>
       <p><strong>Total Amount Spent:</strong> ${currentUser.amountSpent}</p>
-      <p><strong>Favorite Destination:</strong> {currentUser.favoriteDestination}</p>
     </div>
   );
 };

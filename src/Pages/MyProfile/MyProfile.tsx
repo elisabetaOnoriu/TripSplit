@@ -36,7 +36,7 @@ const MyProfile = () => {
   return (
     <div className='profile-container'>
       <div className='profile-details-container'>
-        <h1>Hello, {user.firstName}!</h1>
+        <h1 className='title_myprofile'>Hello, {user.firstName}!</h1>
         <p>
           <strong>First Name:</strong>{' '}
           {isEditing ? (
@@ -77,7 +77,7 @@ const MyProfile = () => {
           {isEditing ? 'Cancel' : 'Edit Profile'}
         </button>
         {isEditing && (
-          <button onClick={handleSave} className='save-profile-btn'>
+          <button className="save-profile-btn" onClick={handleSave} >
             Save Changes
           </button>
         )}

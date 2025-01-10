@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useInviteUserMutation } from "../../features/api";
+import './InviteFriend.css'
 
 const InviteFriend = () => {
   const { tripId } = useParams<{ tripId: string }>();
@@ -38,7 +39,7 @@ const InviteFriend = () => {
             required
           />
         </div>
-        <button type="submit" disabled={isLoading}>
+        <button className="inviting_button_form"type="submit" disabled={isLoading}>
           {isLoading ? "Sending..." : "Send Invitation"}
         </button>
       </form>

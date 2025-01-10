@@ -10,8 +10,8 @@ const Home = () => {
   return (
     <div className="home-container">
       <div className="welcome-content">
-        <h1>Welcome to TripSplit!</h1>
-        <p>
+        <h1 className='title_home'>Welcome to TripSplit!</h1>
+        <p className='text_home'>
           Plan, track, and share your travel expenses effortlessly with TripSplit. Whether
           you're traveling with friends, family, or solo, our app makes splitting costs
           and generating reports easier than ever.
@@ -25,7 +25,7 @@ const Home = () => {
             <li>📊 Generate detailed reports for personal and group expenses.</li>
           </ul>
         </div>
-        <button onClick={() => navigate('/About')} className="explore-btn">Explore Now</button>
+        <button className="explore-btn" onClick={() => navigate('/About')} >Explore Now</button>
       </div>
     </div>
   );

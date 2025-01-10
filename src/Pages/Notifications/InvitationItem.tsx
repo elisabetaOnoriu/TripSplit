@@ -1,6 +1,7 @@
 import React from "react";
-import { Api } from "../features/api.types";
-import { useRespondToInvitationMutation } from "../features/api";
+import { Api } from "../../features/api.types";
+import { useRespondToInvitationMutation } from "../../features/api";
+import './InvitationItem.css';
 
 type InvitationItemProps = {
   invitation: Api.Invitation;
@@ -48,7 +49,7 @@ const InvitationItem = ({ invitation }: InvitationItemProps) => {
       <h3 style={{ margin: "0 0 10px" }}>{invitation.tripName}</h3>
       <p style={{ margin: "5px 0" }}>Destination: {invitation.tripDestination}</p>
       <div style={{ marginTop: "10px" }}>
-        <button
+        <button className="handle_request_button"
           onClick={handleAccept}
           disabled={isLoading}
           style={{
@@ -63,7 +64,7 @@ const InvitationItem = ({ invitation }: InvitationItemProps) => {
         >
           {isLoading ? "Processing..." : "Accept"}
         </button>
-        <button
+        <button className="handle_request_button"
           onClick={handleDecline}
           disabled={isLoading}
           style={{

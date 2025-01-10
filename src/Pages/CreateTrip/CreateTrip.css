@@ -15,12 +15,21 @@
   padding: 15px;
   background: rgba(197, 195, 219, 0.9);
   border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
   color: #3c0058; 
 }
 
+.calendar{
+  margin-bottom: 20px;
+  margin-left: 17px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+}
+
 .dark .section-container{
-  background: rgba(60, 60, 60, 0.9);
+  background: rgba(48, 47, 47, 0.9);
   color: #d6d6d7;  
 }
 
@@ -29,7 +38,7 @@
 }
 
 .dark .createTrip {
-  background-color: rgba(29, 29, 29, 0.7);
+  background: rgba(60, 60, 60, 0.9);
   text-shadow: 2px 2px 5px rgb(14, 14, 14);
   color: #ddd;
 }
@@ -79,8 +88,8 @@ input {
   color: #fff;
 }
 
-button {
-  background: linear-gradient(to right, #cc57de, #190a62);
+.save-trip-btn {
+  background: linear-gradient(90deg, #007bff, #6a5acd);
   color: white;
   padding: 10px 15px;
   font-size: 1rem;
@@ -89,11 +98,12 @@ button {
   cursor: pointer;
   transition: background-color 0.3s ease-in-out, transform 0.2s;
   margin-top: 10px;
+  margin-left: 325px;
 }
 
-button:hover {
-  background-color: #3d0a60;
-  transform: scale(1.05);
+.save-trip-btn:hover{
+  background: linear-gradient(90deg, #0056b3, #483d8b);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
 }
 
 .calendar-section {
@@ -116,11 +126,30 @@ button:hover {
 
 .dark .react-datepicker{
   background-color: rgba(53, 53, 53);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
+
+.light .react-datepicker__current-month--hasYearDropdown,
+.light .react-datepicker__current-month--hasMonthDropdown{
+  color: #3c0058; 
+  font-size: 2rem;
+}
+
+.dark .react-datepicker__current-month--hasYearDropdown,
+.dark .react-datepicker__current-month--hasMonthDropdown{
+  color: white; 
+  font-size: 2rem;
+}
+
+.react-datepicker__navigation-icon, 
+.react-datepicker__navigation-icon--next{
+  margin-right: 23px;
+  z-index: 1000;
+}
+
 
 .react-datepicker__header {
   border-bottom: 1px solid rgba(91, 44, 157, 0.5);
-  color: rgba(6, 6, 6, 0.8);
   font-size: 1.2rem;
   border-radius: 12px 12px 0 0;
   padding: 10px;

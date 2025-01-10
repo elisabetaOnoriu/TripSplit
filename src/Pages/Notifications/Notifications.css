@@ -1,0 +1,6 @@
+.notifications_title{
+    color: #2d0c55;
+}
+.dark .notifications_title{
+    color: white;
+}

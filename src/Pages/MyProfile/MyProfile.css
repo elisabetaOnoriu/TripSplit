@@ -20,6 +20,14 @@
     text-align: left;
   }
 
+  .light .title_myprofile{
+    color: #2d0c55;
+  }
+
+  .dark .title_myprofile {
+    color: white;
+  }
+
   .dark .profile-details-container {
     background-color: rgba(43, 42, 42, 0.6);
     color: #fff;
@@ -49,7 +57,6 @@
     margin-bottom: 20px;
     text-align: left;
     text-shadow: 2px 2px 5px rgb(14, 14, 14);
-    color: #7c9ed8;
     text-shadow: 2px 2px 5px rgb(14, 14, 14);
   }
 
@@ -86,9 +93,9 @@
   
   .edit-profile-btn,
 .save-profile-btn {
-  margin-top: 20px;
+  margin: 20px;
   padding: 10px 20px;
-  background-color: #3f3f3f;
+  background: linear-gradient(90deg, #007bff, #6a5acd);
   color: white;
   border: none;
   border-radius: 5px;
@@ -96,18 +103,11 @@
   transition: background-color 0.3s ease;
 }
 
-.edit-profile-btn:hover,
-.save-profile-btn:hover {
-  background-color: #555;
-}
 
-.save-profile-btn {
-  margin-left: 10px;
-  background-color: #28a745;
-}
-
-.save-profile-btn:hover {
-  background-color: #218838;
+.save-profile-btn:hover,
+.edit-profile-btn:hover {
+  background: linear-gradient(90deg, #0056b3, #483d8b);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
 }
 
 .editable-input {

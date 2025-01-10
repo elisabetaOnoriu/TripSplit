@@ -10,8 +10,9 @@ function Welcome() {
     <>
       <ThemeSelector />
 
+
       <h1 className='header'>Trip Split</h1>
-      <button className='button' onClick={() => navigate('/register')}>
+      <button className='button_home' onClick={() => navigate('/register')}>
         Register
       </button>
       <div className='text-container'>

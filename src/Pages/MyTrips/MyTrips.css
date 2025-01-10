@@ -2,11 +2,16 @@
   font-family: Arial, sans-serif;
   padding: 20px;
   background: rgba(197, 195, 219, 0.5);
-  color: #3d0c6d;
+  color: #2d0c55;
   min-height: 100vh;
   width: 450px;
   margin-top: 150px;
   border-radius: 12px;
+}
+
+.dark .my-trips-container{
+  background: rgba(60, 60, 60, 0.9);
+  color: #d6d6d7; 
 }
 
 .my-trips-title {
@@ -14,7 +19,7 @@
   font-size: 36px;
   margin-top: 20px;
   margin-bottom: 40px;
-  color: #303030;
+  color: #2d0c55;
   text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
@@ -22,29 +27,21 @@
   color: #ffffff;
 }
 
-.current-trip-container,
-.past-trips-container {
-  background: rgba(197, 195, 219, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 12px;
-  padding: 20px;
-  margin-bottom: 40px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-  transition: transform 0.3s, box-shadow 0.3s;
+.inviting_friend{
+  background: linear-gradient(90deg, #007bff, #6a5acd);
+  color: white;
+  padding: 10px 15px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out, transform 0.2s;
+  margin-top: 10px;
 }
 
-.current-trip-container:hover,
-.past-trips-container:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-}
-
-.current-trip-container h2,
-.past-trips-container h2 {
-  font-size: 28px;
-  color: #40015a;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-  margin-bottom: 20px;
+.inviting_friend:hover{
+  background: linear-gradient(90deg, #0056b3, #483d8b);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
 }
 
 .trip-item {
@@ -60,6 +57,10 @@
   transition: transform 0.3s, box-shadow 0.3s;
 }
 
+.dark .trip-item{
+  background: rgba(48, 47, 47, 0.9);
+}
+
 .trip-item:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
@@ -68,14 +69,22 @@
 .trip-info h3 {
   margin: 0;
   font-size: 24px;
-  color: #850aa7;
+  color: #2d0c55;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.dark .trip-info h3{
+  color: white;
 }
 
 .trip-info p {
   margin: 5px 0;
   font-size: 16px;
-  color: #322370;
+  color: #2d0c55;
+}
+
+.dark .trip-info p{
+  color: white;
 }
 
 .trip-cost {

@@ -17,27 +17,44 @@
   max-width: 600px;
 }
 
+.dark .welcome-content{
+  background: rgba(60, 60, 60, 0.9);
+  color: #d6d6d7;
+}
+
 .logo {
   width: 100px;
   margin-bottom: 20px;
 }
 
-h1 {
+.title_home {
   font-size: 2.5rem;
   margin-bottom: 15px;
-  color: #2c3e50;
+  color: #3c0058; 
 }
 
-p {
+.dark .title_home{
+  color: white;
+}
+
+.text_home {
   font-size: 1.1rem;
   line-height: 1.6;
   color: #555;
 }
 
+.dark .text_home{
+  color: white;
+}
+
 .feature-list h3 {
   margin-top: 20px;
-  color: #34495e;
+  color: #3c0058; 
   cursor: default;
+}
+
+.dark .feature-list h3{
+  color: white;
 }
 
 .feature-list ul {
@@ -54,49 +71,20 @@ p {
 }
 
 .explore-btn {
-padding: 12px 20px;
-border: none;
-border-radius: 5px;
-cursor: pointer;
-width: 100%;
-font-size: 1rem;
-margin-top: 20px;
-transition: background-color 0.3s ease, transform 0.2s ease;
+  background: linear-gradient(90deg, #007bff, #6a5acd);
+  color: white;
+  padding: 10px 15px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out, transform 0.2s;
+  margin-top: 10px;
 }
 
-
-.light .explore-btn  {
-background-color: #fff;
-color: black;
-}
-
-.light .explore-btn:hover {
-background-color: #f1f1f1;
-transform: scale(1.05);
-}
-
-.light .explore-btn:active {
-background-color: #e0e0e0;
-}
-
-.dark .explore-btn  {
-background-color: #333;
-color: white;
-}
-
-.dark .explore-btn:hover {
-background-color: #444;
-transform: scale(1.05);
-}
-
-.dark .explore-btn:active {
-background-color: #555;
-}
-
-.error-message {
-color: red;
-font-size: 12px;
-margin-top: -10px;
+.explore-btn:hover{
+  background: linear-gradient(90deg, #0056b3, #483d8b);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
 }
 
 .dark {
@@ -104,36 +92,4 @@ background-color: #333;
 color: white;
 }
 
-.dark .input {
-background-color: #555;
-color: white;
-border-color: #777;
-}
-
-.dark .input:focus {
-border-color: #4CAF50;
-}
-
-.light {
-background-color: white;
-color: black;
-}
-
-.light .input {
-background-color: white;
-color: black;
-border-color: #ccc;
-}
-
-.light .input:focus {
-border-color: #4CAF50;
-}
-
-input::placeholder {
-color: #888;
-}
-
-input:focus::placeholder {
-color: transparent; 
-}
 

@@ -1,7 +1,8 @@
 import React from "react";
 import { useAppSelector } from "../../features/store";
 import { useGetUserInvitationsQuery } from "../../features/api";
-import InvitationList from "../../Components/InvitationList";
+import InvitationList from "./InvitationList";
+import './Notifications.css'
 
 const Notifications = () => {
   const userId = useAppSelector((state) => state.auth.userId);
@@ -13,7 +14,7 @@ const Notifications = () => {
 
   return (
     <div style={{ padding: "20px" }}>
-      <h1>Notifications</h1>
+      <h1 className="notifications_title">Notifications</h1>
       {invitations?.length ? (
         <InvitationList invitations={invitations} />
       ) : (
