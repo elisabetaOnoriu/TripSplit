@@ -2,9 +2,6 @@ import React from 'react';
 import './About.css';
 import { useAppSelector } from '../../features/store';
 import { useNavigate } from 'react-router-dom';
-import logo_light from '../../assets/logo-white.png';
-import logo_dark from '../../assets/logo-black.png';
-import trip from '../../assets/bck2.jpg';
 
 const About: React.FC = () => {
     const theme = useAppSelector((state: any) => state.theme.theme);
@@ -47,7 +44,7 @@ const About: React.FC = () => {
 
                 <header className="header-about"> 
             </header>
-            
+
                 <section id="trips" className="trips-section">
                     <h2>Plan Your Next Trip</h2>
                     <p>Create your trip and invite friends to collaborate.</p>

@@ -162,7 +162,7 @@ input::placeholder {
 }
 
 input:focus::placeholder {
-    color: transparent;\
+    color: transparent;
 }
 
 @media (max-width: 480px) {
