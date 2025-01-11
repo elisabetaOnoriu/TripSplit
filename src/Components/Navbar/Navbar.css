@@ -21,13 +21,13 @@
   margin-top: 21px;
 }
 
-ul {
+.nav-elements {
   flex: 1;
   list-style: none;
   text-align: center;
 }
 
-ul li {
+.nav-elements li {
   display: inline-block;
   margin: 10px 20px;
   font-size: 16px;

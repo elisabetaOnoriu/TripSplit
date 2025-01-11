@@ -38,7 +38,7 @@ const Navbar = () => {
             </Link>
           )}
           <img src={theme === 'light' ? logo_dark : logo_light} alt='' className='logo' />
-          <ul>
+          <ul className="nav-elements">
             <li onClick={() => navigate('/home')}>Home</li>
             <li onClick={() => navigate('../About')}>About</li>
             <li onClick={() => navigate('../Contact')}>Contact</li>
