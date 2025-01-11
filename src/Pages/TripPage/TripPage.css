@@ -74,13 +74,15 @@
     white-space: nowrap;   
     text-align: center;
     background: linear-gradient(90deg, #007bff, #6a5acd);  
-    transition: background-color 0.3s ease; 
+    transition: background-color 0.3s ease-in-out, transform 0.2s;
+    transform: scale(1.05);
     text-align: center;
   }
   
   button.generate-button:hover {
     background: linear-gradient(90deg, #4f449b, #5d5db3);
     transform: scale(1.03);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
   }
 
   .report-text{
