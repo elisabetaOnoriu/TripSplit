@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { Api } from "../../features/api.types";
 import { useRespondToInvitationMutation } from "../../features/api";
-import './InvitationItem.css';
+import "./InvitationItem.css";
 
 type InvitationItemProps = {
   invitation: Api.Invitation;
@@ -9,6 +9,7 @@ type InvitationItemProps = {
 
 const InvitationItem = ({ invitation }: InvitationItemProps) => {
   const [respondToInvitation, { isLoading }] = useRespondToInvitationMutation();
+  const [notificationMessage, setNotificationMessage] = useState<string>("");
 
   const handleAccept = async () => {
     try {
@@ -17,9 +18,11 @@ const InvitationItem = ({ invitation }: InvitationItemProps) => {
         userId: invitation.userId,
         isAccepted: true,
       }).unwrap();
-      alert("Invitation accepted!");
+      // Set success message instead of alert
+      setNotificationMessage("Invitation accepted!");
     } catch (error) {
-      alert("Failed to accept invitation.");
+      // Set error message instead of alert
+      setNotificationMessage("Failed to accept invitation.");
     }
   };
 
@@ -30,9 +33,11 @@ const InvitationItem = ({ invitation }: InvitationItemProps) => {
         userId: invitation.userId,
         isAccepted: false,
       }).unwrap();
-      alert("Invitation declined!");
+      // Set success message instead of alert
+      setNotificationMessage("Invitation declined!");
     } catch (error) {
-      alert("Failed to decline invitation.");
+      // Set error message instead of alert
+      setNotificationMessage("Failed to decline invitation.");
     }
   };
 
@@ -47,9 +52,12 @@ const InvitationItem = ({ invitation }: InvitationItemProps) => {
       }}
     >
       <h3 style={{ margin: "0 0 10px" }}>{invitation.tripName}</h3>
-      <p style={{ margin: "5px 0" }}>Destination: {invitation.tripDestination}</p>
+      <p style={{ margin: "5px 0" }}>
+        Destination: {invitation.tripDestination}
+      </p>
       <div style={{ marginTop: "10px" }}>
-        <button className="handle_request_button"
+        <button
+          className="handle_request_button"
           onClick={handleAccept}
           disabled={isLoading}
           style={{
@@ -64,7 +72,8 @@ const InvitationItem = ({ invitation }: InvitationItemProps) => {
         >
           {isLoading ? "Processing..." : "Accept"}
         </button>
-        <button className="handle_request_button"
+        <button
+          className="handle_request_button"
           onClick={handleDecline}
           disabled={isLoading}
           style={{
@@ -79,6 +88,20 @@ const InvitationItem = ({ invitation }: InvitationItemProps) => {
           {isLoading ? "Processing..." : "Decline"}
         </button>
       </div>
+
+      {/* Show success/error message (notification) */}
+      {notificationMessage && (
+        <div
+          style={{
+            marginTop: "10px",
+            backgroundColor: "#f0f0f0",
+            padding: "8px 12px",
+            borderRadius: "4px",
+          }}
+        >
+          {notificationMessage}
+        </div>
+      )}
     </div>
   );
 };

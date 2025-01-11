@@ -2,11 +2,10 @@ import React from "react";
 import { useAppSelector } from "../../features/store";
 import { useGetUserInvitationsQuery } from "../../features/api";
 import InvitationList from "./InvitationList";
-import './Notifications.css'
+import "./Notifications.css";
 
 const Notifications = () => {
   const userId = useAppSelector((state) => state.auth.userId);
-
   const { data: invitations, isLoading, isError } = useGetUserInvitationsQuery(userId!);
 
   if (isLoading) return <div>Loading notifications...</div>;

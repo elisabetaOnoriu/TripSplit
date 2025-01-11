@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Api } from "../../features/api.types";
 import InvitationItem from "./InvitationItem";
-import './InvitationItem.css'
+import "./InvitationItem.css";
 
 type InvitationListProps = {
   invitations: Api.Invitation[];
@@ -10,7 +10,6 @@ type InvitationListProps = {
 const InvitationList = ({ invitations }: InvitationListProps) => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
-
   const totalPages = Math.ceil(invitations.length / itemsPerPage);
 
   const paginatedInvitations = invitations.slice(
@@ -36,7 +35,8 @@ const InvitationList = ({ invitations }: InvitationListProps) => {
 
       {/* Pagination Controls */}
       <div style={{ marginTop: "20px", textAlign: "center" }}>
-        <button className="handle_request_button"
+        <button
+          className="handle_request_button"
           onClick={handlePrevPage}
           disabled={currentPage === 1}
           style={{
@@ -50,7 +50,8 @@ const InvitationList = ({ invitations }: InvitationListProps) => {
         <span>
           Page {currentPage} of {totalPages}
         </span>
-        <button className="handle_request_button"
+        <button
+          className="handle_request_button"
           onClick={handleNextPage}
           disabled={currentPage === totalPages}
           style={{
