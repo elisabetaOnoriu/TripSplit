@@ -41,7 +41,7 @@ const Navbar = () => {
           <ul>
             <li onClick={() => navigate('/home')}>Home</li>
             <li onClick={() => navigate('../About')}>About</li>
-            <li>Contact</li>
+            <li onClick={() => navigate('../Contact')}>Contact</li>
           </ul>
           <div className='search-box'>
             <input type='text' placeholder='Search' />

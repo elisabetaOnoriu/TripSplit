@@ -11,10 +11,12 @@ const CreateTrip = () => {
   const [startDate, setStartDate] = useState<Date>();
   const [endDate, setEndDate] = useState<Date>();
   const [notificationMessage, setNotificationMessage] = useState<string>("");
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
   const userId = useAppSelector(state => state.auth.userId);
   const [createTrip] = useCreateTripMutation();
   const [addUserToTrip] = useAddUserToTripMutation();
+
   const handleDateChange = dates => {
     const [start, end] = dates;
     setStartDate(start);
@@ -22,6 +24,9 @@ const CreateTrip = () => {
   };
 
   const handleSaveTrip = async () => {
+    setNotificationMessage('');  // Reset message
+    setErrorMessage('');  // Reset error message
+    
     const postdata = {
       name: tripName,
       destination: tripName,
@@ -30,9 +35,20 @@ const CreateTrip = () => {
       endDate: endDate?.toISOString(),
     };
 
-    let createTripResponse = await createTrip(postdata);
-    await addUserToTrip({ tripId: createTripResponse.data?.tripId!, userId: userId! });
-    setNotificationMessage("Trip created succesfully!");
+    try {
+      // Attempt to create the trip
+      let createTripResponse = await createTrip(postdata);
+
+      if (createTripResponse.data?.tripId) {
+        await addUserToTrip({ tripId: createTripResponse.data?.tripId!, userId: userId! });
+        setNotificationMessage("Trip created successfully!");
+      } else {
+        throw new Error("Failed to create trip");
+      }
+    } catch (error) {
+      // Handle any errors and display error message
+      setErrorMessage("Failed to create trip. Please try again.");
+    }
   };
 
   return (
@@ -62,11 +78,7 @@ const CreateTrip = () => {
           <input
             type='text'
             id='start-date'
-            value={
-              startDate
-                ? new Date(startDate.getTime() - startDate.getTimezoneOffset() * 60000).toISOString().split('T')[0]
-                : ''
-            }
+            value={startDate ? new Date(startDate.getTime() - startDate.getTimezoneOffset() * 60000).toISOString().split('T')[0] : ''}
             readOnly
             placeholder='Select a start date'
           />
@@ -76,11 +88,7 @@ const CreateTrip = () => {
           <input
             type='text'
             id='end-date'
-            value={
-              endDate
-                ? new Date(endDate.getTime() - endDate.getTimezoneOffset() * 60000).toISOString().split('T')[0]
-                : ''
-            }
+            value={endDate ? new Date(endDate.getTime() - endDate.getTimezoneOffset() * 60000).toISOString().split('T')[0] : ''}
             readOnly
             placeholder='Select an end date'
           />
@@ -105,9 +113,10 @@ const CreateTrip = () => {
       <button onClick={handleSaveTrip} className='save-trip-btn'>
         Save Trip
       </button>
-  
+
+      {notificationMessage && <div className="success-message">{notificationMessage}</div>}
+      {errorMessage && <div className="error-message">{errorMessage}</div>}
     </div>
-    
   );
 };
 
