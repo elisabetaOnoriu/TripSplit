@@ -12,7 +12,7 @@ const Contact = () => {
       <div className="flying-airplane">🚗</div>
 
       <div className="contact-content">
-        <h1 className='title_contact'>Welcome to TripSplit!</h1>
+        <h1 className='title_contact'>Need help❓</h1>
         <p className='text_contact'>
           Need some extra advice on using your TripSplit App?
         </p>
