@@ -22,6 +22,21 @@ export namespace Api {
     lastName: string;
     password: string;
   };
+  export interface TripParticipantDto {
+    userId: string;
+    firstName: string;
+    lastName: string;
+  }
+
+  export interface TripDetailDto {
+    id: number;
+    name: string;
+    destination: string;
+    description: string;
+    startDate: string;    // or Date, depending on how you handle it
+    endDate: string;
+    participants: TripParticipantDto[];
+  }
 
   export type RegisterResponse = void;
 

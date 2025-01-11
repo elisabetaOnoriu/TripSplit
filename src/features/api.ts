@@ -7,6 +7,9 @@ import { RootState } from './store';
 import { logout } from './auth';
 import { redirect } from 'react-router-dom';
 
+// -----------------------------------
+// 1) Base query for RTK Query (axios)
+// -----------------------------------
 const axiosBaseQuery =
   (
     { baseUrl } = { baseUrl: '' }
@@ -18,10 +21,7 @@ const axiosBaseQuery =
       params?: AxiosRequestConfig['params'];
     },
     unknown,
-    {
-      status: number;
-      message: string;
-    }
+    { status: number; message: string }
   > =>
   async ({ url, method, data }, { getState, dispatch }) => {
     try {
@@ -33,10 +33,13 @@ const axiosBaseQuery =
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
+          // For all routes except "Authentication", attach Bearer token
           ...(url.includes('Authentication')
             ? {}
             : {
-                Authorization: `Bearer ${(getState() as RootState).auth.token}`,
+                Authorization: `Bearer ${
+                  (getState() as RootState).auth.token
+                }`,
               }),
         },
       });
@@ -45,10 +48,9 @@ const axiosBaseQuery =
     } catch (e) {
       const err = e as AxiosError;
 
-      // Either expired token or unauthenticated user
+      // If token expired or unauthenticated
       if (err.response?.status === 401) {
-        // Routes which are noop in this case, so we can
-        // skip dispatching the actions to speed up the request processing
+        // If not the login route, dispatch a logout and redirect
         if (!url.includes('login')) {
           dispatch(logout());
           redirect('/login');
@@ -64,28 +66,39 @@ const axiosBaseQuery =
     }
   };
 
+// -----------------------------------
+// 2) Create the RTK Query API slice
+// -----------------------------------
 export const api = createApi({
   baseQuery: axiosBaseQuery({
     baseUrl: `https://localhost:7083/api/`,
   }),
-  tagTypes: ['User', 'Trip', 'Invitation'], // Added 'Invitation' for invalidation
-  endpoints: builder => ({
+  tagTypes: ['User', 'Trip', 'Invitation'],
+  endpoints: (builder) => ({
+
+    // -----------------------------------
+    // Auth-related endpoints
+    // -----------------------------------
     login: builder.mutation<Api.LoginResponse, Api.LoginRequest>({
-      query: data => ({
+      query: (data) => ({
         url: 'Authentication/login',
         method: 'post',
         data,
       }),
       invalidatesTags: ['User'],
     }),
+
     register: builder.mutation<Api.RegisterResponse, Api.RegisterRequest>({
-      query: data => ({
+      query: (data) => ({
         url: 'Authentication/register',
         method: 'post',
         data,
       }),
     }),
 
+    // -----------------------------------
+    // User-related endpoints
+    // -----------------------------------
     user: builder.query<Api.UserResponse, Api.UserRequest>({
       query: ({ userId }) => ({
         url: `User/get-user-by-id?userId=${userId}`,
@@ -93,14 +106,16 @@ export const api = createApi({
       }),
       providesTags: ['User'],
     }),
+
     updateUser: builder.mutation<Api.UpdateUserResponse, Api.UpdateUserRequest>({
-      query: data => ({
+      query: (data) => ({
         url: 'User/update-user',
         method: 'patch',
         data,
       }),
       invalidatesTags: ['User'],
     }),
+
     getAllUsers: builder.query<Api.GetAllUsersResponse, Api.GetAllUsersRequest>({
       query: () => ({
         url: 'User/get-all-users',
@@ -108,21 +123,27 @@ export const api = createApi({
       }),
       providesTags: ['User'],
     }),
-    deleteUser : builder.mutation<Api.DeleteUserResponse, Api.DeleteUserRequest>({
+
+    deleteUser: builder.mutation<Api.DeleteUserResponse, Api.DeleteUserRequest>({
       query: ({ userId }) => ({
         url: `User/delete-user?userId=${userId}`,
         method: 'delete',
       }),
       invalidatesTags: ['User'],
     }),
+
+    // -----------------------------------
+    // Trip-related endpoints
+    // -----------------------------------
     createTrip: builder.mutation<Api.CreateTripResponse, Api.CreateTripRequest>({
-      query: data => ({
+      query: (data) => ({
         url: 'Trip/create',
         method: 'post',
         data,
       }),
       invalidatesTags: ['Trip'],
     }),
+
     tripHistory: builder.query<Api.TripHistoryResponse, Api.TripHistoryRequest>({
       query: ({ userId }) => ({
         url: `Trip/get-trip-history?userId=${userId}`,
@@ -130,56 +151,86 @@ export const api = createApi({
       }),
       providesTags: ['Trip'],
     }),
+
     addUserToTrip: builder.mutation<Api.AddUserToTripResponse, Api.AddUserToTripRequest>({
-      query: data => ({
+      query: (data) => ({
         url: 'Trip/add-user-to-trip',
         method: 'post',
         data,
       }),
       invalidatesTags: ['Trip'],
     }),
-    // same request and response types as addUserToTrip
+
     setTripOwner: builder.mutation<Api.AddUserToTripResponse, Api.AddUserToTripRequest>({
-      query: data => ({
+      query: (data) => ({
         url: 'Trip/set-trip-owner',
         method: 'post',
         data,
       }),
       invalidatesTags: ['Trip'],
     }),
+
+    removeTrip: builder.mutation<void, number>({
+      query: (tripId) => ({
+        url: `Trip/remove-trip?tripId=${tripId}`,
+        method: 'delete',
+      }),
+      invalidatesTags: ['Trip'],
+    }),
+
+    // -----------------------------------
+    // New endpoint: get-trip-details
+    //   Returns trip info + participants
+    // -----------------------------------
+    getTripDetails: builder.query<Api.TripDetailDto, number>({
+      query: (tripId) => ({
+        url: `Trip/get-trip-details?tripId=${tripId}`,
+        method: 'get',
+      }),
+      providesTags: ['Trip'],
+    }),
+
+    // -----------------------------------
+    // Password Recovery endpoints
+    // -----------------------------------
     recoverPassword: builder.mutation<Api.RecoverPasswordResponse, Api.RecoverPasswordRequest>({
-      query: data => ({
+      query: (data) => ({
         url: 'Authentication/request-password-reset',
         method: 'post',
         data,
       }),
     }),
+
     resetPassword: builder.mutation<Api.ResetPasswordResponse, Api.ResetPasswordRequest>({
-      query: data => ({
+      query: (data) => ({
         url: 'Authentication/reset-password',
         method: 'post',
         data,
       }),
     }),
 
-    // New Endpoints for Invitations
+    // -----------------------------------
+    // Invitation-related endpoints
+    // -----------------------------------
     getUserInvitations: builder.query<Api.Invitation[], string>({
-      query: userId => ({
+      query: (userId) => ({
         url: `Invitation/get-user-invitations?userId=${userId}`,
         method: 'get',
       }),
       providesTags: ['Invitation'],
     }),
+
     inviteUser: builder.mutation<void, Api.InviteUserRequest>({
-      query: data => ({
+      query: (data) => ({
         url: 'Invitation/invite-by-email',
         method: 'post',
         data,
       }),
       invalidatesTags: ['Invitation'],
     }),
+
     respondToInvitation: builder.mutation<void, Api.RespondToInvitationRequest>({
-      query: data => ({
+      query: (data) => ({
         url: `Invitation/${data.isAccepted ? 'accept' : 'reject'}`,
         method: 'post',
         data,
@@ -189,6 +240,9 @@ export const api = createApi({
   }),
 });
 
+// -----------------------------------
+// 3) Export auto-generated hooks
+// -----------------------------------
 export const {
   useLoginMutation,
   useRegisterMutation,
@@ -198,11 +252,12 @@ export const {
   useRecoverPasswordMutation,
   useResetPasswordMutation,
   useTripHistoryQuery,
-  useGetUserInvitationsQuery, // Hook for fetching user invitations
-  useInviteUserMutation, // Hook for sending invitations
-  useRespondToInvitationMutation, // Hook for accepting/rejecting invitations
+  useGetUserInvitationsQuery,
+  useInviteUserMutation,
+  useRespondToInvitationMutation,
   useAddUserToTripMutation,
   useSetTripOwnerMutation,
   useGetAllUsersQuery,
   useDeleteUserMutation,
+  useGetTripDetailsQuery,
 } = api;
