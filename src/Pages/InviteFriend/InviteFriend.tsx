@@ -7,21 +7,26 @@ const InviteFriend = () => {
   const { tripId } = useParams<{ tripId: string }>();
   const [email, setEmail] = useState("");
   const [inviteUser, { isLoading }] = useInviteUserMutation();
+  const [notificationMessage, setNotificationMessage] = useState<string>("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!email || !tripId) {
-      alert("Please provide the user's email.");
+      setNotificationMessage("Please provide the user's email.");
+      //alert("");
       return;
     }
 
     try {
       await inviteUser({ tripId: Number(tripId), email }).unwrap();
-      alert("Invitation sent successfully!");
+      setNotificationMessage("Invitation sent successfully!");
+      //alert("Invitation sent successfully!");
       setEmail("");
     } catch (error) {
-      alert("Failed to send invitation. Please try again.");
+      setNotificationMessage("Failed to send invitation. Please try again.");
+      //alert("Failed to send invitation. Please try again.");
+
     }
   };
 

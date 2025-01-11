@@ -18,10 +18,8 @@ const InvitationItem = ({ invitation }: InvitationItemProps) => {
         userId: invitation.userId,
         isAccepted: true,
       }).unwrap();
-      // Set success message instead of alert
       setNotificationMessage("Invitation accepted!");
     } catch (error) {
-      // Set error message instead of alert
       setNotificationMessage("Failed to accept invitation.");
     }
   };
@@ -33,10 +31,8 @@ const InvitationItem = ({ invitation }: InvitationItemProps) => {
         userId: invitation.userId,
         isAccepted: false,
       }).unwrap();
-      // Set success message instead of alert
       setNotificationMessage("Invitation declined!");
     } catch (error) {
-      // Set error message instead of alert
       setNotificationMessage("Failed to decline invitation.");
     }
   };
@@ -89,7 +85,6 @@ const InvitationItem = ({ invitation }: InvitationItemProps) => {
         </button>
       </div>
 
-      {/* Show success/error message (notification) */}
       {notificationMessage && (
         <div
           style={{

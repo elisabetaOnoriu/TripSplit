@@ -10,6 +10,7 @@ const CreateTrip = () => {
   const [description, setDescription] = useState('');
   const [startDate, setStartDate] = useState<Date>();
   const [endDate, setEndDate] = useState<Date>();
+  const [notificationMessage, setNotificationMessage] = useState<string>("");
 
   const userId = useAppSelector(state => state.auth.userId);
   const [createTrip] = useCreateTripMutation();
@@ -31,7 +32,7 @@ const CreateTrip = () => {
 
     let createTripResponse = await createTrip(postdata);
     await addUserToTrip({ tripId: createTripResponse.data?.tripId!, userId: userId! });
-    alert('Trip created successfully');
+    setNotificationMessage("Trip created succesfully!");
   };
 
   return (
