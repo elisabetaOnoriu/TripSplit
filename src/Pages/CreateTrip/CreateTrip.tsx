@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './CreateTrip.css';
 import 'react-datepicker/dist/react-datepicker.css';
 import DatePicker from 'react-datepicker';
-import { useAddUserToTripMutation, useCreateTripMutation } from '../../features/api';
+import { useCreateTripMutation } from '../../features/api';
 import { useAppSelector } from '../../features/store';
 
 const CreateTrip = () => {
@@ -10,92 +10,144 @@ const CreateTrip = () => {
   const [description, setDescription] = useState('');
   const [startDate, setStartDate] = useState<Date>();
   const [endDate, setEndDate] = useState<Date>();
-  const [notificationMessage, setNotificationMessage] = useState<string>("");
-  const [errorMessage, setErrorMessage] = useState<string>("");
+  const [notificationMessage, setNotificationMessage] = useState<string>('');
+  const [errorMessage, setErrorMessage] = useState<string>('');
 
-  const userId = useAppSelector(state => state.auth.userId);
+  const userId = useAppSelector((state) => state.auth.userId);
   const [createTrip] = useCreateTripMutation();
-  const [addUserToTrip] = useAddUserToTripMutation();
 
-  const handleDateChange = dates => {
-    const [start, end] = dates;
-    setStartDate(start);
-    setEndDate(end);
+  /**
+   * react-datepicker can provide either a single Date or a tuple of [Date, Date], or null.
+   * We'll handle the case for a date range (start & end).
+   */
+  const handleDateChange = (
+    dates: [Date | null, Date | null] | null,
+    event?: React.SyntheticEvent<any> | undefined
+  ) => {
+    if (dates) {
+      const [start, end] = dates;
+      setStartDate(start || undefined);
+      setEndDate(end || undefined);
+    }
   };
 
   const handleSaveTrip = async () => {
-    setNotificationMessage('');  // Reset message
-    setErrorMessage('');  // Reset error message
-    
-    const postdata = {
+    // Clear any existing messages
+    setNotificationMessage('');
+    setErrorMessage('');
+  
+    if (!userId) {
+      setErrorMessage('User ID not found. Please log in again.');
+      return;
+    }
+  
+    // Simple validation
+    if (!tripName || !description || !startDate || !endDate) {
+      setErrorMessage('All fields are required.');
+      return;
+    }
+  
+    // Build the data for the trip
+    const postData = {
       name: tripName,
-      destination: tripName,
+      destination: tripName, // using the same value for destination
       description: description,
-      startDate: startDate?.toISOString(),
-      endDate: endDate?.toISOString(),
+      startDate: startDate.toISOString(),
+      endDate: endDate.toISOString(),
     };
-
+  
     try {
-      // Attempt to create the trip
-      let createTripResponse = await createTrip(postdata);
-
-      if (createTripResponse.data?.tripId) {
-        await addUserToTrip({ tripId: createTripResponse.data?.tripId!, userId: userId! });
-        setNotificationMessage("Trip created successfully!");
+      // Attempt to create the trip (pass both data and userId)
+      const createTripResponse = await createTrip({
+        data: postData,
+        userId,
+      }).unwrap();
+  
+      if (createTripResponse?.tripId) {
+        setNotificationMessage('Trip created successfully!');
+        // Clear the form
+        setTripName('');
+        setDescription('');
+        setStartDate(undefined);
+        setEndDate(undefined);
       } else {
-        throw new Error("Failed to create trip");
+        // If .tripId is missing, treat it as an error
+        throw new Error('Failed to create trip');
       }
-    } catch (error) {
-      // Handle any errors and display error message
-      setErrorMessage("Failed to create trip. Please try again.");
+    } catch (error: any) {
+      const serverMessage = error?.data?.message || 'Failed to create trip. Please try again.';
+      
+      // Check if the error message indicates an overlapping trip
+      if (serverMessage.includes('overlapping trip')) {
+        alert('You have another trip during this time!');
+      } else {
+        setErrorMessage(serverMessage);
+      }
     }
   };
 
   return (
-    <div className='createTrip'>
-      <h1 className='title'>Create Trip</h1>
+    <div className="createTrip">
+      <h1 className="title">Create Trip</h1>
 
-      <div className='section-container'>
+      <div className="section-container">
         <h3 className="subtitle">Destination</h3>
         <input
-          type='text'
+          type="text"
           value={tripName}
-          onChange={e => setTripName(e.target.value)}
-          placeholder='Enter destination name'
+          onChange={(e) => setTripName(e.target.value)}
+          placeholder="Enter destination name"
         />
+
         <h3 className="subtitle">Description</h3>
         <input
-          type='text'
+          type="text"
           value={description}
-          onChange={e => setDescription(e.target.value)}
-          placeholder='Enter a description'
+          onChange={(e) => setDescription(e.target.value)}
+          placeholder="Enter a description"
         />
       </div>
 
-      <div className='section-container'>
+      <div className="section-container">
         <div>
           <h3 className="subtitle">Start Date:</h3>
           <input
-            type='text'
-            id='start-date'
-            value={startDate ? new Date(startDate.getTime() - startDate.getTimezoneOffset() * 60000).toISOString().split('T')[0] : ''}
+            type="text"
+            id="start-date"
+            value={
+              startDate
+                ? new Date(
+                    startDate.getTime() - startDate.getTimezoneOffset() * 60000
+                  )
+                    .toISOString()
+                    .split('T')[0]
+                : ''
+            }
             readOnly
-            placeholder='Select a start date'
+            placeholder="Select a start date"
           />
         </div>
         <div>
           <h3 className="subtitle">End Date:</h3>
           <input
-            type='text'
-            id='end-date'
-            value={endDate ? new Date(endDate.getTime() - endDate.getTimezoneOffset() * 60000).toISOString().split('T')[0] : ''}
+            type="text"
+            id="end-date"
+            value={
+              endDate
+                ? new Date(
+                    endDate.getTime() - endDate.getTimezoneOffset() * 60000
+                  )
+                    .toISOString()
+                    .split('T')[0]
+                : ''
+            }
             readOnly
-            placeholder='Select an end date'
+            placeholder="Select an end date"
           />
         </div>
       </div>
 
-      <div className='calendar'>
+      <div className="calendar">
         <DatePicker
           selected={startDate}
           onChange={handleDateChange}
@@ -106,15 +158,17 @@ const CreateTrip = () => {
           minDate={new Date()}
           showMonthDropdown
           showYearDropdown
-          dropdownMode='select'
+          dropdownMode="select"
         />
       </div>
 
-      <button onClick={handleSaveTrip} className='save-trip-btn'>
+      <button onClick={handleSaveTrip} className="save-trip-btn">
         Save Trip
       </button>
 
-      {notificationMessage && <div className="success-message">{notificationMessage}</div>}
+      {notificationMessage && (
+        <div className="success-message">{notificationMessage}</div>
+      )}
       {errorMessage && <div className="error-message">{errorMessage}</div>}
     </div>
   );

@@ -135,11 +135,11 @@ export const api = createApi({
     // -----------------------------------
     // Trip-related endpoints
     // -----------------------------------
-    createTrip: builder.mutation<Api.CreateTripResponse, Api.CreateTripRequest>({
-      query: (data) => ({
-        url: 'Trip/create',
+    createTrip: builder.mutation<Api.CreateTripResponse, { data: Api.CreateTripRequest; userId: string }>({
+      query: ({ data, userId }) => ({
+        url: `Trip/create?userId=${userId}`,
         method: 'post',
-        data,
+        data, 
       }),
       invalidatesTags: ['Trip'],
     }),
