@@ -14,6 +14,15 @@ export type Trip = {
   endDate: string;
 };
 
+export type Expense = {
+  id: number;
+  name: string;
+  amount: number;
+  description: string;
+  date: string;
+  tripId: number;
+};
+
 export namespace Api {
   // Authentication and User Types
   export type RegisterRequest = {
@@ -132,4 +141,26 @@ export namespace Api {
     userId: string;
     isAccepted: boolean;
   };
+
+  // Expense Types
+
+  export type CreateExpenseRequest = {
+    name: string;
+    amount: number;
+    description: string;
+    date: string;
+    tripId: number;
+  };
+
+  export type CreateExpenseResponse = {
+    expenseId: number;
+  }
+
+  export type GetExpensesByTripRequest = {
+    tripId: number;
+  };
+
+  export type GetExpensesByTripResponse = {
+    expenses: Expense[];
+  }
 }

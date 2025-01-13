@@ -3,16 +3,9 @@ import './TripPage.css';
 import { useAppSelector } from '../../features/store';
 import { Trip as TripType } from '../../features/api.types';
 import { useParams } from 'react-router-dom';
-import { useGetTripDetailsQuery } from '../../features/api'; // Adjust import name/path if needed
-
-type Expense = {
-  id: string;
-  name: string;
-  amount: number;
-  description: string;
-  date: string;
-  contributors: string[];
-};
+import { useGetExpensesByTripQuery, useGetTripDetailsQuery } from '../../features/api'; // Adjust import name/path if needed
+import { useCreateExpenseMutation } from '../../features/api';
+import { Expense } from '../../features/api.types';
 
 // Example type for participants, assuming your backend sends these fields
 type Participant = {
@@ -37,12 +30,16 @@ const TripPage = () => {
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const [participants, setParticipants] = useState<Participant[]>([]);
 
+  const [addExpense] = useCreateExpenseMutation();
+  const { data: expenseData } = useGetExpensesByTripQuery({ tripId: Number(tripId) });
+
   // Form state for creating a new expense
-  const [newExpense, setNewExpense] = useState({
+  var [newExpense, setNewExpense] = useState({
     name: '',
-    amount: '',
+    amount: 0,
     description: '',
     date: '',
+    tripId: Number(tripId),
     contributors: [''],
   });
 
@@ -59,9 +56,9 @@ const TripPage = () => {
       };
       setTrip(loadedTrip);
 
-      // 2) If tripData includes an `expenses` array, populate local state
-      if ((tripData as any).expenses) {
-        setExpenses((tripData as any).expenses);
+      if (expenseData) {
+        console.log(expenseData.expenses);
+        setExpenses(expenseData.expenses);
       }
 
       // 3) If tripData includes `participants`
@@ -70,23 +67,34 @@ const TripPage = () => {
         setParticipants((tripData as any).participants);
       }
     }
-  }, [tripData]);
+  }, [tripData, expenseData]);
 
   // Keep your original logic for adding a local expense
-  const handleAddExpense = () => {
-    const newExp: Expense = {
-      ...newExpense,
-      id: (expenses.length + 1).toString(),
-      amount: Number(newExpense.amount), // Convert amount to number
+  const handleAddExpense = async () => {
+    let postData = {
+      id: 0,
+      name: newExpense.name,
+      amount: Number(newExpense.amount),
+      description: newExpense.description,
+      date: newExpense.date,
+      tripId: Number(tripId),
     };
-    setExpenses([...expenses, newExp]);
+
+    console.log(postData);
+
+    // Send the new expense to the backend
+    const response = await addExpense(newExpense);
+    postData.id = response.data?.expenseId || 0;
+    
+    setExpenses([...expenses, postData]);
     // Reset the form
     setNewExpense({
       name: '',
-      amount: '',
+      amount: 0,
       description: '',
       date: '',
       contributors: [''],
+      tripId: 0,
     });
   };
 
@@ -142,17 +150,21 @@ const TripPage = () => {
       </div>
 
       <div className="section-container">
-        <h2 className="expenses-title">Expenses</h2>
-        <ul className='trip-expenses-list'>
-          {expenses.map((expense) => (
+      <h2 className="expenses-title">Expenses</h2>
+      <ul className="trip-expenses-list">
+        {expenses && expenses.length > 0 ? (
+          expenses.map((expense) => (
             <li key={expense.id}>
               <strong>{expense.name}</strong> - ${expense.amount} ({expense.date})
               <p>{expense.description}</p>
-              <p><strong>Contributors:</strong> {expense.contributors.join(', ')}</p>
+              {/* <p><strong>Contributors:</strong> {expense.contributors.join(', ')}</p> */}
             </li>
-          ))}
-        </ul>
-      </div>
+          ))
+        ) : (
+          <li>No expenses found for this trip.</li>
+        )}
+      </ul>
+    </div>
 
       <div className="section-container">
         <h2>Add Expense</h2>
@@ -168,7 +180,7 @@ const TripPage = () => {
               type="number"
               placeholder="Amount"
               value={newExpense.amount}
-              onChange={e => setNewExpense({ ...newExpense, amount: e.target.value })}
+              onChange={e => setNewExpense({ ...newExpense, amount: Number(e.target.value) })}
             />
           </div>
 

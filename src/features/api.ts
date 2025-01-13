@@ -237,6 +237,24 @@ export const api = createApi({
       }),
       invalidatesTags: ['Invitation', 'Trip'],
     }),
+
+    // -----------------------------------
+    // Expense endpoints
+    // -----------------------------------
+    createExpense: builder.mutation<Api.CreateExpenseResponse, Api.CreateExpenseRequest>({
+      query: (data) => ({
+        url: 'Expense/create',
+        method: 'post',
+        data,
+      }),
+    }),
+
+    getExpensesByTrip: builder.query<Api.GetExpensesByTripResponse, Api.GetExpensesByTripRequest>({
+      query: ({ tripId }) => ({
+        url: `Expense/get-by-id?tripId=${tripId}`,
+        method: 'get',
+      }),
+    }),
   }),
 });
 
@@ -260,4 +278,6 @@ export const {
   useGetAllUsersQuery,
   useDeleteUserMutation,
   useGetTripDetailsQuery,
+  useCreateExpenseMutation,
+  useGetExpensesByTripQuery,
 } = api;
