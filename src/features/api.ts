@@ -132,6 +132,14 @@ export const api = createApi({
       invalidatesTags: ['User'],
     }),
 
+    getUserByEmail: builder.query<Api.UserResponse, Api.GetUserByEmailRequest>({
+      query: (email) => ({
+        url: `User/get-user-by-email?email=${email}`,
+        method: 'get',
+      }),
+      providesTags: ['User'],
+    }),
+
     // -----------------------------------
     // Trip-related endpoints
     // -----------------------------------
@@ -255,6 +263,14 @@ export const api = createApi({
         method: 'get',
       }),
     }),
+
+    splitExpenses: builder.mutation<void, Api.SplitExpensesRequest>({
+      query: (data) => ({
+        url: 'Expense/split',
+        method: 'post',
+        data,
+      }),
+    }),
   }),
 });
 
@@ -266,6 +282,7 @@ export const {
   useRegisterMutation,
   useUserQuery,
   useUpdateUserMutation,
+  useLazyGetUserByEmailQuery,
   useCreateTripMutation,
   useRecoverPasswordMutation,
   useResetPasswordMutation,
@@ -280,4 +297,5 @@ export const {
   useGetTripDetailsQuery,
   useCreateExpenseMutation,
   useGetExpensesByTripQuery,
+  useSplitExpensesMutation,
 } = api;
