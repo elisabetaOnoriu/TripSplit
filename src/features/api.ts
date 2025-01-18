@@ -96,6 +96,13 @@ export const api = createApi({
       }),
     }),
 
+    isUserAdmin: builder.query<Api.isUserAdminResponse, string>({
+      query: (userId) => ({
+        url: `Authentication/is-admin?userId=${userId}`,
+        method: 'get',
+      }),
+    }),
+
     // -----------------------------------
     // User-related endpoints
     // -----------------------------------
@@ -282,6 +289,7 @@ export const {
   useRegisterMutation,
   useUserQuery,
   useUpdateUserMutation,
+  useIsUserAdminQuery,
   useLazyGetUserByEmailQuery,
   useCreateTripMutation,
   useRecoverPasswordMutation,

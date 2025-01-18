@@ -16,10 +16,13 @@ import toggle_dark from '../../assets/night.png';
 import { useDispatch } from 'react-redux';
 import { logout } from '../../features/auth';
 import { useAppSelector } from '../../features/store';
+import { useIsUserAdminQuery } from '../../features/api';
 import { toggleTheme } from '../../features/theme';
 
 const Navbar = () => {
   const theme = useAppSelector(state => state.theme.theme);
+  const userId = useAppSelector(state => state.auth.userId);
+  const { data: isAdminResponse, isLoading, isError } = useIsUserAdminQuery(userId!);
   const [sidebar, setSidebar] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -27,6 +30,25 @@ const Navbar = () => {
   const showSidebar = () => setSidebar(!sidebar);
 
   const hideSidebar = () => {console.log('Hiding sidebar'); setSidebar(false)};
+
+  const visibleSidebarItems = !isLoading && isAdminResponse !== undefined
+  ? SidebarData.filter((item) => {
+      if (!item.roles) return true;
+
+      const isAdminItemVisible = isAdminResponse.isAdmin && item.roles.includes('admin');
+
+      return isAdminItemVisible;
+    })
+  : [];
+  
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (isError) {
+    return <div>Error loading user data.</div>;
+  }
 
   return (
     <>
@@ -61,7 +83,7 @@ const Navbar = () => {
               <AiIcons.AiOutlineClose onClick={hideSidebar} className="close-icon" />
               </Link>
             </li>
-            {SidebarData.map((item, index) => (
+            {visibleSidebarItems.map((item, index) => (
               <li key={index} className={item.className}>
                 <Link to={item.path}>
                   {item.icon}

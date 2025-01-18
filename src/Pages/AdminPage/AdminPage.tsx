@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { useDeleteUserMutation, useGetAllUsersQuery } from '../../features/api';
+import React, { useState, useEffect, useMemo } from 'react';
+import { useAppSelector } from '../../features/store';
+import { useDeleteUserMutation, useGetAllUsersQuery, useIsUserAdminQuery } from '../../features/api';
 import './AdminPage.css'; 
 import { User } from '../../features/api.types';
 
@@ -16,7 +17,11 @@ const AdminPage: React.FC = () => {
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc'); 
   const [searchQuery, setSearchQuery] = useState(''); 
 
-  const users: User[] = userQuery || [];
+  const userId = useAppSelector(state => state.auth.userId);
+  
+  const users: User[] = useMemo(() => {
+    return userQuery?.users.filter(user => user.id !== userId) || [];
+  }, [userQuery?.users, userId]);
 
   useEffect(() => {
     if (users.length > 0) {
