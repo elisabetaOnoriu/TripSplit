@@ -37,6 +37,7 @@ export const SidebarData = [
         title: 'Manage Users',
         path: '/AdminPage',
         icon: <MdIcons.MdOutlineAdminPanelSettings />,
-        className: 'nav-text'
+        className: 'nav-text',
+        roles: ['admin']
     },
 ];

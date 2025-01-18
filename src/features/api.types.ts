@@ -63,6 +63,10 @@ export namespace Api {
     userId: string;
   };
 
+  export type isUserAdminResponse = {
+    isAdmin: boolean;
+  }
+
   export type GetAllUsersRequest = void;
 
   export type GetAllUsersResponse = {
