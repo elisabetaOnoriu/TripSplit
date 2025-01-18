@@ -22,6 +22,7 @@ import Contact from './Pages/Contact/Contact';
 import ExpensePage from './Pages/ExpensePage/ExpensePage';
 import AuthenticatorCode from './Components/AuthenticatorCode/AuthenticatorCode';
 
+
 const App = () => {
   const theme = useAppSelector((state) => state.theme.theme);
 

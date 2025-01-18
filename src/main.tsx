@@ -4,6 +4,8 @@ import './index.css';
 import App from './App.jsx';
 import { Provider } from 'react-redux';
 import { store } from './features/store';
+import logo from './assets/logo-white.png';
+
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

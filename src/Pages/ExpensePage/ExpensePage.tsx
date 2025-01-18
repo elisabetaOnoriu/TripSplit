@@ -245,7 +245,7 @@ const ExpensePage = () => {
 
   return (
     <div className="expensePage">
-      <h1 className="title">Add an Expense</h1>
+      <h1 className="title">Add an expense for your trip to TRIPNAME</h1>
 
       <div className="section-container">
       <h3 className="subtitle">Name</h3>

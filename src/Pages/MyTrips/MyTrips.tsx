@@ -2,7 +2,7 @@ import React from 'react';
 import './MyTrips.css';
 import { useAppSelector } from '../../features/store';
 import { useNavigate } from 'react-router-dom';
-import { useTripHistoryQuery } from '../../features/api'; // <-- Adjust import to your actual hook
+import { useTripHistoryQuery } from '../../features/api'; 
 import { Trip } from '../../features/api.types';
 
 const MyTrips = () => {
@@ -20,8 +20,7 @@ const MyTrips = () => {
     return <div>Failed to load trips.</div>;
   }
 
-  // "tripHistory" is presumably an array of Trips
-  // Map them to display each trip
+
   return (
     <div className="my-trips-container">
       <h1 className="my-trips-title">My Trips</h1>
@@ -38,7 +37,6 @@ const MyTrips = () => {
               </div>
 
               <div className="trip-actions">
-                {/* Example Invite Button */}
                 <button
                   className="inviting_friend"
                   onClick={() => navigate(`/invite/${trip.id}`)}
@@ -47,7 +45,6 @@ const MyTrips = () => {
                 </button>
               </div>
 
-              {/* Arrow to see trip details */}
               <div
                 className="see-more-arrow"
                 onClick={() => navigate(`/TripPage/${trip.id}`)}

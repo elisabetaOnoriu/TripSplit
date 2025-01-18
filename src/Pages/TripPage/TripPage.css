@@ -8,6 +8,33 @@
     text-align: center;
 }
 
+.trip-container table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.trip-container table th,
+.trip-container table td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+
+.antetexpenses {
+  background-color: #f4f4f4;
+  color: rgb(34, 20, 82);
+}
+
+.dark .antetexpenses {
+background-color: #303030;
+color: rgb(255, 255, 255);
+}
+
+.no-dots {
+  list-style: none;
+  padding: 0;
+}
+
 .dark .trip-container {
     background: rgba(60, 60, 60, 0.9);
 }
@@ -88,3 +115,39 @@
   .report-text{
     margin-bottom: 15px;
   }
+
+
+.tooltip-arrow {
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 16px;
+  color: inherit;
+  margin-left: 10px;
+  padding: 0;
+}
+
+
+.contributors-tooltip {
+  font-size: 14px;
+  position: absolute;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  width: 200px; 
+  max-height: 300px; 
+  overflow-y: auto; 
+  margin-left: 100px;
+  margin-top: -90px;
+}
+
+.contributors-list {
+  font-size: 14px;
+  color: #333;
+  display: inline-block; 
+}
+
+

@@ -51,82 +51,9 @@ ul li:hover {
   margin-left: 40px;
 }
 
-.search-box {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #242424;
-  border: 2px solid #f0e9e9;
-  border-radius: 50px;
-  padding: 10px 20px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  width: 230px;
-  height: 50px;
-  max-width: 100%;
-  overflow: hidden;
-}
-
-.search-box input {
-  flex: 1;
-  border: none;
-  outline: none;
-  padding: 7px 7px 7px 20px;
-  font-size: 16px;
-  color: #fff;
-  max-width: 200px;
-  height: 20px;
-  background: transparent;
-}
-
-.search-box input::placeholder {
-  color: #686161;
-  font-style: italic;
-}
-
-.search-box button {
-  background: transparent;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  padding: 5px;
-}
-
-.search-icon {
-  width: 30px;
-  left: -12px;
-  filter: invert(50%);
-  transition: all 0.4s ease;
-  position: relative;
-  cursor: pointer;
-}
-
-.search-icon:hover {
-  transform: scale(1.1);
-}
-
 .dark .navbar {
   background: #141514;
   color: #fff;
-}
-
-.dark .search-box{
-  background: #fff
-}
-
-.dark .search-box input{
-  color: #222;
-}
-
-.dark .search-box input::placeholder{
-  color: #222;
-}
-
-.dark .search-box{
-  border: 2px solid #2a513c;
-}
-
-.dark .search-icon {
-  filter: invert(1%);
 }
 
 .menu-bars {
