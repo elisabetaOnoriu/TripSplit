@@ -73,6 +73,8 @@ export namespace Api {
     userId: string;
   };
 
+  export type GetUserByEmailRequest = string;
+
   export type DeleteUserResponse = void;
 
   export type UserResponse = User;
@@ -162,5 +164,10 @@ export namespace Api {
 
   export type GetExpensesByTripResponse = {
     expenses: Expense[];
+  }
+
+  export type SplitExpensesRequest = {
+    expenseId: number;
+    userSplits: Record<string, number>;
   }
 }

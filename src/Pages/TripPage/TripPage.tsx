@@ -3,7 +3,7 @@ import './TripPage.css';
 import { useAppSelector } from '../../features/store';
 import { Trip as TripType } from '../../features/api.types';
 import { useParams } from 'react-router-dom';
-import { useGetExpensesByTripQuery, useGetTripDetailsQuery } from '../../features/api'; // Adjust import name/path if needed
+import { useGetExpensesByTripQuery, useGetTripDetailsQuery, useLazyGetUserByEmailQuery, useSplitExpensesMutation } from '../../features/api'; // Adjust import name/path if needed
 import { useCreateExpenseMutation } from '../../features/api';
 import { Expense } from '../../features/api.types';
 import { useNavigate } from 'react-router-dom';
