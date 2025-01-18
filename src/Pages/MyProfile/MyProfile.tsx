@@ -82,7 +82,7 @@ const MyProfile = () => {
           </button>
         )}
       </div>
-      <ProfileSecondary stats={user.stats} />
+      {/* <ProfileSecondary stats={user.stats} /> */}
     </div>
   );
 };

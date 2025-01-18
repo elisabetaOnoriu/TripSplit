@@ -19,6 +19,8 @@ import InviteFriend from './Pages/InviteFriend/InviteFriend';
 import About from './Pages/About/About';
 import TripPage from './Pages/TripPage/TripPage';
 import Contact from './Pages/Contact/Contact';
+import ExpensePage from './Pages/ExpensePage/ExpensePage';
+import AuthenticatorCode from './Components/AuthenticatorCode/AuthenticatorCode';
 
 const App = () => {
   const theme = useAppSelector((state) => state.theme.theme);
@@ -28,17 +30,16 @@ const App = () => {
       <Router>
         <Routes>
           <Route element={<GuestRoutes />}>
-            {/* Guest routes */}
             <Route path="/" element={<Welcome />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
             <Route path="/ResetPassword" element={<ResetPassword />} />
             <Route path="/EmailReset" element={<EmailReset />} />
             <Route path="/AccountValidated" element={<AccountValidated />} />
+            <Route path="/AuthenticatorCode" element={<AuthenticatorCode />} />
           </Route>
 
           <Route element={<ProtectedRoutes />}>
-            {/* Authenticated routes */}
             <Route path="/Home" element={<Home />} />
             <Route path="/MyProfile" element={<MyProfile />} />
             <Route path="/Notifications" element={<Notifications />} />
@@ -48,9 +49,9 @@ const App = () => {
             <Route path="/invite/:tripId" element={<InviteFriend />} />
             <Route path="/AdminPage" element={<AdminPage />} />
             <Route path="/About" element={<About />} />
-            {/* NOTICE: Changed from "/TripPage" to "/TripPage/:tripId" */}
             <Route path="/TripPage/:tripId" element={<TripPage />} />
             <Route path="/Contact" element={<Contact />} />
+            <Route path="/ExpensePage" element={<ExpensePage />} />
           </Route>
         </Routes>
       </Router>

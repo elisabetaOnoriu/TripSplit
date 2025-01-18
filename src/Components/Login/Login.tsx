@@ -87,7 +87,7 @@ function Login() {
             {showPassword ? <FaEyeSlash style={{ color: 'black' }} /> : <FaEye style={{ color: 'black' }} />}
           </div>
         </div>
-
+{/* 
         <div className='text-container'>
           <p className='normal-text'>Forgot your password?</p>
           <span
@@ -98,7 +98,7 @@ function Login() {
           >
             Reset password
           </span>
-        </div>
+        </div> */}
 
         <button
           className='submit-button'
