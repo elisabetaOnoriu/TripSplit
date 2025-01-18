@@ -7,9 +7,7 @@ import { RootState } from './store';
 import { logout } from './auth';
 import { redirect } from 'react-router-dom';
 
-// -----------------------------------
-// 1) Base query for RTK Query (axios)
-// -----------------------------------
+
 const axiosBaseQuery =
   (
     { baseUrl } = { baseUrl: '' }
@@ -33,7 +31,7 @@ const axiosBaseQuery =
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
-          // For all routes except "Authentication", attach Bearer token
+          
           ...(url.includes('Authentication')
             ? {}
             : {
@@ -48,9 +46,9 @@ const axiosBaseQuery =
     } catch (e) {
       const err = e as AxiosError;
 
-      // If token expired or unauthenticated
+ 
       if (err.response?.status === 401) {
-        // If not the login route, dispatch a logout and redirect
+       
         if (!url.includes('login')) {
           dispatch(logout());
           redirect('/login');
