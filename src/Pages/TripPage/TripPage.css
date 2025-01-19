@@ -144,9 +144,11 @@ color: rgb(255, 255, 255);
   margin-top: -90px;
 }
 
+.dark .contributors-tooltip{
+  color:black;
+}
+
 .contributors-list {
-  font-size: 14px;
-  color: #333;
   display: inline-block; 
 }
 

@@ -6,7 +6,7 @@ import {
   useGetExpensesByTripQuery,
   useGetTripDetailsQuery,
   useCreateExpenseMutation,
-  useLazyGetUserByEmailQuery,
+  useLazyGetUserByIdQuery,
   useSplitExpensesMutation,
 } from "../../features/api";
 import { Expense, Trip as TripType } from "../../features/api.types";
@@ -34,7 +34,7 @@ const ExpensePage = () => {
   const [participants, setParticipants] = useState<Participant[]>([]);
 
   const [addExpense] = useCreateExpenseMutation();
-  const [getUserByEmail] = useLazyGetUserByEmailQuery();
+  const [getUserById] = useLazyGetUserByIdQuery();
   const [saveExpenseSplits] = useSplitExpensesMutation();
   const { data: expenseData } = useGetExpensesByTripQuery({ tripId: Number(tripId) });
 
@@ -132,12 +132,13 @@ const ExpensePage = () => {
       const newExpenseId = response.data?.expenseId;
       postData.id = response.data?.expenseId || 0;
 
-      const userIdPromises = newExpense.contributors.map(async (email) => {
+      const userIdPromises = newExpense.contributors.map(async (userId) => {
         try {
-          const userResponse = await getUserByEmail(email);
-          return { email, userId: userResponse.data?.id };
+          var request = { userId: userId };
+          const userResponse = await getUserById(request);
+          return { email: userId, userId: userResponse.data?.id };
         } catch (error) {
-          console.error(`Failed to fetch user ID for email: ${email}`, error);
+          console.error(`Failed to fetch user ID for email: ${userId}`, error);
           return null;
         }
       });

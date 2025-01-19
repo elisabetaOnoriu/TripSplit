@@ -129,6 +129,14 @@ export const api = createApi({
       providesTags: ['User'],
     }),
 
+    getUserById: builder.query<Api.UserResponse, Api.UserRequest>({
+      query: ({ userId }) => ({
+        url: `User/get-user-by-id?userId=${userId}`,
+        method: 'get',
+      }),
+      providesTags: ['User'],
+    }),
+
     deleteUser: builder.mutation<Api.DeleteUserResponse, Api.DeleteUserRequest>({
       query: ({ userId }) => ({
         url: `User/delete-user?userId=${userId}`,
@@ -315,5 +323,5 @@ export const {
   useGetExpensesByTripQuery,
   useSplitExpensesMutation,
   useLazyGeneratePdfQuery,
-  useLazyGetExpenseSplitsQuery,
+  useLazyGetUserByIdQuery,
 } = api;
