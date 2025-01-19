@@ -23,7 +23,13 @@ export type Expense = {
   tripId: number;
   userId: string;
   paidBy: string;
+  contributors: Contributor[];
 };
+
+export type Contributor = {
+  name: string;
+  amount: number;
+}
 
 export namespace Api {
   // Authentication and User Types

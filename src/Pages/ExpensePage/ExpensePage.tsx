@@ -6,6 +6,8 @@ import {
   useGetExpensesByTripQuery,
   useGetTripDetailsQuery,
   useCreateExpenseMutation,
+  useLazyGetUserByEmailQuery,
+  useSplitExpensesMutation,
 } from "../../features/api";
 import { Expense, Trip as TripType } from "../../features/api.types";
 import { useParams } from "react-router-dom";
@@ -32,6 +34,8 @@ const ExpensePage = () => {
   const [participants, setParticipants] = useState<Participant[]>([]);
 
   const [addExpense] = useCreateExpenseMutation();
+  const [getUserByEmail] = useLazyGetUserByEmailQuery();
+  const [saveExpenseSplits] = useSplitExpensesMutation();
   const { data: expenseData } = useGetExpensesByTripQuery({ tripId: Number(tripId) });
 
   const [newExpense, setNewExpense] = useState<{
@@ -107,18 +111,54 @@ const ExpensePage = () => {
       name: newExpense.name,
       amount: newExpense.amount,
       description: newExpense.description,
-      date: newExpense.date,
+      date: new Date().toISOString(),
       tripId: Number(tripId),
-      division: newExpense.division,
-      contributors: newExpense.contributors.filter((c) => c !== ""),
-      contributorAmounts: newExpense.contributorAmounts.map((amount) =>
-        typeof amount === "number" ? amount : parseFloat(amount) || 0
-      ),
+      userId: userId,
     };
 
     try {
-      const response = await addExpense(postData).unwrap();
-      postData.id = response?.expenseId || 0;
+      console.log(postData);
+      const response = await addExpense(postData);
+      const newExpenseId = response.data?.expenseId;
+      postData.id = response.data?.expenseId || 0;
+
+      const userIdPromises = newExpense.contributors.map(async (email) => {
+        try {
+          const userResponse = await getUserByEmail(email);
+          return { email, userId: userResponse.data?.id };
+        } catch (error) {
+          console.error(`Failed to fetch user ID for email: ${email}`, error);
+          return null;
+        }
+      });
+
+      const contributorsWithIds = (await Promise.all(userIdPromises)).filter(Boolean);
+
+      if (contributorsWithIds.length !== newExpense.contributors.length) {
+        console.error('Some contributors could not be resolved to user IDs.');
+        return;
+      }
+
+      const userAmountMap = contributorsWithIds.reduce((acc, user) => {
+        if (user && user.userId) {
+          const amount =  newExpense.contributorAmounts[contributorsWithIds.indexOf(user)];
+          acc[user.userId] = typeof amount === "number" ? amount : parseFloat(amount) || 0;
+        }
+        return acc;
+      }, {} as Record<string, number>);
+
+      const expenseSplitPostData = {
+        expenseId: Number(newExpenseId),
+        userSplits: userAmountMap,
+      };
+
+      try {
+        console.log(expenseSplitPostData);
+        await saveExpenseSplits(expenseSplitPostData);
+      } catch (error) {
+        console.error('Failed to save expense splits', error);
+        return;
+      }
 
       setExpenses([...expenses, postData]);
 
@@ -245,7 +285,7 @@ const ExpensePage = () => {
 
   return (
     <div className="expensePage">
-      <h1 className="title">Add an expense for your trip to TRIPNAME</h1>
+      <h1 className="title">Add an expense for your trip</h1>
 
       <div className="section-container">
       <h3 className="subtitle">Name</h3>

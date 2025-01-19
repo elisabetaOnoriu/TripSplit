@@ -315,4 +315,5 @@ export const {
   useGetExpensesByTripQuery,
   useSplitExpensesMutation,
   useLazyGeneratePdfQuery,
+  useLazyGetExpenseSplitsQuery,
 } = api;

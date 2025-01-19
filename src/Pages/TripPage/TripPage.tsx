@@ -5,8 +5,10 @@ import {
   useLazyGeneratePdfQuery,
   useGetExpensesByTripQuery,
   useGetTripDetailsQuery,
+
 } from "../../features/api";
 import { Trip as TripType, Expense } from "../../features/api.types";
+import { set } from "react-datepicker/dist/date_utils";
 
 // Example type for participants
 type Participant = {
@@ -28,6 +30,7 @@ const TripPage = () => {
   const [tooltipData, setTooltipData] = useState<{ name: string; amount: number }[]>([]);
   const [tooltipPosition, setTooltipPosition] = useState<{ top: number; left: number } | null>(null);
   const [activeTooltipExpenseId, setActiveTooltipExpenseId] = useState<number | null>(null);
+  const [tooltipVisible, setTooltipVisible] = useState<boolean>(false);
 
   const navigate = useNavigate();
 
@@ -43,6 +46,7 @@ const TripPage = () => {
       setActiveTooltipExpenseId(null);
       setTooltipVisible(false);
     } else {
+      // Fetch contributors for the new expense
       // Open tooltip for the new expense
       setTooltipData(contributors?.length ? contributors : [{ name: "No contributors", amount: 0 }]);
       setTooltipPosition({
@@ -200,7 +204,7 @@ const TripPage = () => {
         <h2>Add Expense</h2>
         <button
           type="button"
-          onClick={() => navigate("/ExpensePage")}
+          onClick={() => navigate(`/ExpensePage/${trip.id}`)}
           className="generate-button"
         >
           Add Expense
