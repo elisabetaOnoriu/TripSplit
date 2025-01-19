@@ -139,7 +139,7 @@ button:active {
   width: 100%;
 }
 
-#division-select {
+.division-select {
   width: 100%;
   padding: 10px 30px 10px 10px;
   margin: 10px 0;
@@ -156,21 +156,21 @@ button:active {
 }
 
 
-.dark #division-select {
+.dark .division-select {
   background-color: rgba(53, 53, 53, 0.8);
   color: #fff;
   text-shadow: 2px 2px 5px rgb(14, 14, 14);
 }
 
 
-#division-select option {
+.division-select option {
   padding: 10px;
   font-size: 1rem;
   background-color: rgba(232, 231, 246, 0.9);
   color: #333;
 }
 
-.dark #division-select option {
+.dark .division-select option {
   background-color: rgba(60, 60, 60, 0.9);
   color: #ddd;
 }

@@ -61,6 +61,16 @@ const ExpensePage = () => {
   const contributorAmountRefs = useRef<HTMLInputElement[]>([]);
   const amountRef = useRef<HTMLInputElement | null>(null);
 
+  const getAvailableParticipants = (currentUserId?: string) => {
+    return participants.filter(
+      (participant) =>
+        participant.userId === currentUserId ||
+        !newExpense.contributors.includes(participant.userId)
+    );
+  };
+  
+  
+
   useEffect(() => {
     if (tripData) {
       const loadedTrip: TripType = {
@@ -180,11 +190,16 @@ const ExpensePage = () => {
     }
   };
 
-  const handleContributorChange = (index: number, value: string) => {
+  const handleContributorChange = (index, value) => {
     const updatedContributors = [...newExpense.contributors];
     updatedContributors[index] = value;
-    setNewExpense({ ...newExpense, contributors: updatedContributors });
+    setNewExpense((prev) => ({
+      ...prev,
+      contributors: updatedContributors,
+    }));
   };
+  
+  
 
   const handleContributorAmountChange = (index: number, value: string) => {
     let amount = Math.max(0, parseFloat(value) || 0);
@@ -199,11 +214,11 @@ const ExpensePage = () => {
 
     const maxAllowed = Math.max(0, newExpense.amount - totalOtherContributions);
     if (amount > maxAllowed) {
-      amount = maxAllowed; // Adjust amount only if it exceeds the max allowed
+      amount = maxAllowed; 
     }
 
     const updatedAmounts = [...newExpense.contributorAmounts];
-    updatedAmounts[index] = amount; // Update the specific contributor's amount
+    updatedAmounts[index] = amount; 
     setNewExpense({ ...newExpense, contributorAmounts: updatedAmounts });
   };
 
@@ -328,7 +343,7 @@ const ExpensePage = () => {
       <div className="section-container">
       <h3 className="subtitle">Division</h3>
         <select
-          id="division-select"
+          className="division-select"
           value={newExpense.division}
           onChange={(e) => handleDivisionChange(e.target.value)}
         >
@@ -338,55 +353,65 @@ const ExpensePage = () => {
       </div>
 
       <div className="section-container">
-        <h3 className="subtitle">Contributors</h3>
-        {newExpense.contributors.map((email, index) => (
-          <div key={index} className="contributor-row">
-            <label htmlFor={`contributor-${index}`}>Contributor Email</label>
-            <input
-              id={`contributor-${index}`}
-              type="email"
-              placeholder="Contributor Email"
-              value={email}
-              onChange={(e) =>
-                handleContributorChange(index, e.target.value)
-              }
-            />
-            <input
-              type="text"
-              ref={(el) => {
-                if (el) contributorAmountRefs.current[index] = el;
-              }}
-              value={
-                typeof newExpense.contributorAmounts[index] === "number"
-                  ? newExpense.contributorAmounts[index].toFixed(2)
-                  : ""
-              }
-              placeholder="Contributor Amount"
-              onChange={(e) => {
-                const cursorPosition = e.target.selectionStart;
-                handleContributorAmountChange(index, e.target.value);
-                setTimeout(() => {
-                  if (contributorAmountRefs.current[index]) {
-                    contributorAmountRefs.current[index].setSelectionRange(
-                      cursorPosition!,
-                      cursorPosition!
-                    );
-                  }
-                });
-              }}
-              readOnly={newExpense.division !== "custom"}
-            />
-            <button onClick={() => handleRemoveContributor(index)}>Remove</button>
-          </div>
+  <h3 className="subtitle">Contributors</h3>
+  {newExpense.contributors.map((userId, index) => (
+    <div key={index} className="contributor-row">
+      <label htmlFor={`contributor-${index}`}>Contributor</label>
+      <select
+        id={`contributor-${index}`}
+        className="division-select"
+        value={userId}
+        onChange={(e) => handleContributorChange(index, e.target.value)}
+      >
+        <option value="">Select Contributor</option>
+        {getAvailableParticipants(userId).map((participant) => (
+          <option key={participant.userId} value={participant.userId}>
+            {participant.firstName} {participant.lastName}
+          </option>
         ))}
-        <button
-          type="button"
-          onClick={handleAddContributor}
-          className="generate-button"
-        >
-          Add Another Contributor
-        </button>
-      </div>
+      </select>
+      <input
+        type="text"
+        ref={(el) => {
+          if (el) contributorAmountRefs.current[index] = el;
+        }}
+        value={
+          typeof newExpense.contributorAmounts[index] === "number"
+            ? newExpense.contributorAmounts[index].toFixed(2)
+            : ""
+        }
+        placeholder="Contributor Amount"
+        onChange={(e) => {
+          const cursorPosition = e.target.selectionStart;
+          handleContributorAmountChange(index, e.target.value);
+          setTimeout(() => {
+            if (contributorAmountRefs.current[index]) {
+              contributorAmountRefs.current[index].setSelectionRange(
+                cursorPosition!,
+                cursorPosition!
+              );
+            }
+          });
+        }}
+        readOnly={newExpense.division !== "custom"}
+      />
+      <button onClick={() => handleRemoveContributor(index)}>Remove</button>
+    </div>
+  ))}
+
+  {newExpense.contributors.length < participants.length && (
+    <button
+      type="button"
+      onClick={handleAddContributor}
+      className="generate-button"
+    >
+      Add Another Contributor
+    </button>
+  )}
+</div>
+
+
+
 
       {newExpense.division === "custom" && (
         <div className="section-container">
