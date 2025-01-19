@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./TripPage.css";
 import { useParams, useNavigate } from "react-router-dom";
 import {
+  useLazyGeneratePdfQuery,
   useGetExpensesByTripQuery,
   useGetTripDetailsQuery,
 } from "../../features/api";
@@ -19,6 +20,7 @@ const TripPage = () => {
 
   const { data: tripData, isLoading, isError } = useGetTripDetailsQuery(Number(tripId));
   const { data: expenseData } = useGetExpensesByTripQuery({ tripId: Number(tripId) });
+  const [triggerGeneratePdf] = useLazyGeneratePdfQuery();
 
   const [trip, setTrip] = useState<TripType | null>(null);
   const [expenses, setExpenses] = useState<Expense[]>([]);
@@ -48,6 +50,18 @@ const TripPage = () => {
         left: rect.left + window.scrollX + rect.width + 10,
       });
       setActiveTooltipExpenseId(expenseId);
+    }
+  };
+
+  const handleGenerateReport = async () => {
+    try {
+      const response = await triggerGeneratePdf(Number(tripId)).unwrap();
+      const pdfBlob = new Blob([response], { type: "application/pdf" });
+      const pdfUrl = URL.createObjectURL(pdfBlob);
+      window.open(pdfUrl, "_blank");
+    }
+    catch (error) {
+      console.error("Failed to generate PDF report", error);
     }
   };
 
@@ -122,6 +136,7 @@ const TripPage = () => {
                 <th>Name</th>
                 <th>Description</th>
                 <th>Amount (RON)</th>
+                <th>Paid by</th>
                 <th>Contributors</th>
               </tr>
             </thead>
@@ -131,6 +146,7 @@ const TripPage = () => {
                   <td>{expense.name}</td>
                   <td>{expense.description}</td>
                   <td>{expense.amount}</td>
+                  <td>{expense.paidBy}</td>
                   <td>
                     <span className="contributors-list">
                       {expense.contributors?.map((c) => c.name).join(", ") || "N/A"}
@@ -193,7 +209,7 @@ const TripPage = () => {
 
       <div className="section-container">
         <h2 className="report-text">Report</h2>
-        <button className="generate-button">Generate Report</button>
+        <button className="generate-button" onClick={handleGenerateReport}>Generate Report</button>
       </div>
     </div>
   );

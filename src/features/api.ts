@@ -276,6 +276,16 @@ export const api = createApi({
         data,
       }),
     }),
+
+    // Pdf generation endpoint
+
+    generatePdf: builder.query<Blob, number>({
+      query: (tripId) => ({
+        url: `Pdf/download-report?tripId=${tripId}`,
+        method: 'get',
+        responseHandler: (response: { blob: () => any; }) => response.blob(),
+      }),
+    }),
   }),
 });
 
@@ -304,4 +314,5 @@ export const {
   useCreateExpenseMutation,
   useGetExpensesByTripQuery,
   useSplitExpensesMutation,
+  useLazyGeneratePdfQuery,
 } = api;

@@ -21,6 +21,8 @@ export type Expense = {
   description: string;
   date: string;
   tripId: number;
+  userId: string;
+  paidBy: string;
 };
 
 export namespace Api {
